@@ -17,10 +17,10 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
     details: list[CheckDetail] = []
 
     ref_index: dict[tuple[str, str, str], int] = {}
-    for r in doc.references:
+    for pos, r in enumerate(doc.references):
         if r.first_author_surname and r.year:
             key = (_normalise_surname(r.first_author_surname), r.year, r.year_suffix or "")
-            ref_index[key] = r.index
+            ref_index[key] = pos
 
     cited_keys: set[tuple[str, str, str]] = set()
     orphan_count = 0

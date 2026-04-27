@@ -61,15 +61,31 @@ def _build_paragraph(p: DocxParagraph, index: int, is_in_table: bool) -> Paragra
 
 
 def iter_all(document: DocxDocument) -> list[Paragraph]:
+    from docx.oxml.ns import qn
+    from docx.table import Table as DocxTable
+    from docx.text.paragraph import Paragraph as DocxParagraph
+
     result: list[Paragraph] = []
     idx = 0
-    for p in document.paragraphs:
-        result.append(_build_paragraph(p, idx, False))
+
+    def visit_paragraph(p: DocxParagraph, in_table: bool) -> None:
+        nonlocal idx
+        result.append(_build_paragraph(p, idx, in_table))
         idx += 1
-    for t in document.tables:
+
+    def visit_table(t: DocxTable, in_table: bool) -> None:
         for row in t.rows:
             for cell in row.cells:
-                for p in cell.paragraphs:
-                    result.append(_build_paragraph(p, idx, True))
-                    idx += 1
+                for child in cell._element.iterchildren():
+                    if child.tag == qn("w:p"):
+                        visit_paragraph(DocxParagraph(child, cell), True)
+                    elif child.tag == qn("w:tbl"):
+                        visit_table(DocxTable(child, cell), True)
+
+    for child in document.element.body.iterchildren():
+        if child.tag == qn("w:p"):
+            visit_paragraph(DocxParagraph(child, document), False)
+        elif child.tag == qn("w:tbl"):
+            visit_table(DocxTable(child, document), False)
+
     return result

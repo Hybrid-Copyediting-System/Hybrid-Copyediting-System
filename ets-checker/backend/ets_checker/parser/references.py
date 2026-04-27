@@ -3,14 +3,17 @@ from __future__ import annotations
 import re
 
 from ets_checker.models import Paragraph, Reference, Section
-from ets_checker.ets_profile import REFERENCE_LIST_TITLES
+from ets_checker.parser.sections import is_reference_title
 
 REF_AUTHOR_YEAR = re.compile(
-    r"^(?P<authors>.+?)\s*\((?P<year>(?:19|20)\d{2}|n\.d\.)(?P<suffix>[a-z])?\)\.\s",
+    r"^(?P<authors>.+?)\s*\((?P<year>(?:19|20)\d{2}|n\.d\.)(?P<suffix>[a-z])?\)",
     re.UNICODE,
 )
 
-REF_FIRST_AUTHOR = re.compile(r"^(?P<surname>[A-Z][a-zA-Z\-']+),")
+REF_FIRST_AUTHOR = re.compile(
+    r"^(?P<surname>[^\W\d_][\w\-' ]*?)\s*(?:,|$)",
+    re.UNICODE,
+)
 
 
 def extract(
@@ -21,7 +24,7 @@ def extract(
     next_section_idx: int | None = None
 
     for i, s in enumerate(sections):
-        if s.title.strip().lower() in [t.lower() for t in REFERENCE_LIST_TITLES]:
+        if is_reference_title(s.title):
             ref_section_idx = s.paragraph_index
             for j in range(i + 1, len(sections)):
                 if sections[j].level == 1:
@@ -66,7 +69,7 @@ def extract(
                 confidence = 0.5
 
         results.append(Reference(
-            index=idx,
+            index=idx + 1,
             raw_text=raw,
             first_author_surname=first_author,
             year=year,

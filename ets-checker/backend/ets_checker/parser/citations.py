@@ -3,31 +3,49 @@ from __future__ import annotations
 import re
 
 from ets_checker.models import Citation, Paragraph, Section
-from ets_checker.ets_profile import REFERENCE_LIST_TITLES
+from ets_checker.parser.sections import is_reference_title
 
 CITATION_PAREN = re.compile(
-    r"\((?:(?:see|e\.g\.,?|cf\.)\s+)?(?P<body>[^()]+)\)",
+    r"[\(（](?:(?:see|e\.g\.,?|cf\.)\s+)?(?P<body>[^()（）]+)[\)）]",
     re.UNICODE,
 )
 
 PER_CITE = re.compile(
-    r"(?P<authors>.+?),\s*(?P<year>(?:19|20)\d{2})(?P<suffix>[a-z])?"
+    r"(?P<authors>.+?),\s*(?P<year>(?:19|20)\d{2}|n\.d\.)(?P<suffix>[a-z])?"
     r"(?:,\s*pp?\.\s*[\d\-–,\s]+)?",
     re.UNICODE,
 )
 
+# Author token: ASCII surname (capitalised) or a short CJK run. The CJK
+# branch has a negative lookbehind so we don't slurp Chinese prefix text
+# (e.g. "研究參考王小明") into the surname — a CJK author must be preceded
+# by a delimiter (BOS, whitespace, or punctuation), not by another letter.
+_NAME = r"(?:[A-Z][\w\-']*|(?<![一-鿿\w])[一-鿿]{1,6}?)"
+
 CITATION_NARRATIVE = re.compile(
-    r"(?P<authors>[A-Z][a-zA-Z\-']+(?:\s+(?:and|&)\s+[A-Z][a-zA-Z\-']+)?"
-    r"(?:\s+et\s+al\.)?)\s*"
-    r"\((?P<year>(?:19|20)\d{2})(?P<suffix>[a-z])?\)",
+    r"(?P<authors>"
+    rf"{_NAME}"
+    rf"(?:\s*[,、]\s*{_NAME})*"
+    rf"(?:\s*[,、]?\s*(?:and|&|與|及)\s*{_NAME})?"
+    r"(?:\s+et\s+al\.|\s*等)?"
+    r")\s*"
+    r"[\(（](?P<year>(?:19|20)\d{2}|n\.d\.)(?P<suffix>[a-z])?[\)）]",
     re.UNICODE,
 )
 
+# "Surname, A. B." — drop the initials so the surname/initial comma is
+# not mistaken for an author separator and the surname stays intact
+# (including multi-word surnames like "Van Damme").
+_INITIALS_AFTER_COMMA = re.compile(r",\s*[A-Z]\.(?:\s*[A-Z]\.)*")
+_ET_AL_PATTERN = re.compile(r"\bet\s+al\.?|\s*等\s*$", re.IGNORECASE)
+_AUTHOR_SPLIT = re.compile(r"[,&、]|\band\b|\s*[與及]\s*")
+
 
 def _normalise_authors(text: str) -> tuple[list[str], bool]:
-    has_et_al = bool(re.search(r"\bet\s+al\.", text, re.IGNORECASE))
-    cleaned = re.sub(r"\bet\s+al\.?", "", text, flags=re.IGNORECASE).strip()
-    parts = re.split(r"[,&]|\band\b", cleaned)
+    has_et_al = bool(_ET_AL_PATTERN.search(text))
+    cleaned = _ET_AL_PATTERN.sub("", text).strip()
+    cleaned = _INITIALS_AFTER_COMMA.sub("", cleaned)
+    parts = _AUTHOR_SPLIT.split(cleaned)
     authors = [p.strip().rstrip(".").lower() for p in parts if p.strip()]
     return authors, has_et_al
 
@@ -39,10 +57,12 @@ def _is_in_reference_section(
     ref_start: int | None = None
     next_section_start: int | None = None
     for i, s in enumerate(sections):
-        if s.title.lower() in [t.lower() for t in REFERENCE_LIST_TITLES]:
+        if is_reference_title(s.title):
             ref_start = s.paragraph_index
-            if i + 1 < len(sections):
-                next_section_start = sections[i + 1].paragraph_index
+            for j in range(i + 1, len(sections)):
+                if sections[j].level == 1:
+                    next_section_start = sections[j].paragraph_index
+                    break
             break
     if ref_start is None:
         return False
@@ -64,7 +84,7 @@ def extract(
         # Parenthetical
         for m in CITATION_PAREN.finditer(p.text):
             body = m.group("body")
-            if not re.search(r"(?:19|20)\d{2}", body):
+            if not re.search(r"(?:19|20)\d{2}|n\.d\.", body):
                 continue
             for cm in PER_CITE.finditer(body):
                 authors, has_et_al = _normalise_authors(cm.group("authors"))

@@ -29,7 +29,7 @@ REQUIRED_SECTIONS = ["Abstract", "Introduction", "References"]
 
 # ─── Citation / Reference ──────────────────────────────────────────────
 ET_AL_THRESHOLD = 3
-REFERENCE_LIST_TITLES = ["References", "Reference List", "Reference"]
+REFERENCE_LIST_TITLES = ["References", "Reference List", "參考文獻", "參考書目"]
 
 # ─── Figures / Tables ──────────────────────────────────────────────────
 CAPTION_POSITION_FIGURE = "above"

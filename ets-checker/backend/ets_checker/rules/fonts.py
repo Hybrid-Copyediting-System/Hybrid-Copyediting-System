@@ -2,26 +2,41 @@ from __future__ import annotations
 
 from ets_checker import ets_profile as p
 from ets_checker.models import CheckDetail, Locator, ParsedDocument
+from ets_checker.parser.sections import (
+    KEYWORDS_PREFIX,
+    is_abstract_title,
+    is_reference_title,
+)
 from ets_checker.rules.runner import register
 
 MAX_REPORTED = 20
+ABSTRACT_FALLBACK_PARAGRAPHS = 30
 
 
 def _get_body_paragraph_indices(doc: ParsedDocument) -> set[int]:
     heading_indices = {s.paragraph_index for s in doc.sections}
-    ref_titles = [t.lower() for t in p.REFERENCE_LIST_TITLES]
 
     abstract_start: int | None = None
     abstract_end: int | None = None
     ref_start: int | None = None
 
     for i, s in enumerate(doc.sections):
-        if s.title.lower() == "abstract":
+        if abstract_start is None and is_abstract_title(s.title):
             abstract_start = s.paragraph_index
             if i + 1 < len(doc.sections):
                 abstract_end = doc.sections[i + 1].paragraph_index
-        if s.title.strip().lower() in ref_titles:
+        if ref_start is None and is_reference_title(s.title):
             ref_start = s.paragraph_index
+
+    if abstract_start is not None and abstract_end is None:
+        for para in doc.paragraphs:
+            if (para.index > abstract_start
+                    and not para.is_in_table
+                    and KEYWORDS_PREFIX.match(para.text.strip())):
+                abstract_end = para.index + 1
+                break
+        if abstract_end is None:
+            abstract_end = abstract_start + ABSTRACT_FALLBACK_PARAGRAPHS + 1
 
     exclude = set(heading_indices)
     for para in doc.paragraphs:
