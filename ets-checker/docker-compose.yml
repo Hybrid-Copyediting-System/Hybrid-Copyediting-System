@@ -1,0 +1,22 @@
+# Single-container deployment: FastAPI serves both /api/* and the built SPA.
+# Default port 47823 is intentionally uncommon to avoid collisions with other
+# local projects. Override with `ETS_PORT=51234 docker compose up` if needed.
+
+services:
+  ets-checker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ets-checker:latest
+    container_name: ets-checker
+    restart: unless-stopped
+    environment:
+      ETS_PORT: ${ETS_PORT:-47823}
+    ports:
+      - "${ETS_PORT:-47823}:${ETS_PORT:-47823}"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen(f'http://localhost:${ETS_PORT:-47823}/api/health', timeout=3).status==200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

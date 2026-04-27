@@ -53,6 +53,7 @@ class Reference(BaseModel):
     year: str | None
     year_suffix: str | None
     parse_confidence: float
+    paragraph_index: int
 
 
 # ─── Figures / Tables ──────────────────────────────────────────────────
@@ -96,8 +97,16 @@ class ParsedDocument(BaseModel):
 
 # ─── API response ─────────────────────────────────────────────────────
 
+class Locator(BaseModel):
+    kind: Literal["document", "paragraph"]
+    paragraph_index: int | None = None
+    char_start: int | None = None
+    char_end: int | None = None
+
+
 class CheckDetail(BaseModel):
     location: str
+    locator: Locator | None = None
     message: str
     expected: Any | None = None
     actual: Any | None = None

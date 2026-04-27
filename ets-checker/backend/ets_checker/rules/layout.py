@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from ets_checker import ets_profile as p
-from ets_checker.models import CheckDetail, ParsedDocument
+from ets_checker.models import CheckDetail, Locator, ParsedDocument
 from ets_checker.rules.runner import register
 
 
@@ -24,6 +24,7 @@ def check_margins(doc: ParsedDocument) -> list[CheckDetail]:
         if abs(actual[side] - expected[side]) > p.MARGIN_TOLERANCE_CM:
             details.append(CheckDetail(
                 location="document",
+                locator=Locator(kind="document"),
                 message=f"{side.capitalize()} margin does not match ET&S ({expected[side]} cm)",
                 expected=expected[side],
                 actual=round(actual[side], 2),
@@ -39,6 +40,7 @@ def check_line_spacing(doc: ParsedDocument) -> list[CheckDetail]:
     if abs(doc.metadata.default_line_spacing - p.LINE_SPACING) > p.LINE_SPACING_TOLERANCE:
         details.append(CheckDetail(
             location="document",
+            locator=Locator(kind="document"),
             message=f"Default line spacing does not match ET&S ({p.LINE_SPACING})",
             expected=p.LINE_SPACING,
             actual=round(doc.metadata.default_line_spacing, 2),

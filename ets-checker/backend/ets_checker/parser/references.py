@@ -72,6 +72,7 @@ def extract(
             year=year,
             year_suffix=year_suffix,
             parse_confidence=confidence,
+            paragraph_index=p.index,
         ))
 
     return results

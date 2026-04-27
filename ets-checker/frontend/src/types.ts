@@ -1,5 +1,13 @@
+export interface Locator {
+  kind: "document" | "paragraph";
+  paragraph_index?: number | null;
+  char_start?: number | null;
+  char_end?: number | null;
+}
+
 export interface CheckDetail {
   location: string;
+  locator?: Locator | null;
   message: string;
   expected?: string | number | null;
   actual?: string | number | null;

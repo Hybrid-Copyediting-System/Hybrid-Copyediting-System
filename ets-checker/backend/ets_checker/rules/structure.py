@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 
 from ets_checker import ets_profile as p
-from ets_checker.models import CheckDetail, ParsedDocument
+from ets_checker.models import CheckDetail, Locator, ParsedDocument
 from ets_checker.rules.runner import register
 
 
@@ -30,6 +30,7 @@ def check_abstract_length(doc: ParsedDocument) -> list[CheckDetail]:
     if abstract_section is None:
         details.append(CheckDetail(
             location="document",
+            locator=Locator(kind="document"),
             message="Abstract section not detected",
         ))
         return details
@@ -48,6 +49,10 @@ def check_abstract_length(doc: ParsedDocument) -> list[CheckDetail]:
     if word_count > p.ABSTRACT_MAX_WORDS:
         details.append(CheckDetail(
             location="Abstract",
+            locator=Locator(
+                kind="paragraph",
+                paragraph_index=abstract_section.paragraph_index,
+            ),
             message=f"Abstract exceeds {p.ABSTRACT_MAX_WORDS} words",
             expected=f"≤ {p.ABSTRACT_MAX_WORDS} words",
             actual=f"{word_count} words",
@@ -71,6 +76,7 @@ def check_keywords_count(doc: ParsedDocument) -> list[CheckDetail]:
     if kw_para is None:
         details.append(CheckDetail(
             location="document",
+            locator=Locator(kind="document"),
             message="Keywords paragraph not detected",
         ))
         return details
@@ -82,6 +88,7 @@ def check_keywords_count(doc: ParsedDocument) -> list[CheckDetail]:
     if len(keywords) > p.KEYWORDS_MAX_COUNT:
         details.append(CheckDetail(
             location=f"paragraph {kw_para.index}",
+            locator=Locator(kind="paragraph", paragraph_index=kw_para.index),
             message=f"Too many keywords (max {p.KEYWORDS_MAX_COUNT})",
             expected=f"≤ {p.KEYWORDS_MAX_COUNT}",
             actual=str(len(keywords)),

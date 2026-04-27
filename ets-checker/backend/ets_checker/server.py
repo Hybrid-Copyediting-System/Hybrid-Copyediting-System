@@ -6,8 +6,10 @@ from pathlib import Path
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
 from fastapi.staticfiles import StaticFiles
 
+from ets_checker.exporter import annotate
 from ets_checker.models import CheckReport
 from ets_checker.parser.docx_parser import parse
 from ets_checker.rules.runner import run
@@ -37,8 +39,7 @@ async def health() -> dict[str, str]:
     return {"status": "ok"}
 
 
-@app.post("/api/check", response_model=CheckReport)
-async def check(file: UploadFile = File(...)) -> CheckReport:
+async def _validate_and_save(file: UploadFile) -> tuple[str, str]:
     if not file.filename:
         raise HTTPException(status_code=400, detail="No file provided")
 
@@ -59,12 +60,17 @@ async def check(file: UploadFile = File(...)) -> CheckReport:
     if len(content) > MAX_FILE_SIZE:
         raise HTTPException(status_code=413, detail="File too large (max 50 MB)")
 
-    tmp_path: str | None = None
-    try:
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".docx") as tmp:
-            tmp.write(content)
-            tmp_path = tmp.name
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".docx") as tmp:
+        tmp.write(content)
+        tmp_path = tmp.name
 
+    return tmp_path, file.filename
+
+
+@app.post("/api/check", response_model=CheckReport)
+async def check(file: UploadFile = File(...)) -> CheckReport:
+    tmp_path, filename = await _validate_and_save(file)
+    try:
         try:
             parsed = parse(tmp_path)
         except Exception as e:
@@ -73,11 +79,47 @@ async def check(file: UploadFile = File(...)) -> CheckReport:
                 detail=f"Could not parse file: {e}",
             )
 
-        report = run(parsed, file.filename)
-        return report
-
+        return run(parsed, filename)
     finally:
-        if tmp_path and os.path.exists(tmp_path):
+        if os.path.exists(tmp_path):
+            os.unlink(tmp_path)
+
+
+@app.post("/api/check/annotated")
+async def check_annotated(file: UploadFile = File(...)) -> Response:
+    tmp_path, filename = await _validate_and_save(file)
+    try:
+        try:
+            parsed = parse(tmp_path)
+        except Exception as e:
+            raise HTTPException(
+                status_code=422,
+                detail=f"Could not parse file: {e}",
+            )
+
+        report = run(parsed, filename)
+
+        try:
+            blob = annotate(tmp_path, report)
+        except Exception as e:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Could not annotate file: {e}",
+            )
+
+        stem = filename.rsplit(".", 1)[0]
+        out_name = f"{stem}.annotated.docx"
+        return Response(
+            content=blob,
+            media_type=(
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            ),
+            headers={
+                "Content-Disposition": f'attachment; filename="{out_name}"',
+            },
+        )
+    finally:
+        if os.path.exists(tmp_path):
             os.unlink(tmp_path)
 
 

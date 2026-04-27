@@ -2,7 +2,12 @@
 import { ref, onMounted } from "vue";
 import { useTheme } from "vuetify";
 import type { CheckReport } from "./types";
-import { checkDocument, healthCheck } from "./api";
+import {
+  checkDocument,
+  downloadAnnotated,
+  extractErrorMessage,
+  healthCheck,
+} from "./api";
 import FileUploader from "./components/FileUploader.vue";
 import ProgressIndicator from "./components/ProgressIndicator.vue";
 import ReportSummary from "./components/ReportSummary.vue";
@@ -12,7 +17,10 @@ type AppState = "idle" | "loading" | "report" | "error";
 
 const state = ref<AppState>("idle");
 const report = ref<CheckReport | null>(null);
+const lastFile = ref<File | null>(null);
+const annotatedLoading = ref(false);
 const errorMessage = ref("");
+const downloadError = ref("");
 const backendReady = ref(false);
 const theme = useTheme();
 
@@ -23,29 +31,48 @@ onMounted(async () => {
 async function onFileSelected(file: File) {
   state.value = "loading";
   errorMessage.value = "";
+  downloadError.value = "";
+  lastFile.value = file;
   try {
     report.value = await checkDocument(file);
     state.value = "report";
   } catch (err: unknown) {
     state.value = "error";
-    if (
-      typeof err === "object" &&
-      err !== null &&
-      "response" in err &&
-      typeof (err as Record<string, unknown>).response === "object"
-    ) {
-      const resp = (err as { response: { data?: { detail?: string } } }).response;
-      errorMessage.value = resp.data?.detail || "Unknown error";
-    } else {
-      errorMessage.value = "Could not connect to backend. Is the server running?";
-    }
+    errorMessage.value = extractErrorMessage(
+      err,
+      "Could not connect to backend. Is the server running?",
+    );
   }
 }
 
 function reset() {
   state.value = "idle";
   report.value = null;
+  lastFile.value = null;
   errorMessage.value = "";
+  downloadError.value = "";
+}
+
+async function downloadAnnotatedDocx() {
+  if (!lastFile.value || !report.value) return;
+  annotatedLoading.value = true;
+  downloadError.value = "";
+  try {
+    const blob = await downloadAnnotated(lastFile.value);
+    const stem = report.value.file_name.replace(/\.docx$/i, "");
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `${stem}.annotated.docx`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  } catch (err: unknown) {
+    downloadError.value = extractErrorMessage(
+      err,
+      "Could not generate annotated copy.",
+    );
+  } finally {
+    annotatedLoading.value = false;
+  }
 }
 
 function downloadJson() {
@@ -134,11 +161,33 @@ function getCategories(r: CheckReport): string[] {
               Check another file
             </v-btn>
             <v-spacer />
+            <v-btn
+              color="primary"
+              variant="outlined"
+              class="mr-2"
+              :loading="annotatedLoading"
+              :disabled="!lastFile"
+              @click="downloadAnnotatedDocx"
+            >
+              <v-icon start>mdi-file-document-edit-outline</v-icon>
+              Download annotated .docx
+            </v-btn>
             <v-btn color="primary" variant="outlined" @click="downloadJson">
               <v-icon start>mdi-download</v-icon>
               Download JSON
             </v-btn>
           </div>
+
+          <v-alert
+            v-if="downloadError"
+            type="error"
+            variant="tonal"
+            closable
+            class="mb-4"
+            @click:close="downloadError = ''"
+          >
+            {{ downloadError }}
+          </v-alert>
 
           <ReportSummary :summary="report.summary" :file-name="report.file_name" />
 

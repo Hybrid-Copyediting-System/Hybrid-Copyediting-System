@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from ets_checker import ets_profile as p
-from ets_checker.models import CheckDetail, ParsedDocument
+from ets_checker.models import CheckDetail, Locator, ParsedDocument
 from ets_checker.rules.runner import register
 
 MAX_REPORTED = 20
@@ -59,6 +59,7 @@ def check_body_font(doc: ParsedDocument) -> list[CheckDetail]:
                 if count < MAX_REPORTED:
                     details.append(CheckDetail(
                         location=f"paragraph {para.index}",
+                        locator=Locator(kind="paragraph", paragraph_index=para.index),
                         message="Body text font mismatch",
                         expected=f"{expected_name} {expected_size}pt",
                         actual=f"{actual_font} {actual_size}pt" if actual_size else actual_font,
@@ -69,6 +70,7 @@ def check_body_font(doc: ParsedDocument) -> list[CheckDetail]:
     if count > MAX_REPORTED:
         details.append(CheckDetail(
             location="document",
+            locator=Locator(kind="document"),
             message=f"... and {count - MAX_REPORTED} more font mismatches",
         ))
 

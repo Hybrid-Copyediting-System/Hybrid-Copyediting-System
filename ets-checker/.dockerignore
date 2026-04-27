@@ -1,0 +1,19 @@
+**/node_modules
+**/__pycache__
+**/.pytest_cache
+**/.mypy_cache
+**/.ruff_cache
+**/*.egg-info
+**/.venv
+**/.git
+**/.gitignore
+**/.DS_Store
+**/*.log
+
+# We rebuild these inside the image — don't ship the host copies.
+frontend/dist
+
+# Tests, fixtures, docs aren't needed at runtime.
+backend/tests
+docs
+README.md

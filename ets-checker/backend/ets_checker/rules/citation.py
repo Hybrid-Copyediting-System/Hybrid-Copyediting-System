@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 
-from ets_checker.models import CheckDetail, ParsedDocument
+from ets_checker.models import CheckDetail, Locator, ParsedDocument
 from ets_checker.rules.runner import register
 
 MAX_REPORTED = 20
@@ -33,6 +33,7 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
             if orphan_count < MAX_REPORTED:
                 details.append(CheckDetail(
                     location=f"paragraph {c.paragraph_index}",
+                    locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
                     message=f"Citation '{c.raw_text}' has no matching reference",
                     excerpt=c.raw_text,
                 ))
@@ -43,6 +44,7 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
     if orphan_count > MAX_REPORTED:
         details.append(CheckDetail(
             location="document",
+            locator=Locator(kind="document"),
             message=f"... and {orphan_count - MAX_REPORTED} more orphan citations",
         ))
 
@@ -53,6 +55,7 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
             if uncited_count < MAX_REPORTED:
                 details.append(CheckDetail(
                     location=f"Reference #{ref.index}",
+                    locator=Locator(kind="paragraph", paragraph_index=ref.paragraph_index),
                     message="Reference is not cited in text",
                     excerpt=ref.raw_text[:200],
                 ))
@@ -61,6 +64,7 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
     if uncited_count > MAX_REPORTED:
         details.append(CheckDetail(
             location="document",
+            locator=Locator(kind="document"),
             message=f"... and {uncited_count - MAX_REPORTED} more uncited references",
         ))
 

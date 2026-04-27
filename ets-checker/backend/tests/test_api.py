@@ -57,6 +57,50 @@ async def test_check_doc_extension() -> None:
 
 
 @pytest.mark.asyncio
+async def test_check_annotated_wrong_extension() -> None:
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        r = await ac.post(
+            "/api/check/annotated",
+            files={"file": ("test.txt", io.BytesIO(b"hello"), "text/plain")},
+        )
+    assert r.status_code == 400
+
+
+@pytest.mark.asyncio
+async def test_check_annotated_returns_docx() -> None:
+    """Round-trip: build a synthetic docx, POST it, expect a docx back."""
+    from docx import Document as _Document  # local import — keeps top tidy
+
+    buf = io.BytesIO()
+    doc = _Document()
+    doc.add_paragraph("Title")
+    doc.add_paragraph("Abstract")
+    doc.add_paragraph("Body text.")
+    doc.save(buf)
+    buf.seek(0)
+
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        r = await ac.post(
+            "/api/check/annotated",
+            files={
+                "file": (
+                    "synthetic.docx",
+                    buf,
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                )
+            },
+        )
+    assert r.status_code == 200
+    assert r.headers["content-type"].startswith(
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    )
+    assert "synthetic.annotated.docx" in r.headers["content-disposition"]
+    assert r.content[:2] == b"PK"
+
+
+@pytest.mark.asyncio
 async def test_check_template() -> None:
     p = _get_fixture("ets_template.docx")
     transport = ASGITransport(app=app)
