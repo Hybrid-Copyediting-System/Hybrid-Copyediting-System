@@ -1,0 +1,57 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+from ets_checker.models import DocumentMetadata
+
+if TYPE_CHECKING:
+    from docx.document import Document as DocxDocument
+
+EMU_PER_CM = 360000
+
+_A4_W = 21.0
+_A4_H = 29.7
+_LETTER_W = 21.59
+_LETTER_H = 27.94
+_SIZE_TOL = 0.5
+
+
+def _classify_paper_size(width_emu: int, height_emu: int) -> str | None:
+    w = width_emu / EMU_PER_CM
+    h = height_emu / EMU_PER_CM
+    if abs(w - _A4_W) < _SIZE_TOL and abs(h - _A4_H) < _SIZE_TOL:
+        return "A4"
+    if abs(w - _LETTER_W) < _SIZE_TOL and abs(h - _LETTER_H) < _SIZE_TOL:
+        return "Letter"
+    return None
+
+
+def _get_normal_style_line_spacing(document: DocxDocument) -> float | None:
+    try:
+        style = document.styles["Normal"]
+        pf = style.paragraph_format
+        if pf.line_spacing is not None:
+            return float(pf.line_spacing)
+    except (KeyError, AttributeError):
+        pass
+    return None
+
+
+def extract(document: DocxDocument) -> DocumentMetadata:
+    s = document.sections[0]
+    pw = int(s.page_width or 0)
+    ph = int(s.page_height or 0)
+    mt = int(s.top_margin or 0)
+    mb = int(s.bottom_margin or 0)
+    ml = int(s.left_margin or 0)
+    mr = int(s.right_margin or 0)
+    return DocumentMetadata(
+        paper_width_cm=round(pw / EMU_PER_CM, 4),
+        paper_height_cm=round(ph / EMU_PER_CM, 4),
+        paper_size=_classify_paper_size(pw, ph),
+        margin_top_cm=round(mt / EMU_PER_CM, 4),
+        margin_bottom_cm=round(mb / EMU_PER_CM, 4),
+        margin_left_cm=round(ml / EMU_PER_CM, 4),
+        margin_right_cm=round(mr / EMU_PER_CM, 4),
+        default_line_spacing=_get_normal_style_line_spacing(document),
+    )
