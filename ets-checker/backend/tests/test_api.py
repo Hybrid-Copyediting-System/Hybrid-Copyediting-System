@@ -113,4 +113,4 @@ async def test_check_template() -> None:
     assert r.status_code == 200
     data = r.json()
     assert "summary" in data
-    assert data["summary"]["total_checks"] == 8
+    assert data["summary"]["total_checks"] == 9

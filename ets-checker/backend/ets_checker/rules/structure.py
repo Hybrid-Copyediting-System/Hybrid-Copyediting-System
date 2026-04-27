@@ -4,7 +4,7 @@ import re
 
 from ets_checker import ets_profile as p
 from ets_checker.models import CheckDetail, Locator, ParsedDocument
-from ets_checker.parser.sections import KEYWORDS_PREFIX, is_abstract_title
+from ets_checker.parser.sections import INLINE_ABSTRACT_PREFIX, KEYWORDS_PREFIX, is_abstract_title
 from ets_checker.rules.runner import register
 
 ABSTRACT_FALLBACK_PARAGRAPHS = 30
@@ -21,7 +21,7 @@ def _abstract_end_index(
     doc: ParsedDocument,
     abstract_idx: int,
     section_pos: int,
-) -> int | None:
+) -> int:
     if section_pos + 1 < len(doc.sections):
         return doc.sections[section_pos + 1].paragraph_index
     # No following section detected — fall back to the keywords paragraph,
@@ -67,7 +67,18 @@ def check_abstract_length(doc: ParsedDocument) -> list[CheckDetail]:
         and not KEYWORDS_PREFIX.match(para.text.strip())
     ]
 
-    full_text = " ".join(para.text for para in abstract_paras)
+    # For inline abstracts ("ABSTRACT: body text..."), the content lives in
+    # the section's own paragraph rather than the ones that follow it.
+    section_para_text = next(
+        (para.text for para in doc.paragraphs
+         if para.index == abstract_section.paragraph_index),
+        "",
+    )
+    inline_body = INLINE_ABSTRACT_PREFIX.sub("", section_para_text, count=1)
+    inline_body = inline_body if inline_body != section_para_text else ""
+
+    parts = ([inline_body] if inline_body else []) + [para.text for para in abstract_paras]
+    full_text = " ".join(parts)
     word_count = _count_words(full_text)
 
     if word_count > p.ABSTRACT_MAX_WORDS:

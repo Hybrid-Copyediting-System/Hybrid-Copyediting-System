@@ -2,11 +2,11 @@ from __future__ import annotations
 
 import re
 
-from ets_checker import ets_profile as p
 from ets_checker.models import CheckDetail, Locator, ParsedDocument
+from ets_checker.parser.sections import is_reference_title
 from ets_checker.rules.runner import register
 
-TEXT_REFS = re.compile(r"\b(Figure|Fig\.|Table)\s+(\d+)", re.IGNORECASE)
+TEXT_REFS = re.compile(r"\b(Figures?|Figs?\.?|Tables?)\s+(\d+)", re.IGNORECASE)
 
 
 @register(
@@ -18,10 +18,9 @@ TEXT_REFS = re.compile(r"\b(Figure|Fig\.|Table)\s+(\d+)", re.IGNORECASE)
 def check_referenced_in_text(doc: ParsedDocument) -> list[CheckDetail]:
     details: list[CheckDetail] = []
 
-    ref_titles = [t.lower() for t in p.REFERENCE_LIST_TITLES]
     ref_start: int | None = None
     for s in doc.sections:
-        if s.title.strip().lower() in ref_titles:
+        if is_reference_title(s.title):
             ref_start = s.paragraph_index
             break
 

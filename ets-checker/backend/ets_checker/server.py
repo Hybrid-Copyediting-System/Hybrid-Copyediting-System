@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 import tempfile
 from pathlib import Path
+from urllib.parse import quote
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
@@ -12,7 +13,7 @@ from fastapi.staticfiles import StaticFiles
 from ets_checker.exporter import annotate
 from ets_checker.models import CheckReport
 from ets_checker.parser.docx_parser import parse
-from ets_checker.rules.runner import run
+from ets_checker.rules.runner import run_async
 
 # Import rule modules so they register via decorators
 import ets_checker.rules.layout  # noqa: F401
@@ -21,6 +22,7 @@ import ets_checker.rules.structure  # noqa: F401
 import ets_checker.rules.citation  # noqa: F401
 import ets_checker.rules.reference  # noqa: F401
 import ets_checker.rules.figures_tables  # noqa: F401
+import ets_checker.rules.reference_links  # noqa: F401
 
 MAX_FILE_SIZE = 50 * 1024 * 1024  # 50 MB
 
@@ -61,8 +63,12 @@ async def _validate_and_save(file: UploadFile) -> tuple[str, str]:
         raise HTTPException(status_code=413, detail="File too large (max 50 MB)")
 
     with tempfile.NamedTemporaryFile(delete=False, suffix=".docx") as tmp:
-        tmp.write(content)
         tmp_path = tmp.name
+        try:
+            tmp.write(content)
+        except Exception:
+            os.unlink(tmp_path)
+            raise
 
     return tmp_path, file.filename
 
@@ -79,7 +85,7 @@ async def check(file: UploadFile = File(...)) -> CheckReport:
                 detail=f"Could not parse file: {e}",
             )
 
-        return run(parsed, filename)
+        return await run_async(parsed, filename)
     finally:
         if os.path.exists(tmp_path):
             os.unlink(tmp_path)
@@ -97,7 +103,7 @@ async def check_annotated(file: UploadFile = File(...)) -> Response:
                 detail=f"Could not parse file: {e}",
             )
 
-        report = run(parsed, filename)
+        report = await run_async(parsed, filename)
 
         try:
             blob = annotate(tmp_path, report)
@@ -109,13 +115,17 @@ async def check_annotated(file: UploadFile = File(...)) -> Response:
 
         stem = filename.rsplit(".", 1)[0]
         out_name = f"{stem}.annotated.docx"
+        encoded_name = quote(out_name)
         return Response(
             content=blob,
             media_type=(
                 "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             ),
             headers={
-                "Content-Disposition": f'attachment; filename="{out_name}"',
+                "Content-Disposition": (
+                    f"attachment; filename=\"{out_name.encode('ascii', 'replace').decode()}\"; "
+                    f"filename*=UTF-8''{encoded_name}"
+                ),
             },
         )
     finally:

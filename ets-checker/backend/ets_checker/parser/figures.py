@@ -10,8 +10,8 @@ from ets_checker.models import Figure, Paragraph, Table
 if TYPE_CHECKING:
     from docx.document import Document as DocxDocument
 
-_FIG_CAPTION = re.compile(r"^Figure\s+(\d+)", re.IGNORECASE)
-_TBL_CAPTION = re.compile(r"^Table\s+(\d+)", re.IGNORECASE)
+_FIG_CAPTION = re.compile(r"^Figure\.?\s+(\d+)", re.IGNORECASE)
+_TBL_CAPTION = re.compile(r"^Table\.?\s+(\d+)", re.IGNORECASE)
 
 NSMAP = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
 
@@ -44,7 +44,9 @@ def detect(
     for img_i in image_indices:
         caption_text: str | None = None
         fig_num: int | None = None
-        para_index = img_i if img_i < len(non_table_paras) else 0
+        # Use the actual Paragraph.index (which accounts for table paragraphs that
+        # shift indices in iter_all) rather than the list position.
+        para_index = non_table_paras[img_i].index if img_i < len(non_table_paras) else 0
 
         for offset in range(-2, 3):
             check_i = img_i + offset
@@ -53,6 +55,7 @@ def detect(
                 if m:
                     fig_num = int(m.group(1))
                     caption_text = non_table_paras[check_i].text.strip()
+                    para_index = non_table_paras[check_i].index
                     break
 
         figures.append(Figure(
@@ -63,10 +66,15 @@ def detect(
         ))
         fig_idx += 1
 
+    # Build a map from XML element → python-docx paragraph to get clean text
+    # (elem.itertext() can include bookmark/field-code duplicates in Word docs).
+    _elem_to_docx_para = {dp._element: dp for dp in document.paragraphs}
+
     # Detect tables
     for tbl_idx, _tbl in enumerate(document.tables):
         tbl_caption: str | None = None
         tbl_num: int | None = None
+        p_idx = 0
 
         tbl_elem = _tbl._element
         prev = tbl_elem.getprevious()
@@ -74,19 +82,19 @@ def detect(
 
         for elem in [prev, next_elem]:
             if elem is not None and elem.tag.endswith("}p"):
-                text = "".join(str(t) for t in elem.itertext()).strip()
+                # Use python-docx .text to avoid field-code/bookmark duplicates
+                dp = _elem_to_docx_para.get(elem)
+                text = dp.text.strip() if dp is not None else "".join(str(t) for t in elem.itertext()).strip()
                 m = _TBL_CAPTION.match(text)
                 if m:
                     tbl_num = int(m.group(1))
                     tbl_caption = text
                     break
 
-        # Find closest paragraph index by matching caption text
-        p_idx = 0
         if tbl_caption:
-            for p in non_table_paras:
-                if p.text.strip() == tbl_caption:
-                    p_idx = p.index
+            for pp in non_table_paras:
+                if pp.text.strip() == tbl_caption:
+                    p_idx = pp.index
                     break
 
         tables.append(Table(

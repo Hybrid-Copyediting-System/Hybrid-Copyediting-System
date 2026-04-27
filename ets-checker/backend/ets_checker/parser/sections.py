@@ -33,6 +33,12 @@ KEYWORDS_PREFIX = re.compile(
     re.IGNORECASE,
 )
 
+# Matches inline abstract labels like "ABSTRACT:" or "摘要：" at paragraph start.
+INLINE_ABSTRACT_PREFIX = re.compile(
+    r"^(?:ABSTRACT|摘要|摘\s*要)\s*[:：]\s*",
+    re.IGNORECASE,
+)
+
 _TITLE_TRAILING = re.compile(r"[\s:：.。\-—–]+$")
 
 
@@ -65,7 +71,10 @@ def _is_candidate_heading(p: Paragraph) -> bool:
         return False
     if not p.runs:
         return False
-    return all(r.bold is True for r in p.runs if r.text.strip())
+    text_runs = [r for r in p.runs if r.text.strip()]
+    if not text_runs:
+        return False
+    return all(r.bold is True for r in text_runs)
 
 
 def _infer_level_from_font(p: Paragraph) -> int:
@@ -120,6 +129,19 @@ def detect(paragraphs: list[Paragraph]) -> list[Section]:
             paragraph_index=p.index,
             detection_method="heuristic",
         ))
+
+    # Detect inline abstract pattern: "ABSTRACT: <body text>" in one paragraph.
+    already_indexed = style_indices | {s.paragraph_index for s in heuristic_sections}
+    for p in paragraphs:
+        if p.is_in_table or p.index in already_indexed:
+            continue
+        if INLINE_ABSTRACT_PREFIX.match(p.text.strip()):
+            heuristic_sections.append(Section(
+                title="Abstract",
+                level=1,
+                paragraph_index=p.index,
+                detection_method="heuristic",
+            ))
 
     merged = style_sections + heuristic_sections
     merged.sort(key=lambda s: s.paragraph_index)

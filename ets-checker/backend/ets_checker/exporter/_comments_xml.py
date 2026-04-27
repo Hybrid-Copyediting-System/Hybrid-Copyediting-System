@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from datetime import datetime, timezone
 from typing import TYPE_CHECKING
 
@@ -15,6 +16,8 @@ if TYPE_CHECKING:
 W_NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 XML_NS = "http://www.w3.org/XML/1998/namespace"
 NSMAP = {"w": W_NS}
+
+logger = logging.getLogger(__name__)
 
 
 def _q(tag: str) -> str:
@@ -111,6 +114,7 @@ class CommentsManager:
             try:
                 out = max(out, int(raw))
             except ValueError:
+                logger.warning("Non-numeric comment id %r in source document; skipped.", raw)
                 continue
         return out
 

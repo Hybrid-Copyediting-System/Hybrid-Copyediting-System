@@ -54,6 +54,8 @@ class Reference(BaseModel):
     year_suffix: str | None
     parse_confidence: float
     paragraph_index: int
+    doi: str | None = None
+    urls: list[str] = []
 
 
 # ─── Figures / Tables ──────────────────────────────────────────────────

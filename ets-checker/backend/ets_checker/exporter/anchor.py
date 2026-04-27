@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+import logging
 from typing import TYPE_CHECKING
 
 from lxml.etree import _Element  # noqa: PLC2701
 
 from ets_checker.models import CheckDetail
+
+logger = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
     from docx.document import Document as DocxDocument
@@ -16,17 +19,30 @@ def build_paragraph_element_index(document: DocxDocument) -> list[_Element]:
     builds, but return the underlying lxml ``<w:p>`` elements instead of
     ``Paragraph`` models.
 
-    Order MUST match ``parser/paragraphs.iter_all`` exactly: body paragraphs
-    first, then table-cell paragraphs in walk order
-    (``tables[*].rows[*].cells[*].paragraphs``). Any change to that walk order
-    must be mirrored in both files.
+    Order MUST match ``parser/paragraphs.iter_all`` exactly: walk
+    ``<w:body>`` children in document order, entering each ``<w:tbl>``
+    immediately when encountered (depth-first). Any change to that walk
+    order must be mirrored in both files.
     """
-    out: list[_Element] = [p._p for p in document.paragraphs]
-    for t in document.tables:
-        for row in t.rows:
-            for cell in row.cells:
-                for p in cell.paragraphs:
-                    out.append(p._p)
+    from docx.oxml.ns import qn
+
+    out: list[_Element] = []
+
+    def _visit_table(tbl_elem: _Element) -> None:
+        for row in tbl_elem.iterchildren(qn("w:tr")):
+            for cell in row.iterchildren(qn("w:tc")):
+                for child in cell.iterchildren():
+                    if child.tag == qn("w:p"):
+                        out.append(child)
+                    elif child.tag == qn("w:tbl"):
+                        _visit_table(child)
+
+    for child in document.element.body.iterchildren():
+        if child.tag == qn("w:p"):
+            out.append(child)
+        elif child.tag == qn("w:tbl"):
+            _visit_table(child)
+
     return out
 
 
@@ -48,6 +64,16 @@ def resolve_anchor(
     if loc.kind == "paragraph":
         idx = loc.paragraph_index
         if idx is None or idx < 0 or idx >= len(para_index):
+            logger.warning(
+                "Locator paragraph_index=%r out of range [0, %d); "
+                "falling back to first paragraph. message=%s",
+                idx,
+                len(para_index),
+                detail.message,
+            )
             return para_index[0]
         return para_index[idx]
+    logger.warning(
+        "Unknown locator kind %r; falling back to first paragraph.", loc.kind
+    )
     return para_index[0]

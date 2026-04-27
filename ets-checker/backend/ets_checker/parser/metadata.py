@@ -28,9 +28,14 @@ def _classify_paper_size(width_emu: int, height_emu: int) -> str | None:
 
 def _get_normal_style_line_spacing(document: DocxDocument) -> float | None:
     try:
+        from docx.enum.text import WD_LINE_SPACING
+
         style = document.styles["Normal"]
         pf = style.paragraph_format
         if pf.line_spacing is not None:
+            rule = pf.line_spacing_rule
+            if rule in (WD_LINE_SPACING.EXACTLY, WD_LINE_SPACING.AT_LEAST):
+                return None
             return float(pf.line_spacing)
     except (KeyError, AttributeError):
         pass
@@ -38,6 +43,12 @@ def _get_normal_style_line_spacing(document: DocxDocument) -> float | None:
 
 
 def extract(document: DocxDocument) -> DocumentMetadata:
+    if not document.sections:
+        return DocumentMetadata(
+            paper_width_cm=0, paper_height_cm=0, paper_size=None,
+            margin_top_cm=0, margin_bottom_cm=0, margin_left_cm=0, margin_right_cm=0,
+            default_line_spacing=None,
+        )
     s = document.sections[0]
     pw = int(s.page_width or 0)
     ph = int(s.page_height or 0)

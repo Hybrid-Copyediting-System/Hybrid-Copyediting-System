@@ -38,9 +38,15 @@ def _get_body_paragraph_indices(doc: ParsedDocument) -> set[int]:
         if abstract_end is None:
             abstract_end = abstract_start + ABSTRACT_FALLBACK_PARAGRAPHS + 1
 
+    # Paragraphs before the first detected section (title, authors, affiliations)
+    # are front matter and should not be checked against body font rules.
+    first_section_idx = min((s.paragraph_index for s in doc.sections), default=None)
+
     exclude = set(heading_indices)
     for para in doc.paragraphs:
         if para.is_in_table:
+            exclude.add(para.index)
+        if first_section_idx is not None and para.index < first_section_idx:
             exclude.add(para.index)
         if abstract_start is not None and abstract_end is not None:
             if abstract_start <= para.index < abstract_end:
