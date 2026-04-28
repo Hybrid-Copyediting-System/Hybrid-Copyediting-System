@@ -27,7 +27,7 @@ without worrying about repo size.
 ```bash
 # Containerised (single port, includes built SPA):
 cd ets-checker
-docker compose up --build           # → http://localhost:47823
+docker compose up --build           # → http://localhost:48000  (ETS_PORT in .env)
 
 # Or run backend + frontend dev servers separately:
 #   ets-checker/README.md → "Quick Start (development)"

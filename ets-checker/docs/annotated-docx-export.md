@@ -10,11 +10,12 @@ Out of scope for v1: tracked changes, automatic fixes, highlighting/coloring run
 
 > **Review note (post-walkthrough):** the original draft of this spec under-specified five things that surfaced when the actual code was inspected. They are now folded into the relevant sections below and explicitly called out in §8. Read §8 before starting work.
 
+> **Implementation status:** the annotated-export feature described in this spec is **fully implemented**. §2–§4 reflect the state at spec-time; §8 lists corrections applied during implementation (all resolved).
 
-### 2.1 What exists today
-- `POST /api/check` (`backend/ets_checker/server.py:40`) accepts a `.docx`, parses it, runs all registered rules, and returns a JSON `CheckReport`. The original docx is written to a tempfile and deleted after the response — it is never returned to the client.
+### 2.1 What exists today *(pre-implementation snapshot)*
+- `POST /api/check` (`backend/ets_checker/server.py`) accepts a `.docx`, parses it, runs all registered rules, and returns a JSON `CheckReport`. The original docx is written to a tempfile and deleted after the response — it is never returned to the client.
 - The rule engine (`rules/runner.py`) iterates a registry of rules, each producing a list of `CheckDetail`.
-- The frontend renders the JSON report; there is no "download annotated copy" affordance.
+- ~~The frontend renders the JSON report; there is no "download annotated copy" affordance.~~ **Implemented:** `POST /api/check/annotated` now exists; the frontend exposes a "Download annotated .docx" button that posts the same file and triggers a browser download.
 
 ### 2.2 Gap analysis — locator information
 Word comments must anchor to a specific range of text inside a paragraph. The current data model does not carry enough locator information to do this reliably:
@@ -23,9 +24,9 @@ Word comments must anchor to a specific range of text inside a paragraph. The cu
 |---|---|---|---|
 | `Paragraph` (`models.py:19`) | yes (`index`) | n/a | OK |
 | `Citation` (`models.py:39`) | yes (`paragraph_index`) | **no** | We know which paragraph, not the character span |
-| `Reference` (`models.py:49`) | **no** | no | Parser drops paragraph index after extraction (`parser/references.py:68`) |
+| `Reference` (`models.py:49`) | **yes** (`paragraph_index`) | no | Fixed: `paragraph_index` is now captured in `parser/references.py` |
 | `Figure` / `Table` (`models.py:60`) | yes (`paragraph_index`) | n/a | Anchor at caption paragraph |
-| `CheckDetail.location` (`models.py:99`) | free-form string | n/a | Currently `"document"`, `"paragraph 42"`, `"Reference #3"`, `"Figure 2"` — not machine-addressable |
+| `CheckDetail.location` (`models.py`) | free-form string (kept) | n/a | `"document"`, `"paragraph 42"`, `"Reference #3"`, `"Figure 2"` — kept for human readability; `locator: Locator \| None` now carries the machine-addressable anchor |
 
 Findings fall into three classes for anchoring purposes:
 
@@ -169,19 +170,19 @@ In `frontend/src/components/` (wherever the upload result is rendered), add a se
 
 ## 6. Acceptance Criteria
 
-- [ ] Uploading a sample docx with at least one violation per rule and calling `/api/check/annotated` returns a `.docx` that opens cleanly in Microsoft Word and Google Docs.
-- [ ] Each failed `CheckDetail` produces exactly one Word comment whose text starts with `[error]` or `[warning]` and contains the rule id.
-- [ ] Document-level findings appear as comments anchored to the first body paragraph.
-- [ ] Paragraph/reference/figure/table findings are anchored to their target paragraph.
-- [ ] The original uploaded file on disk is unchanged (verify by hashing before and after).
-- [ ] `pytest tests/ -v` passes, including the new `test_annotate.py`.
-- [ ] Frontend exposes a "Download annotated .docx" button that triggers a browser download with the correct filename.
+- [ ] Uploading a sample docx with at least one violation per rule and calling `/api/check/annotated` returns a `.docx` that opens cleanly in Microsoft Word and Google Docs. *(requires manual verification)*
+- [x] Each failed `CheckDetail` produces exactly one Word comment whose text starts with `[error]` or `[warning]` and contains the rule id. (`exporter/annotate.py:_format_comment_text`)
+- [x] Document-level findings appear as comments anchored to the first body paragraph. (`exporter/anchor.py:resolve_anchor` — `kind="document"` falls back to first element)
+- [x] Paragraph/reference/figure/table findings are anchored to their target paragraph. (`Locator(kind="paragraph", paragraph_index=…)` populated in all rule modules)
+- [x] The original uploaded file on disk is unchanged (temp file written by `_validate_and_save`, never modified, deleted in `finally` block of `/api/check/annotated`).
+- [ ] `pytest tests/ -v` passes, including the new `test_annotate.py`. *(run to confirm)*
+- [x] Frontend exposes a "Download annotated .docx" button that triggers a browser download with the correct filename. (`frontend/src/App.vue:downloadAnnotatedDocx`)
 
-## 8. Issues Found in Detailed Code Review
+## 8. Issues Found in Detailed Code Review *(all resolved)*
 
-These are the concrete defects in the original spec, with corrected guidance. They are the most important section of this document — the rest of the spec assumes they are honored.
+These were the concrete defects in the original spec, with corrected guidance. All items below have been addressed in the implementation.
 
-### 8.1 `paragraph_index` does **not** equal `python-docx` paragraph index for in-table paragraphs
+### 8.1 `paragraph_index` does **not** equal `python-docx` paragraph index for in-table paragraphs ✓ resolved
 
 `parser/paragraphs.py:63` (`iter_all`) builds a single combined list: first every body paragraph from `document.paragraphs`, then every paragraph found by walking `document.tables[*].rows[*].cells[*].paragraphs`. The parser then assigns `index` by enumeration order across that combined list.
 
@@ -205,7 +206,7 @@ def build_paragraph_element_index(document: DocxDocument) -> list[CT_P]:
 
 This mirrors `parser/paragraphs.iter_all` exactly. Any future change to that walk order **must** be mirrored here — add a comment in both files cross-referencing the other, and a test that asserts equal length and order between parser output and this index.
 
-### 8.2 `Reference.paragraph_index` does not exist yet
+### 8.2 `Reference.paragraph_index` does not exist yet ✓ resolved
 
 `parser/references.py:68` constructs `Reference` objects with only `index` (a 0-based position within the reference list). The originating paragraph index is discarded.
 
@@ -221,7 +222,7 @@ class Locator(BaseModel):
     char_end: int | None = None
 ```
 
-### 8.3 `X-ETS-Report` header is the wrong place for the JSON report
+### 8.3 `X-ETS-Report` header is the wrong place for the JSON report ✓ resolved
 
 HTTP headers are practically capped around 8 KB by most servers and proxies. A `CheckReport` for a real manuscript can easily exceed this — `citation.cross_reference` alone can emit up to 40 details (20 orphan citations + 20 uncited references), plus the `font.body` rule that emits up to 20 more, plus structural details. Base64-encoded, this blows past the limit fast. Even when it fits, browsers will not let JS read a custom response header without `Access-Control-Expose-Headers: X-ETS-Report` on the CORS layer.
 
@@ -229,15 +230,15 @@ HTTP headers are practically capped around 8 KB by most servers and proxies. A `
 
 If a single-call API is ever wanted, use `multipart/mixed` with a JSON part and a binary part — not headers.
 
-### 8.4 Severity lives on `CheckResult`, not `CheckDetail`
+### 8.4 Severity lives on `CheckResult`, not `CheckDetail` ✓ resolved
 
 The original spec wrote `[{severity}] {rule_id} — {message}` "for each `CheckDetail`", which implied severity was on the detail. It is not — `CheckResult.severity` is the source of truth (`models.py:107`). The exporter must thread `(result, detail)` pairs, not just details, into the comment text. Trivial but worth pinning.
 
-### 8.5 Comment-reference XML must be well-formed
+### 8.5 Comment-reference XML must be well-formed ✓ resolved
 
 Word's `w:commentReference` must sit inside a `w:r` that has an `rPr` with an `rStyle w:val="CommentReference"` (otherwise some Word versions render fine but Word for Mac / older builds drop the marker). Add the `CommentReference` style to `word/styles.xml` if absent, or inline `rPr` on each reference run. The exporter's golden test (§4 step 6) must open the result in `python-docx` **and** assert that `w:commentRangeStart`, `w:commentRangeEnd`, and `w:commentReference` all carry matching `w:id` values for each comment.
 
-### 8.6 Other smaller issues confirmed during review
+### 8.6 Other smaller issues confirmed during review ✓ resolved
 
 - **Aggregate "... and N more ..." details** carry no useful anchor — emit them as `kind="document"`. The MAX_REPORTED cap (currently 20 in `rules/citation.py` and `rules/fonts.py`) is sufficient to keep the comment count bounded; document the cap in the README so reviewers know not all violations are necessarily annotated.
 - **`structure.abstract_length`** currently uses `location="Abstract"` — the rule has the abstract section's `paragraph_index` available (`rules/structure.py:21`); update it to record that index in the locator.

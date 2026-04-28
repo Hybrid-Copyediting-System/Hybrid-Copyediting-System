@@ -80,12 +80,13 @@ Implementation lives in `backend/ets_checker/exporter/` — see
 The container runs the FastAPI app and serves the built SPA from the same port.
 
 ```bash
-docker compose up --build              # → http://localhost:47823
+docker compose up --build              # → http://localhost:48000  (ETS_PORT set in .env)
 ETS_PORT=51234 docker compose up       # override the port
 ```
 
-The non-default port (47823) avoids collisions with other local services. A
-healthcheck against `/api/health` is wired into `docker-compose.yml`.
+The `.env` file in `ets-checker/` sets `ETS_PORT=48000`; the docker-compose default
+without that file is 47823. Override on the command line as shown above.
+A healthcheck against `/api/health` is wired into `docker-compose.yml`.
 
 ### Option B — local Python serving the built SPA
 
