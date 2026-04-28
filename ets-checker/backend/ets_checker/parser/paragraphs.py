@@ -126,13 +126,46 @@ def _get_doc_default_font(document: DocxDocument) -> tuple[str | None, float | N
             rfonts = rpr.find(qn("w:rFonts"))
             if rfonts is not None:
                 font_name = rfonts.get(qn("w:ascii"))
+                if font_name is None:
+                    theme_attr = rfonts.get(qn("w:asciiTheme"))
+                    if theme_attr is not None:
+                        font_name = _resolve_theme_font(document, theme_attr)
         if font_size_pt is None:
             sz = rpr.find(qn("w:sz"))
             if sz is not None:
                 val = sz.get(qn("w:val"))
                 if val:
                     font_size_pt = round(int(val) / 2, 1)
+    if font_size_pt is None:
+        font_size_pt = 10.0
+
     return font_name, font_size_pt
+
+
+def _resolve_theme_font(document: DocxDocument, theme_attr: str) -> str | None:
+    """Resolve a w:asciiTheme value (e.g. 'minorHAnsi') to an actual font name
+    by reading the document's theme XML."""
+    try:
+        from docx.oxml.ns import qn
+        theme_part = document.part.package.part_related_by(
+            "http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme"
+        )
+        theme_elem = theme_part._element
+        ns = {"a": "http://schemas.openxmlformats.org/drawingml/2006/main"}
+        mapping = {
+            "minorHAnsi": ".//a:minorFont/a:latin",
+            "majorHAnsi": ".//a:majorFont/a:latin",
+            "minorEastAsia": ".//a:minorFont/a:ea",
+            "majorEastAsia": ".//a:majorFont/a:ea",
+        }
+        xpath = mapping.get(theme_attr)
+        if xpath is not None:
+            elem = theme_elem.find(xpath, ns)
+            if elem is not None:
+                return elem.get("typeface")
+    except Exception:
+        pass
+    return None
 
 
 def iter_all(document: DocxDocument) -> list[Paragraph]:

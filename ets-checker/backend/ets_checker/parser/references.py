@@ -62,7 +62,7 @@ REF_AUTHOR_YEAR = re.compile(
 )
 
 REF_FIRST_AUTHOR = re.compile(
-    r"^(?P<surname>[^\W\d_][\w\-' ]*?)\.?\s*(?:,|$)",
+    r"^(?P<surname>[^\W\d_][\w\-' ]*?)\.?\s*(?:[,.]|$)",
     re.UNICODE,
 )
 

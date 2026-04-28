@@ -10,8 +10,8 @@ from ets_checker.models import Figure, Paragraph, Table
 if TYPE_CHECKING:
     from docx.document import Document as DocxDocument
 
-_FIG_CAPTION = re.compile(r"^Figure\.?\s+(\d+)", re.IGNORECASE)
-_TBL_CAPTION = re.compile(r"^Table\.?\s+(\d+)", re.IGNORECASE)
+_FIG_CAPTION = re.compile(r"^Figure\.?\s+(\d+)\s*[.:]", re.IGNORECASE)
+_TBL_CAPTION = re.compile(r"^Table\.?\s+(\d+)\s*[.:]", re.IGNORECASE)
 
 NSMAP = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
 
@@ -24,6 +24,49 @@ def _has_image(docx_para: object) -> bool:
     return "<w:drawing" in xml_str or "<w:pict" in xml_str
 
 
+def _walk_document_events(
+    document: DocxDocument,
+) -> list[dict]:
+    """Walk the document XML in order and return a flat list of events
+    for every paragraph that is either an image or a figure caption."""
+    from docx.oxml.ns import qn
+    from docx.text.paragraph import Paragraph as DocxParagraph
+
+    events: list[dict] = []
+    seq = 0
+
+    def _visit_para(elem: object, in_table: bool) -> None:
+        nonlocal seq
+        p = DocxParagraph(elem, document)
+        text = (p.text or "").strip()
+        is_img = _has_image(p)
+        m = _FIG_CAPTION.match(text)
+        if is_img:
+            events.append({"kind": "image", "seq": seq, "in_table": in_table,
+                           "fig_num": None, "text": text})
+        if m:
+            events.append({"kind": "caption", "seq": seq, "in_table": in_table,
+                           "fig_num": int(m.group(1)), "text": text})
+        seq += 1
+
+    def _walk_table(tbl_elem: object) -> None:
+        for tr in tbl_elem.iterchildren(qn("w:tr")):
+            for tc in tr.iterchildren(qn("w:tc")):
+                for child in tc.iterchildren():
+                    if child.tag == qn("w:p"):
+                        _visit_para(child, True)
+                    elif child.tag == qn("w:tbl"):
+                        _walk_table(child)
+
+    for child in document.element.body.iterchildren():
+        if child.tag == qn("w:p"):
+            _visit_para(child, False)
+        elif child.tag == qn("w:tbl"):
+            _walk_table(child)
+
+    return events
+
+
 def detect(
     paragraphs: list[Paragraph],
     document: DocxDocument,
@@ -31,32 +74,48 @@ def detect(
     figures: list[Figure] = []
     tables: list[Table] = []
 
-    # Detect figures from document paragraphs that contain images
-    docx_paras = list(document.paragraphs)
-    image_indices: list[int] = []
-    for i, dp in enumerate(docx_paras):
-        if _has_image(dp):
-            image_indices.append(i)
+    events = _walk_document_events(document)
 
-    non_table_paras = [p for p in paragraphs if not p.is_in_table]
+    images = [e for e in events if e["kind"] == "image"]
+    captions = [e for e in events if e["kind"] == "caption"]
+
+    caption_by_num: dict[int, dict] = {}
+    for cap in captions:
+        caption_by_num.setdefault(cap["fig_num"], cap)
+
+    para_by_text: dict[str, Paragraph] = {}
+    for p in paragraphs:
+        if p.text.strip() and p.text.strip() not in para_by_text:
+            para_by_text[p.text.strip()] = p
+
+    used_captions: set[int] = set()
+
+    def _find_nearest_caption(img_event: dict) -> dict | None:
+        best: dict | None = None
+        best_dist = float("inf")
+        for cap in captions:
+            if cap["fig_num"] in used_captions:
+                continue
+            dist = abs(cap["seq"] - img_event["seq"])
+            if dist < best_dist:
+                best_dist = dist
+                best = cap
+        return best
 
     fig_idx = 0
-    for img_i in image_indices:
-        caption_text: str | None = None
+    for img in images:
+        cap = _find_nearest_caption(img)
         fig_num: int | None = None
-        # Use the actual Paragraph.index (which accounts for table paragraphs that
-        # shift indices in iter_all) rather than the list position.
-        para_index = non_table_paras[img_i].index if img_i < len(non_table_paras) else 0
+        caption_text: str | None = None
+        para_index = 0
 
-        for offset in range(-2, 3):
-            check_i = img_i + offset
-            if 0 <= check_i < len(non_table_paras):
-                m = _FIG_CAPTION.match(non_table_paras[check_i].text.strip())
-                if m:
-                    fig_num = int(m.group(1))
-                    caption_text = non_table_paras[check_i].text.strip()
-                    para_index = non_table_paras[check_i].index
-                    break
+        if cap is not None:
+            fig_num = cap["fig_num"]
+            caption_text = cap["text"]
+            used_captions.add(fig_num)
+            p = para_by_text.get(caption_text)
+            if p is not None:
+                para_index = p.index
 
         figures.append(Figure(
             index=fig_idx,
@@ -66,11 +125,23 @@ def detect(
         ))
         fig_idx += 1
 
-    # Build a map from XML element → python-docx paragraph to get clean text
-    # (elem.itertext() can include bookmark/field-code duplicates in Word docs).
-    _elem_to_docx_para = {dp._element: dp for dp in document.paragraphs}
+    for cap in captions:
+        if cap["fig_num"] not in used_captions:
+            p = para_by_text.get(cap["text"])
+            figures.append(Figure(
+                index=fig_idx,
+                figure_number=cap["fig_num"],
+                caption_text=cap["text"],
+                paragraph_index=p.index if p else 0,
+            ))
+            fig_idx += 1
+            used_captions.add(cap["fig_num"])
 
-    # Detect tables
+    # ── Table detection ───────────────────────────────────────────────────
+
+    _elem_to_docx_para = {dp._element: dp for dp in document.paragraphs}
+    non_table_paras = [p for p in paragraphs if not p.is_in_table]
+
     for tbl_idx, _tbl in enumerate(document.tables):
         tbl_caption: str | None = None
         tbl_num: int | None = None
@@ -82,7 +153,6 @@ def detect(
 
         for elem in [prev, next_elem]:
             if elem is not None and elem.tag.endswith("}p"):
-                # Use python-docx .text to avoid field-code/bookmark duplicates
                 dp = _elem_to_docx_para.get(elem)
                 text = dp.text.strip() if dp is not None else "".join(str(t) for t in elem.itertext()).strip()
                 m = _TBL_CAPTION.match(text)

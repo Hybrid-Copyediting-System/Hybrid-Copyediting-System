@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import re
+
 from ets_checker import ets_profile as p
 from ets_checker.models import CheckDetail, Locator, ParsedDocument
 from ets_checker.parser.sections import (
@@ -11,6 +13,8 @@ from ets_checker.rules.runner import register
 
 MAX_REPORTED = 20
 ABSTRACT_FALLBACK_PARAGRAPHS = 30
+
+_ONLY_PUNCT_OR_SPACE = re.compile(r"^[\s\W]+$", re.UNICODE)
 
 
 def _get_body_paragraph_indices(doc: ParsedDocument) -> set[int]:
@@ -64,14 +68,22 @@ def check_body_font(doc: ParsedDocument) -> list[CheckDetail]:
     expected_name, expected_size = p.FONT_BODY[0], p.FONT_BODY[1]
 
     count = 0
+    unresolved_size_runs = 0
+    total_body_runs = 0
     for para in doc.paragraphs:
         if para.index not in body_indices:
             continue
         for r in para.runs:
             if not r.text.strip():
                 continue
+            if _ONLY_PUNCT_OR_SPACE.match(r.text):
+                continue
+            total_body_runs += 1
             actual_font = r.font_name or "(unknown)"
             actual_size = r.font_size_pt
+
+            if actual_size is None:
+                unresolved_size_runs += 1
 
             font_mismatch = actual_font != "(unknown)" and actual_font != expected_name
             size_mismatch = actual_size is not None and abs(actual_size - expected_size) > 0.1
@@ -93,6 +105,18 @@ def check_body_font(doc: ParsedDocument) -> list[CheckDetail]:
             location="document",
             locator=Locator(kind="document"),
             message=f"... and {count - MAX_REPORTED} more font mismatches",
+        ))
+
+    if total_body_runs > 0 and unresolved_size_runs / total_body_runs > 0.5:
+        details.append(CheckDetail(
+            location="document",
+            locator=Locator(kind="document"),
+            message=(
+                f"Font size could not be determined for {unresolved_size_runs} of "
+                f"{total_body_runs} body text runs — size check may be incomplete"
+            ),
+            expected=f"{expected_size}pt",
+            actual="unresolvable (inherited from theme/template)",
         ))
 
     return details

@@ -11,7 +11,7 @@ CITATION_PAREN = re.compile(
 )
 
 PER_CITE = re.compile(
-    r"(?P<authors>.+?),\s*(?P<year>(?:19|20)\d{2}|n\.d\.)(?P<suffix>[a-z])?"
+    r"(?P<authors>.+?),?\s*(?P<year>(?:19|20)\d{2}|n\.d\.)(?!\d)(?P<suffix>[a-z])?"
     r"(?:,\s*pp?\.\s*[\d\-–,\s]+)?",
     re.UNICODE,
 )
@@ -22,7 +22,11 @@ PER_CITE = re.compile(
 # by a delimiter (BOS, whitespace, or punctuation), not by another letter.
 # Include U+2019 (RIGHT SINGLE QUOTATION MARK) used by Word smart-quotes
 # so possessives like "Vygotsky’s" are captured as a single token.
-_NAME = r"(?:[A-Z][\w\-'’]*|(?<![一-鿿\w])[一-鿿]{1,6}?)"
+_LATIN_EXT_UPPER = "ĀĆČĎĐĒĖĘĚĞĠĢĪİĶĹĻĽŁŃŅŇŌŐŒŔŘŚŞŠŢŤŪŮŰŲŸŹŻŽ"
+_NAME = (
+    r"(?:[A-ZÀ-ÖØ-Þ" + _LATIN_EXT_UPPER + r"][\w\-’’]*"
+    r"|(?<![一-鿿\w])[一-鿿]{1,6}?)"
+)
 
 CITATION_NARRATIVE = re.compile(
     r"(?P<authors>"
@@ -105,13 +109,29 @@ def extract(
             # semicolons before applying PER_CITE so the delimiter never
             # bleeds into the next citation's author token.
             for segment in re.split(r"\s*[;；]\s*", body):
+                last_authors: list[str] = []
+                last_has_et_al = False
+                last_raw_author_text = ""
                 for cm in PER_CITE.finditer(segment):
                     authors, has_et_al = _normalise_authors(cm.group("authors"))
+                    if not authors and last_authors:
+                        authors = last_authors
+                        has_et_al = last_has_et_al
+                        suffix = cm.group("suffix")
+                        year = cm.group("year")
+                        raw = f"{last_raw_author_text}, {year}{suffix or ''}"
+                    else:
+                        last_authors = authors
+                        last_has_et_al = has_et_al
+                        last_raw_author_text = cm.group("authors").strip().rstrip(",")
+                        suffix = cm.group("suffix")
+                        year = cm.group("year")
+                        raw = cm.group(0).strip().rstrip(",")
                     results.append(Citation(
-                        raw_text=m.group(0),
+                        raw_text=raw,
                         authors=authors,
-                        year=cm.group("year"),
-                        year_suffix=cm.group("suffix"),
+                        year=year,
+                        year_suffix=suffix,
                         has_et_al=has_et_al,
                         citation_type="parenthetical",
                         paragraph_index=p.index,

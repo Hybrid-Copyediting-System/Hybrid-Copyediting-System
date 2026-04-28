@@ -3,10 +3,18 @@ from __future__ import annotations
 import re
 import unicodedata
 
-from ets_checker.models import CheckDetail, Locator, ParsedDocument
+from ets_checker.models import CheckDetail, Locator, ParsedDocument, Reference
 from ets_checker.rules.runner import register
 
 MAX_REPORTED = 20
+
+_AUTHOR_PART = re.compile(r"^(.+?)\s*[(（](?:(?:19|20)\d{2}|n\.d\.)")
+
+
+def _ref_is_single_author(ref: Reference) -> bool:
+    m = _AUTHOR_PART.match(ref.raw_text)
+    author_text = m.group(1) if m else ref.raw_text[:60]
+    return "&" not in author_text and " and " not in author_text
 
 # Minimum length for institutional-author prefix matching; avoids false positives
 # for very short surnames (e.g. "Li" matching "Lincoln").
@@ -83,12 +91,15 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
     # Surname-only index: norm_surname → [(year, suffix, ref_pos), ...]
     surname_index: dict[str, list[tuple[str, str, int]]] = {}
 
+    unparseable_refs: list[Reference] = []
     for pos, r in enumerate(doc.references):
         if r.first_author_surname and r.year:
             norm = _normalise_surname(r.first_author_surname)
             key = (norm, r.year, r.year_suffix or "")
             ref_index[key] = pos
             surname_index.setdefault(norm, []).append((r.year, r.year_suffix or "", pos))
+        elif r.parse_confidence < 0.5:
+            unparseable_refs.append(r)
 
     cited_keys: set[tuple[str, str, str]] = set()
     orphan_count = 0
@@ -110,33 +121,97 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
         # ── Year mismatch: same normalised surname, different year/suffix ─────
         if cite_norm in surname_index:
             entries = surname_index[cite_norm]
-            # Report the first (and usually only) candidate; mark it as cited so
-            # it does not also appear in the "uncited references" list.
-            ref_year, ref_suffix, ref_pos = entries[0]
-            ref = doc.references[ref_pos]
-            ref_year_str = f"{ref_year}{ref_suffix}" if ref_suffix else ref_year
-            cite_year_str = f"{cite_year}{cite_suffix}" if cite_suffix else cite_year
-            cited_keys.add((cite_norm, ref_year, ref_suffix))
-            year_mismatch_count += 1
-            if year_mismatch_count <= MAX_REPORTED:
-                # Distinguish between a true year change vs only a letter-suffix change
-                if ref_year == cite_year:
-                    msg = (
-                        f"Citation year-suffix mismatch: '{c.raw_text}' cites {cite_year_str}, "
-                        f"but Reference #{ref.index} ({ref.first_author_surname}) has {ref_year_str}"
-                    )
-                else:
-                    msg = (
-                        f"Citation year mismatch: '{c.raw_text}' cites {cite_year_str}, "
-                        f"but Reference #{ref.index} ({ref.first_author_surname}) has {ref_year_str}"
-                    )
-                details.append(CheckDetail(
-                    location=f"paragraph {c.paragraph_index}",
-                    locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
-                    message=msg,
-                    excerpt=c.raw_text,
-                ))
-            continue
+            if len(entries) == 1:
+                ref_year, ref_suffix, ref_pos = entries[0]
+                ref = doc.references[ref_pos]
+                year_diff = abs(int(cite_year) - int(ref_year)) if cite_year.isdigit() and ref_year.isdigit() else 99
+                cite_is_multi = c.has_et_al or len(c.authors) > 1
+                authorship_mismatch = cite_is_multi == _ref_is_single_author(ref)
+                likely_different_person = (
+                    (year_diff >= 3 and authorship_mismatch)
+                    or year_diff > 5
+                )
+                if likely_different_person:
+                    orphan_count += 1
+                    if orphan_count <= MAX_REPORTED:
+                        details.append(CheckDetail(
+                            location=f"paragraph {c.paragraph_index}",
+                            locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
+                            message=f"Citation '{c.raw_text}' has no matching reference (a reference with surname '{ref.first_author_surname}' exists but appears to be a different author)",
+                            excerpt=c.raw_text,
+                        ))
+                    continue
+
+                ref_year_str = f"{ref_year}{ref_suffix}" if ref_suffix else ref_year
+                cite_year_str = f"{cite_year}{cite_suffix}" if cite_suffix else cite_year
+                cited_keys.add((cite_norm, ref_year, ref_suffix))
+                year_mismatch_count += 1
+                if year_mismatch_count <= MAX_REPORTED:
+                    if ref_year == cite_year:
+                        msg = (
+                            f"Citation year-suffix mismatch: '{c.raw_text}' cites {cite_year_str}, "
+                            f"but Reference #{ref.index} ({ref.first_author_surname}) has {ref_year_str}"
+                        )
+                    else:
+                        msg = (
+                            f"Citation year mismatch: '{c.raw_text}' cites {cite_year_str}, "
+                            f"but Reference #{ref.index} ({ref.first_author_surname}) has {ref_year_str}"
+                        )
+                    details.append(CheckDetail(
+                        location=f"paragraph {c.paragraph_index}",
+                        locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
+                        message=msg,
+                        excerpt=c.raw_text,
+                    ))
+                continue
+            else:
+                # Multiple references with same surname — find closest year
+                best_entry = min(
+                    entries,
+                    key=lambda e: abs(int(e[0]) - int(cite_year)) if e[0].isdigit() and cite_year.isdigit() else 99,
+                )
+                ref_year, ref_suffix, ref_pos = best_entry
+                ref = doc.references[ref_pos]
+                year_diff = abs(int(cite_year) - int(ref_year)) if cite_year.isdigit() and ref_year.isdigit() else 99
+                cite_is_multi = c.has_et_al or len(c.authors) > 1
+                authorship_mismatch = cite_is_multi == _ref_is_single_author(ref)
+                likely_different_person = (
+                    (year_diff >= 3 and authorship_mismatch)
+                    or year_diff > 5
+                )
+                if likely_different_person:
+                    orphan_count += 1
+                    if orphan_count <= MAX_REPORTED:
+                        details.append(CheckDetail(
+                            location=f"paragraph {c.paragraph_index}",
+                            locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
+                            message=f"Citation '{c.raw_text}' has no matching reference",
+                            excerpt=c.raw_text,
+                        ))
+                    continue
+
+                ref_year_str = f"{ref_year}{ref_suffix}" if ref_suffix else ref_year
+                cite_year_str = f"{cite_year}{cite_suffix}" if cite_suffix else cite_year
+                cited_keys.add((cite_norm, ref_year, ref_suffix))
+                year_mismatch_count += 1
+                if year_mismatch_count <= MAX_REPORTED:
+                    if ref_year == cite_year:
+                        msg = (
+                            f"Citation year-suffix mismatch: '{c.raw_text}' cites {cite_year_str}, "
+                            f"but Reference #{ref.index} ({ref.first_author_surname}) has {ref_year_str}"
+                        )
+                    else:
+                        msg = (
+                            f"Citation year mismatch: '{c.raw_text}' cites {cite_year_str}, "
+                            f"but Reference #{ref.index} ({ref.first_author_surname}) has {ref_year_str}"
+                        )
+                    details.append(CheckDetail(
+                        location=f"paragraph {c.paragraph_index}",
+                        locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
+                        message=msg,
+                        excerpt=c.raw_text,
+                    ))
+                continue
 
         # ── Institutional author prefix match ────────────────────────────────
         # e.g. "State Council (2017)" → "State Council of the People's Republic
@@ -216,6 +291,14 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
             location="document",
             locator=Locator(kind="document"),
             message=f"... and {uncited_count - MAX_REPORTED} more uncited references",
+        ))
+
+    for r in unparseable_refs:
+        details.append(CheckDetail(
+            location=f"Reference #{r.index}",
+            locator=Locator(kind="paragraph", paragraph_index=r.paragraph_index),
+            message="Reference could not be parsed (missing author or year)",
+            excerpt=r.raw_text[:200],
         ))
 
     return details
