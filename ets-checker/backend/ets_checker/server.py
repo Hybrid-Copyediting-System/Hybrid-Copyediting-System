@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import asyncio
+import json
 import os
 import tempfile
 from pathlib import Path
@@ -7,7 +9,7 @@ from urllib.parse import quote
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import Response
+from fastapi.responses import Response, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 
 from ets_checker.exporter import annotate
@@ -34,6 +36,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+def _sse(event: str, data: dict) -> str:
+    return f"event: {event}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n"
 
 
 @app.get("/api/health")
@@ -89,6 +95,62 @@ async def check(file: UploadFile = File(...)) -> CheckReport:
     finally:
         if os.path.exists(tmp_path):
             os.unlink(tmp_path)
+
+
+@app.post("/api/check/stream")
+async def check_stream(file: UploadFile = File(...)) -> StreamingResponse:
+    tmp_path, filename = await _validate_and_save(file)
+
+    async def generate():
+        runner_task: asyncio.Task[None] | None = None
+        try:
+            yield _sse("progress", {"phase": "parsing", "message": "Parsing document..."})
+
+            try:
+                parsed = parse(tmp_path)
+            except Exception as e:
+                yield _sse("error", {"message": f"Could not parse file: {e}"})
+                return
+
+            queue: asyncio.Queue[dict] = asyncio.Queue()
+
+            async def on_progress(event: dict) -> None:
+                await queue.put(event)
+
+            async def _run() -> None:
+                try:
+                    report = await run_async(parsed, filename, on_progress=on_progress)
+                    await queue.put({"_done": True, "report": report.model_dump(mode="json")})
+                except Exception as exc:
+                    await queue.put({"_done": True, "_error": str(exc)})
+
+            runner_task = asyncio.create_task(_run())
+
+            while True:
+                event = await queue.get()
+                if event.get("_done"):
+                    if "_error" in event:
+                        yield _sse("error", {"message": event["_error"]})
+                    else:
+                        yield _sse("complete", event["report"])
+                    return
+                yield _sse("progress", event)
+
+        finally:
+            # Cancel the background runner if the client disconnected early.
+            if runner_task is not None and not runner_task.done():
+                runner_task.cancel()
+            if os.path.exists(tmp_path):
+                os.unlink(tmp_path)
+
+    return StreamingResponse(
+        generate(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "X-Accel-Buffering": "no",
+        },
+    )
 
 
 @app.post("/api/check/annotated")

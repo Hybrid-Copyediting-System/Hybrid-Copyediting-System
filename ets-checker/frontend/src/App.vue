@@ -2,8 +2,9 @@
 import { ref, onMounted } from "vue";
 import { useTheme } from "vuetify";
 import type { CheckReport } from "./types";
+import type { ProgressEvent } from "./api";
 import {
-  checkDocument,
+  checkDocumentStreaming,
   downloadAnnotated,
   extractErrorMessage,
   healthCheck,
@@ -22,6 +23,7 @@ const annotatedLoading = ref(false);
 const errorMessage = ref("");
 const downloadError = ref("");
 const backendReady = ref(false);
+const progressEvent = ref<ProgressEvent | null>(null);
 const theme = useTheme();
 
 onMounted(async () => {
@@ -32,9 +34,12 @@ async function onFileSelected(file: File) {
   state.value = "loading";
   errorMessage.value = "";
   downloadError.value = "";
+  progressEvent.value = null;
   lastFile.value = file;
   try {
-    report.value = await checkDocument(file);
+    report.value = await checkDocumentStreaming(file, (evt) => {
+      progressEvent.value = evt;
+    });
     state.value = "report";
   } catch (err: unknown) {
     state.value = "error";
@@ -51,6 +56,7 @@ function reset() {
   lastFile.value = null;
   errorMessage.value = "";
   downloadError.value = "";
+  progressEvent.value = null;
 }
 
 async function downloadAnnotatedDocx() {
@@ -139,8 +145,8 @@ function getCategories(r: CheckReport): string[] {
           </v-card>
         </div>
 
-        <!-- Loading -->
-        <ProgressIndicator v-if="state === 'loading'" />
+        <!-- Loading with real-time progress -->
+        <ProgressIndicator v-if="state === 'loading'" :progress="progressEvent" />
 
         <!-- Error -->
         <div v-if="state === 'error'">

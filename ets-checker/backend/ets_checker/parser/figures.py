@@ -108,6 +108,7 @@ def detect(
         fig_num: int | None = None
         caption_text: str | None = None
         para_index = 0
+        caption_pos: str | None = None
 
         if cap is not None:
             fig_num = cap["fig_num"]
@@ -116,12 +117,17 @@ def detect(
             p = para_by_text.get(caption_text)
             if p is not None:
                 para_index = p.index
+            if cap["seq"] < img["seq"]:
+                caption_pos = "above"
+            elif cap["seq"] > img["seq"]:
+                caption_pos = "below"
 
         figures.append(Figure(
             index=fig_idx,
             figure_number=fig_num,
             caption_text=caption_text,
             paragraph_index=para_index,
+            caption_position=caption_pos,
         ))
         fig_idx += 1
 
@@ -146,12 +152,13 @@ def detect(
         tbl_caption: str | None = None
         tbl_num: int | None = None
         p_idx = 0
+        tbl_caption_pos: str | None = None
 
         tbl_elem = _tbl._element
         prev = tbl_elem.getprevious()
         next_elem = tbl_elem.getnext()
 
-        for elem in [prev, next_elem]:
+        for label, elem in [("above", prev), ("below", next_elem)]:
             if elem is not None and elem.tag.endswith("}p"):
                 dp = _elem_to_docx_para.get(elem)
                 text = dp.text.strip() if dp is not None else "".join(str(t) for t in elem.itertext()).strip()
@@ -159,6 +166,7 @@ def detect(
                 if m:
                     tbl_num = int(m.group(1))
                     tbl_caption = text
+                    tbl_caption_pos = label
                     break
 
         if tbl_caption:
@@ -172,6 +180,54 @@ def detect(
             table_number=tbl_num,
             caption_text=tbl_caption,
             paragraph_index=p_idx,
+            caption_position=tbl_caption_pos,
+            has_vertical_borders=_has_vertical_borders(tbl_elem),
         ))
 
     return figures, tables
+
+
+def _has_vertical_borders(tbl_element: object) -> bool:
+    """Check if a Word table has vertical borders at any level.
+
+    Checks three layers (table-level → style-name → cell-level) matching the
+    OOXML border-resolution chain described in the gap analysis.
+    """
+    from docx.oxml.ns import qn
+
+    def _border_active(parent: object, tag: str) -> bool:
+        bdr = parent.find(qn(tag))
+        if bdr is None:
+            return False
+        val = bdr.get(qn("w:val"))
+        return bool(val and val not in ("none", "nil"))
+
+    # Layer 1: table-level explicit borders
+    tbl_pr = tbl_element.find(qn("w:tblPr"))
+    if tbl_pr is not None:
+        tbl_borders = tbl_pr.find(qn("w:tblBorders"))
+        if tbl_borders is not None:
+            for tag in ["w:insideV", "w:left", "w:right"]:
+                if _border_active(tbl_borders, tag):
+                    return True
+
+        # Layer 2: known grid-type styles whose definitions include vertical borders
+        tbl_style = tbl_pr.find(qn("w:tblStyle"))
+        if tbl_style is not None:
+            style_id = tbl_style.get(qn("w:val")) or ""
+            if "Grid" in style_id:
+                return True
+
+    # Layer 3: cell-level borders — catches manual per-cell formatting
+    for tc in tbl_element.iter(qn("w:tc")):
+        tc_pr = tc.find(qn("w:tcPr"))
+        if tc_pr is None:
+            continue
+        tc_borders = tc_pr.find(qn("w:tcBorders"))
+        if tc_borders is None:
+            continue
+        for tag in ["w:left", "w:right"]:
+            if _border_active(tc_borders, tag):
+                return True
+
+    return False

@@ -42,6 +42,49 @@ def _get_normal_style_line_spacing(document: DocxDocument) -> float | None:
     return None
 
 
+def _has_page_numbers(document: DocxDocument) -> bool:
+    """Check if any section header/footer contains a PAGE field code.
+
+    Scans default, first-page, and even-page headers/footers across all
+    document sections.
+    """
+    try:
+        from docx.oxml.ns import qn
+    except ImportError:
+        return False
+
+    def _scan_hf(hf: object) -> bool:
+        try:
+            if hf.is_linked_to_previous:
+                return False
+            for p in hf.paragraphs:
+                for instr in p._element.iter(qn("w:instrText")):
+                    if instr.text and "PAGE" in instr.text.upper():
+                        return True
+        except Exception:
+            pass
+        return False
+
+    for section in document.sections:
+        if _scan_hf(section.header) or _scan_hf(section.footer):
+            return True
+        try:
+            if section.different_first_page_header_footer:
+                if (_scan_hf(section.first_page_header)
+                        or _scan_hf(section.first_page_footer)):
+                    return True
+        except (AttributeError, Exception):
+            pass
+        try:
+            if (_scan_hf(section.even_page_header)
+                    or _scan_hf(section.even_page_footer)):
+                return True
+        except (AttributeError, Exception):
+            pass
+
+    return False
+
+
 def extract(document: DocxDocument) -> DocumentMetadata:
     if not document.sections:
         return DocumentMetadata(
@@ -65,4 +108,5 @@ def extract(document: DocxDocument) -> DocumentMetadata:
         margin_left_cm=round(ml / EMU_PER_CM, 4),
         margin_right_cm=round(mr / EMU_PER_CM, 4),
         default_line_spacing=_get_normal_style_line_spacing(document),
+        has_page_numbers=_has_page_numbers(document),
     )

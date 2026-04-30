@@ -22,8 +22,10 @@ _CANONICAL_HEADINGS = {
     "acknowledgement", "acknowledgements",
     "literature review", "background", "related work",
     "theoretical framework", "implications", "limitations",
+    "appendix", "appendices",
     "摘要", "關鍵詞", "關鍵字", "引言", "緒論", "前言",
     "方法", "研究方法", "結果", "討論", "結論", "參考文獻", "致謝",
+    "附錄",
 }
 
 ABSTRACT_TITLES = {"abstract", "摘要", "摘 要"}
@@ -91,7 +93,11 @@ def _infer_level_from_font(p: Paragraph) -> int:
 
 def _is_canonical_heading(text: str) -> bool:
     cleaned = _normalise_title(re.sub(r"^\d+(\.\d+)*\.?\s*", "", text.strip()))
-    return cleaned in _CANONICAL_HEADINGS
+    if cleaned in _CANONICAL_HEADINGS:
+        return True
+    # Match "Appendix A: ..." style — first word is the canonical keyword
+    first_word = cleaned.split()[0] if cleaned.split() else ""
+    return first_word in _CANONICAL_HEADINGS
 
 
 def detect(paragraphs: list[Paragraph]) -> list[Section]:

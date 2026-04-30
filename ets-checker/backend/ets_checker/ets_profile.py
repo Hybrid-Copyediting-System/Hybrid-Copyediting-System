@@ -30,6 +30,8 @@ REQUIRED_SECTIONS = ["Abstract", "Introduction", "References"]
 # ─── Citation / Reference ──────────────────────────────────────────────
 ET_AL_THRESHOLD = 3
 REFERENCE_LIST_TITLES = ["References", "Reference List", "參考文獻", "參考書目"]
+REFERENCE_HANGING_INDENT_CM = 1.27
+REFERENCE_INDENT_TOLERANCE_CM = 0.15
 
 # ─── Figures / Tables ──────────────────────────────────────────────────
 CAPTION_POSITION_FIGURE = "above"

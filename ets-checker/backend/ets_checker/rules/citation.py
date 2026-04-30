@@ -3,6 +3,7 @@ from __future__ import annotations
 import re
 import unicodedata
 
+from ets_checker import ets_profile as P
 from ets_checker.models import CheckDetail, Locator, ParsedDocument, Reference
 from ets_checker.rules.runner import register
 
@@ -31,11 +32,10 @@ _MIN_SUFFIX_LEN = 4
 _STRIP_RE = re.compile(r"[\s\-'" + chr(0x2018) + chr(0x2019) + r"]")
 
 
-def _normalise_surname(s: str) -> str:
-    # NFD decomposition strips combining diacritics (e.g. Bašić→Basic, Pérez→Perez)
+def normalise_surname(s: str) -> str:
+    """Normalise a surname for comparison: strip diacritics, hyphens, apostrophes."""
     s = unicodedata.normalize("NFD", s)
     s = "".join(c for c in s if unicodedata.category(c) != "Mn")
-    # Turkish dotless-i (U+0131) is a base letter not handled by NFD; map to plain i
     s = s.replace("ı", "i")
     return _STRIP_RE.sub("", s).lower()
 
@@ -82,6 +82,49 @@ def _find_suffix_match(
     return None
 
 
+def _damerau_levenshtein(s: str, t: str) -> int:
+    """Optimal string alignment distance (handles transpositions as single edits)."""
+    m, n = len(s), len(t)
+    d = [[0] * (n + 1) for _ in range(m + 1)]
+    for i in range(m + 1):
+        d[i][0] = i
+    for j in range(n + 1):
+        d[0][j] = j
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            cost = 0 if s[i - 1] == t[j - 1] else 1
+            d[i][j] = min(
+                d[i - 1][j] + 1,
+                d[i][j - 1] + 1,
+                d[i - 1][j - 1] + cost,
+            )
+            if i > 1 and j > 1 and s[i - 1] == t[j - 2] and s[i - 2] == t[j - 1]:
+                d[i][j] = min(d[i][j], d[i - 2][j - 2] + cost)
+    return d[m][n]
+
+
+def _find_near_miss(
+    cite_norm: str,
+    cite_year: str,
+    cite_suffix: str,
+    surname_index: dict[str, list[tuple[str, str, int]]],
+) -> tuple[str, int] | None:
+    """Return (ref_norm, ref_pos) when a reference surname has DL-distance ≤ 1
+    from cite_norm AND shares the same year+suffix — a likely author name typo.
+    Requires cite_norm ≥ 3 chars to avoid spurious matches on very short names.
+    """
+    if len(cite_norm) < 3:
+        return None
+    for ref_norm, entries in surname_index.items():
+        if ref_norm == cite_norm:
+            continue
+        if _damerau_levenshtein(cite_norm, ref_norm) <= 1:
+            for ref_year, ref_suffix, ref_pos in entries:
+                if ref_year == cite_year and ref_suffix == cite_suffix:
+                    return ref_norm, ref_pos
+    return None
+
+
 @register("citation.cross_reference", "Citation", "Citation–reference cross-check", "error")
 def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
     details: list[CheckDetail] = []
@@ -94,7 +137,7 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
     unparseable_refs: list[Reference] = []
     for pos, r in enumerate(doc.references):
         if r.first_author_surname and r.year:
-            norm = _normalise_surname(r.first_author_surname)
+            norm = normalise_surname(r.first_author_surname)
             key = (norm, r.year, r.year_suffix or "")
             ref_index[key] = pos
             surname_index.setdefault(norm, []).append((r.year, r.year_suffix or "", pos))
@@ -109,7 +152,7 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
     for c in doc.citations:
         if not c.authors:
             continue
-        cite_norm = _normalise_surname(c.authors[0])
+        cite_norm = normalise_surname(c.authors[0])
         cite_year = c.year
         cite_suffix = c.year_suffix or ""
         key = (cite_norm, cite_year, cite_suffix)
@@ -185,7 +228,7 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
                         details.append(CheckDetail(
                             location=f"paragraph {c.paragraph_index}",
                             locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
-                            message=f"Citation '{c.raw_text}' has no matching reference",
+                            message=f"Citation '{c.raw_text}' has no matching reference (a reference with surname '{ref.first_author_surname}' exists but appears to be a different author)",
                             excerpt=c.raw_text,
                         ))
                     continue
@@ -239,6 +282,26 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
                         f"Surname inconsistency: '{c.raw_text}' cites '{c.authors[0]}', "
                         f"but Reference #{ref.index} lists '{ref.first_author_surname}' — "
                         f"verify the multi-word surname is used consistently in citation and reference"
+                    ),
+                    excerpt=c.raw_text,
+                ))
+            continue
+
+        # ── Near-miss surname (likely spelling/transposition error) ─────────
+        near_hit = _find_near_miss(cite_norm, cite_year, cite_suffix, surname_index)
+        if near_hit is not None:
+            ref_norm, near_pos = near_hit
+            ref = doc.references[near_pos]
+            cited_keys.add((ref_norm, cite_year, cite_suffix))
+            surname_mismatch_count += 1
+            if surname_mismatch_count <= MAX_REPORTED:
+                details.append(CheckDetail(
+                    location=f"paragraph {c.paragraph_index}",
+                    locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
+                    message=(
+                        f"Possible spelling error: Citation '{c.raw_text}' may refer to "
+                        f"Reference #{ref.index} ('{ref.first_author_surname}', {cite_year}) — "
+                        f"check the author surname spelling"
                     ),
                     excerpt=c.raw_text,
                 ))
@@ -299,6 +362,99 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
             locator=Locator(kind="paragraph", paragraph_index=r.paragraph_index),
             message="Reference could not be parsed (missing author or year)",
             excerpt=r.raw_text[:200],
+        ))
+
+    return details
+
+
+# ── Item 8: et al. usage ────────────────────────────────────────────
+
+@register("citation.et_al_usage", "Citation", "Et al. usage check (APA 7th)", "warning")
+def check_et_al_usage(doc: ParsedDocument) -> list[CheckDetail]:
+    details: list[CheckDetail] = []
+    threshold = P.ET_AL_THRESHOLD
+
+    ref_index: dict[tuple[str, str, str], Reference] = {}
+    surname_index: dict[str, list[Reference]] = {}
+    for r in doc.references:
+        if r.first_author_surname and r.year:
+            norm = normalise_surname(r.first_author_surname)
+            key = (norm, r.year, r.year_suffix or "")
+            ref_index[key] = r
+            surname_index.setdefault(norm, []).append(r)
+
+    issue_count = 0
+    # Track already-reported (norm_surname, year, has_et_al) to avoid duplicate
+    # messages for the same citation pattern appearing multiple times in text.
+    reported: set[tuple[str, str, bool]] = set()
+
+    for c in doc.citations:
+        if not c.authors:
+            continue
+        cite_norm = normalise_surname(c.authors[0])
+        key = (cite_norm, c.year, c.year_suffix or "")
+
+        dedup_key = (cite_norm, c.year, c.has_et_al)
+        if dedup_key in reported:
+            continue
+
+        ref = ref_index.get(key)
+        if ref is None:
+            if cite_norm in surname_index:
+                entries = surname_index[cite_norm]
+                ref = min(
+                    entries,
+                    key=lambda e: abs(int(e.year) - int(c.year))
+                    if e.year and e.year.isdigit() and c.year.isdigit()
+                    else 99,
+                )
+            else:
+                continue
+
+        if ref.author_count is None:
+            continue
+
+        if c.has_et_al and ref.author_count < threshold:
+            reported.add(dedup_key)
+            issue_count += 1
+            if issue_count <= MAX_REPORTED:
+                details.append(CheckDetail(
+                    location=f"paragraph {c.paragraph_index}",
+                    locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
+                    message=(
+                        f"Citation '{c.raw_text}' uses 'et al.' but Reference #{ref.index} "
+                        f"({ref.first_author_surname}, {ref.year}) has only "
+                        f"{ref.author_count} author(s); list all authors "
+                        f"when there are fewer than {threshold}"
+                    ),
+                    expected=f"all {ref.author_count} author(s) listed",
+                    actual="et al.",
+                    excerpt=c.raw_text,
+                ))
+
+        elif not c.has_et_al and len(c.authors) <= 2 and ref.author_count >= threshold:
+            reported.add(dedup_key)
+            issue_count += 1
+            if issue_count <= MAX_REPORTED:
+                details.append(CheckDetail(
+                    location=f"paragraph {c.paragraph_index}",
+                    locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
+                    message=(
+                        f"Citation '{c.raw_text}' should use 'et al.' — Reference #{ref.index} "
+                        f"({ref.first_author_surname}, {ref.year}) has "
+                        f"{ref.author_count} authors (APA 7th: use et al. for "
+                        f"{threshold}+ authors)"
+                    ),
+                    expected=f"{ref.first_author_surname} et al.",
+                    actual=c.raw_text,
+                    excerpt=c.raw_text,
+                ))
+
+    if issue_count > MAX_REPORTED:
+        details.append(CheckDetail(
+            location="document",
+            locator=Locator(kind="document"),
+            message=f"... and {issue_count - MAX_REPORTED} more et al. usage issues",
         ))
 
     return details

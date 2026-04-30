@@ -55,13 +55,8 @@ def check_line_spacing(doc: ParsedDocument) -> list[CheckDetail]:
             if para.line_spacing is not None and not para.is_in_table
         ]
         if not per_para_spacings:
-            details.append(CheckDetail(
-                location="document",
-                locator=Locator(kind="document"),
-                message="Line spacing could not be determined from document or paragraph styles",
-                expected=p.LINE_SPACING,
-                actual=None,
-            ))
+            # No explicit spacing set anywhere: Word uses its built-in default
+            # (single-line = 1.0), which meets the ET&S requirement.
             return details
         from statistics import mode
         try:
@@ -84,5 +79,23 @@ def check_line_spacing(doc: ParsedDocument) -> list[CheckDetail]:
             message=f"Default line spacing does not match ET&S ({p.LINE_SPACING})",
             expected=p.LINE_SPACING,
             actual=round(doc.metadata.default_line_spacing, 2),
+        ))
+    return details
+
+
+# ── Item 11: Page numbers ────────────────────────────────────────────
+
+@register("layout.page_numbers", "Layout", "Page number check", "info")
+def check_page_numbers(doc: ParsedDocument) -> list[CheckDetail]:
+    details: list[CheckDetail] = []
+    if doc.metadata.has_page_numbers is False:
+        details.append(CheckDetail(
+            location="document",
+            locator=Locator(kind="document"),
+            message=(
+                "No page numbers detected in headers/footers; "
+                "APA 7th recommends page numbers in the top-right header "
+                "(note: some journals add page numbers during typesetting)"
+            ),
         ))
     return details

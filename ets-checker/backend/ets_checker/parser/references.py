@@ -61,6 +61,63 @@ REF_AUTHOR_YEAR = re.compile(
     re.UNICODE,
 )
 
+_GENERATIONAL_SUFFIX = re.compile(r",?\s*(?:Jr|Sr|III?|IV|V)\.", re.IGNORECASE)
+
+# Detects APA initial groups: ", X." or ", X. Y." or ", X.-Y."
+_HAS_INITIALS = re.compile(r",\s*[A-Z]\.")
+
+# Matches " & " used as an APA author separator — requires surrounding
+# whitespace (or preceding period) to distinguish from "&" embedded in an
+# institutional name (e.g. "Science & Technology").
+_APA_AMPERSAND = re.compile(r"(?:\.|,)\s*&\s+")
+
+
+def _count_authors(author_text: str) -> int | None:
+    """Estimate author count from an APA reference author block.
+
+    Each author contributes a "Surname, X." or "Surname, X. Y." block.
+    Blocks are separated by "., " (period + comma + space).
+    """
+    if not author_text or not author_text.strip():
+        return None
+
+    cleaned = re.sub(r"\(Eds?\.\)", "", author_text)
+    cleaned = _GENERATIONAL_SUFFIX.sub("", cleaned).strip()
+
+    # Primary strategy: split on ". ," boundary between author blocks.
+    parts = re.split(r"\.\s*,\s*", cleaned)
+    parts = [p for p in parts if p.strip()]
+    if not parts:
+        return None
+
+    has_initials = any(re.search(r"[A-Z]\.", p) for p in parts)
+    if has_initials:
+        return len(parts)
+
+    # No initials found — likely institutional / CJK authors.
+    # Use APA-style ampersand (requires preceding period/comma + space around &)
+    # to distinguish author separators from "&" within organisation names.
+    if _APA_AMPERSAND.search(author_text):
+        return _APA_AMPERSAND.split(author_text).__len__()
+
+    # Standalone "&" / "and" — only count if the text also contains a comma that
+    # looks like an author separator (to avoid miscounting "Science & Technology").
+    if ("&" in author_text or " and " in author_text.lower()) and _HAS_INITIALS.search(author_text):
+        separators = len(re.findall(r"&|\band\b", author_text, re.IGNORECASE))
+        return separators + 1
+
+    # CJK enumeration comma separator
+    if "、" in author_text:
+        cjk_parts = author_text.split("、")
+        return len([p for p in cjk_parts if p.strip()])
+
+    # Chinese full-width comma separator (e.g. "王小明，李大明")
+    if "，" in author_text and any("一" <= c <= "鿿" for c in author_text):
+        cjk_parts = re.split(r"[，、]", author_text)
+        return len([p for p in cjk_parts if p.strip()])
+
+    return 1
+
 REF_FIRST_AUTHOR = re.compile(
     r"^(?P<surname>[^\W\d_][\w\-' ]*?)\.?\s*(?:[,.]|$)",
     re.UNICODE,
@@ -103,6 +160,8 @@ def extract(
         first_author: str | None = None
         confidence = 0.2
 
+        author_count: int | None = None
+
         if m:
             year = m.group("year")
             year_suffix = m.group("suffix")
@@ -110,6 +169,7 @@ def extract(
             # REF_FIRST_AUTHOR can match institutional names like
             # "State Council of the People's Republic of China"
             author_text = m.group("authors").strip().replace('‘', "'").replace('’', "'")
+            author_count = _count_authors(author_text)
             am = REF_FIRST_AUTHOR.match(author_text)
             if am:
                 first_author = am.group("surname").strip()
@@ -153,6 +213,7 @@ def extract(
             paragraph_index=p.index,
             doi=doi,
             urls=urls,
+            author_count=author_count,
         ))
 
     return results

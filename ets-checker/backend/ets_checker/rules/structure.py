@@ -4,7 +4,12 @@ import re
 
 from ets_checker import ets_profile as p
 from ets_checker.models import CheckDetail, Locator, ParsedDocument
-from ets_checker.parser.sections import INLINE_ABSTRACT_PREFIX, KEYWORDS_PREFIX, is_abstract_title
+from ets_checker.parser.sections import (
+    INLINE_ABSTRACT_PREFIX,
+    KEYWORDS_PREFIX,
+    is_abstract_title,
+    is_reference_title,
+)
 from ets_checker.rules.runner import register
 
 ABSTRACT_FALLBACK_PARAGRAPHS = 30
@@ -125,6 +130,63 @@ def check_keywords_count(doc: ParsedDocument) -> list[CheckDetail]:
             message=f"Too many keywords (max {p.KEYWORDS_MAX_COUNT})",
             expected=f"≤ {p.KEYWORDS_MAX_COUNT}",
             actual=str(len(keywords)),
+        ))
+
+    return details
+
+
+_INTRODUCTION_ALIASES = {
+    "introduction", "引言", "緒論", "前言",
+    "background", "literature review",
+}
+
+_TRAILING_PUNCT = re.compile(r"[\s:：.。\-—–]+$")
+_LEADING_NUMBERS = re.compile(r"^\d+(\.\d+)*\.?\s*")
+
+
+def _normalise_section_title(title: str) -> str:
+    cleaned = _LEADING_NUMBERS.sub("", title.strip())
+    return _TRAILING_PUNCT.sub("", cleaned.lower())
+
+
+@register("structure.required_sections", "Structure", "Required sections check", "error")
+def check_required_sections(doc: ParsedDocument) -> list[CheckDetail]:
+    details: list[CheckDetail] = []
+    found_abstract = False
+    found_introduction = False
+    found_references = False
+
+    for s in doc.sections:
+        if is_abstract_title(s.title):
+            found_abstract = True
+        if _normalise_section_title(s.title) in _INTRODUCTION_ALIASES:
+            found_introduction = True
+        if is_reference_title(s.title):
+            found_references = True
+
+    if not found_abstract:
+        details.append(CheckDetail(
+            location="document",
+            locator=Locator(kind="document"),
+            message="Missing required section: Abstract",
+            expected="Abstract section present",
+            actual="not found",
+        ))
+    if not found_introduction:
+        details.append(CheckDetail(
+            location="document",
+            locator=Locator(kind="document"),
+            message="Missing required section: Introduction",
+            expected="Introduction section present (or equivalent: Background, Literature Review)",
+            actual="not found",
+        ))
+    if not found_references:
+        details.append(CheckDetail(
+            location="document",
+            locator=Locator(kind="document"),
+            message="Missing required section: References",
+            expected="References section present",
+            actual="not found",
         ))
 
     return details

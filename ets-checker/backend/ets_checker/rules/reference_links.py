@@ -1,15 +1,18 @@
 from __future__ import annotations
 
 import asyncio
+import random
 
 import httpx
 
 from ets_checker.models import CheckDetail, Locator, ParsedDocument, Reference
-from ets_checker.rules.runner import register_async
+from ets_checker.rules.runner import get_link_progress, register_async
 
 TIMEOUT = 10.0
 CONCURRENCY = 5
 MAX_REPORTED = 20
+MAX_RETRIES = 3
+RETRY_BASE_DELAY = 1.0  # seconds; doubled on each subsequent attempt
 
 
 async def _check_url(
@@ -17,35 +20,43 @@ async def _check_url(
     client: httpx.AsyncClient,
     sem: asyncio.Semaphore,
 ) -> tuple[str, str | None]:
-    """Return (url, error_message). error_message is None when the link is OK."""
-    async with sem:
-        try:
-            resp = await client.head(url)
-            if resp.status_code == 405:
-                resp = await client.get(url)
-            code = resp.status_code
-            if code in (404, 410):
-                return url, f"HTTP {code} - page not found"
-            # 403/429/5xx: access restricted or server-side blocking (common for
-            # publisher sites that block automated requests). Cannot confirm broken.
-            return url, None
-        except httpx.TimeoutException:
-            return url, "request timed out"
-        except httpx.ConnectError:
-            return url, "could not connect"
-        except Exception as exc:
-            msg = str(exc)
-            # Decompression failures (Zstandard, gzip truncation, etc.) mean the
-            # server responded — it's reachable, just using an encoding httpx
-            # couldn't fully decode (common with CDN-served academic sites).
-            if any(k in msg for k in ("Zstandard", "zstd", "decompress", "Decompress")):
+    """Return (url, error_message). Retries transient failures with exponential backoff.
+
+    The semaphore is acquired per-attempt so the slot is free during sleep between retries.
+    """
+    last_error: str | None = None
+    for attempt in range(MAX_RETRIES):
+        async with sem:
+            try:
+                resp = await client.head(url)
+                if resp.status_code == 405:
+                    resp = await client.get(url)
+                code = resp.status_code
+                if code in (404, 410):
+                    return url, f"HTTP {code} - page not found"
+                # 403/429/5xx: access restricted or server-side blocking (common for
+                # publisher sites that block automated requests). Cannot confirm broken.
                 return url, None
-            return url, f"error: {msg[:60]}"
+            except httpx.TimeoutException:
+                last_error = "request timed out"
+            except httpx.ConnectError:
+                last_error = "could not connect"
+            except Exception as exc:
+                msg = str(exc)
+                # Decompression failures mean the server responded — reachable.
+                if any(k in msg for k in ("Zstandard", "zstd", "decompress", "Decompress")):
+                    return url, None
+                return url, f"error: {msg[:60]}"  # unknown error; don't retry
+
+        if attempt < MAX_RETRIES - 1:
+            delay = RETRY_BASE_DELAY * (2 ** attempt) + random.uniform(0.0, 0.5)
+            await asyncio.sleep(delay)
+
+    return url, last_error
 
 
 @register_async("reference.links", "Reference", "Reference link check", "warning")
 async def check_reference_links(doc: ParsedDocument) -> list[CheckDetail]:
-    # Build (ref, canonical_url, label) for every link found in references
     tasks: list[tuple[Reference, str, str]] = []
     for ref in doc.references:
         if ref.doi:
@@ -56,14 +67,26 @@ async def check_reference_links(doc: ParsedDocument) -> list[CheckDetail]:
     if not tasks:
         return []
 
+    total = len(tasks)
+    completed = [0]  # single-element list avoids nonlocal in nested async def
+    on_link_progress = get_link_progress()
     sem = asyncio.Semaphore(CONCURRENCY)
+
     async with httpx.AsyncClient(
         follow_redirects=True,
         timeout=TIMEOUT,
         headers={"User-Agent": "Mozilla/5.0 (compatible) ETS-Checker/1.0"},
     ) as client:
+
+        async def _check_and_count(url: str) -> tuple[str, str | None]:
+            result = await _check_url(url, client, sem)
+            completed[0] += 1
+            if on_link_progress is not None:
+                await on_link_progress(completed[0], total)
+            return result
+
         outcomes = await asyncio.gather(
-            *[_check_url(url, client, sem) for _, url, _ in tasks]
+            *[_check_and_count(url) for _, url, _ in tasks]
         )
 
     details: list[CheckDetail] = []

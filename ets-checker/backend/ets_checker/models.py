@@ -23,6 +23,7 @@ class Paragraph(BaseModel):
     runs: list[Run]
     alignment: str | None
     indent_left_cm: float | None
+    indent_first_line_cm: float | None
     line_spacing: float | None
     is_in_table: bool
 
@@ -56,6 +57,7 @@ class Reference(BaseModel):
     paragraph_index: int
     doi: str | None = None
     urls: list[str] = []
+    author_count: int | None = None
 
 
 # ─── Figures / Tables ──────────────────────────────────────────────────
@@ -65,6 +67,7 @@ class Figure(BaseModel):
     figure_number: int | None
     caption_text: str | None
     paragraph_index: int
+    caption_position: str | None = None
 
 
 class Table(BaseModel):
@@ -72,6 +75,8 @@ class Table(BaseModel):
     table_number: int | None
     caption_text: str | None
     paragraph_index: int
+    caption_position: str | None = None
+    has_vertical_borders: bool | None = None
 
 
 # ─── Document container ────────────────────────────────────────────────
@@ -85,6 +90,7 @@ class DocumentMetadata(BaseModel):
     margin_left_cm: float
     margin_right_cm: float
     default_line_spacing: float | None
+    has_page_numbers: bool | None = None
 
 
 class ParsedDocument(BaseModel):

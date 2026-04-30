@@ -43,6 +43,14 @@ def _get_indent_left_cm(p: DocxParagraph) -> float | None:
     return None
 
 
+def _get_indent_first_line_cm(p: DocxParagraph) -> float | None:
+    pf = p.paragraph_format
+    val = pf.first_line_indent
+    if val is not None:
+        return round(int(val) / EMU_PER_CM, 4)
+    return None
+
+
 def _get_alignment(p: DocxParagraph) -> str | None:
     a = p.alignment
     if a is not None:
@@ -70,6 +78,23 @@ def _resolve_style_font(
     return font_name, font_size_pt
 
 
+def _resolve_style_italic(style: object) -> bool:
+    """Walk the paragraph style chain to find the inherited italic setting.
+
+    Returns the first explicit True/False found; if the entire chain has no
+    explicit setting, returns False (matching Word's document default).
+    """
+    s = style
+    while s is not None:
+        f = getattr(s, "font", None)
+        if f is not None:
+            italic = getattr(f, "italic", None)
+            if italic is not None:
+                return bool(italic)
+        s = getattr(s, "base_style", None)
+    return False
+
+
 def _build_paragraph(
     p: DocxParagraph,
     index: int,
@@ -80,19 +105,22 @@ def _build_paragraph(
     style_font_name, style_font_size_pt = _resolve_style_font(p.style)
     fallback_name = style_font_name or default_font_name
     fallback_size = style_font_size_pt or default_font_size_pt
+    style_italic = _resolve_style_italic(p.style)
 
     built_runs: list[Run] = []
     for r in p.runs:
         run = _build_run(r)
         resolved_name = run.font_name if run.font_name is not None else fallback_name
         resolved_size = run.font_size_pt if run.font_size_pt is not None else fallback_size
-        if resolved_name != run.font_name or resolved_size != run.font_size_pt:
+        # Resolve italic: explicit run value > paragraph style chain > False
+        resolved_italic = run.italic if run.italic is not None else style_italic
+        if resolved_name != run.font_name or resolved_size != run.font_size_pt or resolved_italic != run.italic:
             run = Run(
                 text=run.text,
                 font_name=resolved_name,
                 font_size_pt=resolved_size,
                 bold=run.bold,
-                italic=run.italic,
+                italic=resolved_italic,
             )
         built_runs.append(run)
 
@@ -103,6 +131,7 @@ def _build_paragraph(
         runs=built_runs,
         alignment=_get_alignment(p),
         indent_left_cm=_get_indent_left_cm(p),
+        indent_first_line_cm=_get_indent_first_line_cm(p),
         line_spacing=_get_line_spacing(p),
         is_in_table=is_in_table,
     )
