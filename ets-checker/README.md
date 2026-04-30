@@ -32,7 +32,7 @@ npm run dev                        # → http://localhost:5173
 
 Open <http://localhost:5173>. Vite proxies `/api/*` to `http://localhost:8080`.
 
-## Rules (9)
+## Rules (22)
 
 The `ets_profile.py` module hard-codes ET&S APA 7th expectations
 (A4, 2.5 cm margins, single line spacing, Times New Roman 10 pt body, etc.).
@@ -40,15 +40,28 @@ Each rule is registered via a decorator in `backend/ets_checker/rules/`.
 
 | Rule ID                              | Category         | Severity | Notes |
 |--------------------------------------|------------------|----------|-------|
-| `layout.margins`                     | Layout           | error    | All four margins vs. ET&S profile |
-| `layout.line_spacing`                | Layout           | error    | Document default line spacing |
+| `layout.paper_size`                  | Layout           | error    | Paper size must be A4 (21 × 29.7 cm) |
+| `layout.margins`                     | Layout           | error    | All four margins vs. ET&S profile (2.5 cm) |
+| `layout.line_spacing`                | Layout           | error    | Document default line spacing must be 1.0 |
+| `layout.page_numbers`                | Layout           | info     | Page numbers presence check |
 | `font.body`                          | Fonts            | warning  | Body runs vs. Times New Roman 10 pt |
+| `font.stat_italic`                   | Fonts            | warning  | Statistical symbols (p, F, t, etc.) must be italic |
+| `font.abstract`                      | Fonts            | warning  | Abstract runs vs. Times New Roman 10 pt italic (ET&S) |
+| `font.heading`                       | Fonts            | warning  | Heading fonts vs. ET&S profile |
+| `font.reference`                     | Fonts            | warning  | Reference list runs vs. Times New Roman 9 pt |
+| `font.title`                         | Fonts            | warning  | Title run vs. Times New Roman 14 pt bold |
 | `structure.abstract_length`          | Structure        | warning  | ≤ 250 words (CJK + Latin word count) |
 | `structure.keywords_count`           | Structure        | warning  | ≤ 5 keywords |
+| `structure.required_sections`        | Structure        | error    | Abstract, Introduction, and References must all be present |
 | `citation.cross_reference`           | Citation         | error    | Orphans, year mismatches, surname inconsistencies, uncited refs |
+| `citation.et_al_usage`               | Citation         | warning  | "et al." used only when ≥ 3 authors (APA 7th) |
 | `reference.no_et_al`                 | Reference        | error    | The reference list must spell out all authors |
+| `reference.alphabetical_order`       | Reference        | warning  | Reference entries must be in alphabetical order |
+| `reference.hanging_indent`           | Reference        | warning  | Each reference entry must use a hanging indent (1.27 cm) |
 | `reference.links`                    | Reference        | warning  | Async DOI / URL liveness check (HEAD, then GET on 405) |
 | `figures_tables.referenced_in_text`  | Figures & Tables | warning  | Defined-but-uncited and cited-but-undefined figures and tables |
+| `figures_tables.caption_position`    | Figures & Tables | info     | Captions must appear above figures and tables (ET&S) |
+| `figures_tables.table_format`        | Figures & Tables | warning  | Tables must not use vertical borders |
 
 `reference.links` is the only async rule; it runs concurrently (5-way semaphore,
 10 s timeout) via `httpx`. Soft failures (403/429/5xx, decompression errors) are
@@ -60,9 +73,15 @@ ignored on purpose — only 404/410, timeouts, and connect errors are reported.
 |--------|--------------------------|-----------------------|---------|
 | GET    | `/api/health`            | —                     | `{"status": "ok"}` |
 | POST   | `/api/check`             | multipart `file=.docx`| `CheckReport` JSON (see `backend/ets_checker/models.py`) |
-| POST   | `/api/check/annotated`   | multipart `file=.docx`| Annotated `.docx` (`<original-stem>.annotated.docx`) |
+| POST   | `/api/check/stream`      | multipart `file=.docx`| `text/event-stream` — SSE progress events (`progress`, `complete`, `error`) |
+| POST   | `/api/check/annotated`   | multipart `file=.docx`; optional `report_json=<CheckReport JSON>`| Annotated `.docx` (`<original-stem>.annotated.docx`) |
 
 Upload limit: 50 MB. `.doc` is rejected with a "Save As .docx" hint.
+
+`/api/check/stream` sends named SSE events: `progress` events carry rule-by-rule
+status during processing (including per-link progress for `reference.links`); the
+final `complete` event carries the full `CheckReport` JSON; an `error` event is
+sent on failure.
 
 ### Annotated `.docx` export
 
@@ -70,6 +89,12 @@ Upload limit: 50 MB. `.doc` is rejected with a "Save As .docx" hint.
 native Word comment per failed `CheckDetail` and returns the new bytes. The
 original file is never modified. Anchoring is paragraph-level: document-level
 findings (margins, line spacing) attach to a synthetic anchor at the top.
+
+If a previously-obtained `CheckReport` JSON is passed as the `report_json` form
+field, the endpoint skips re-running the checks and injects comments directly from
+that report (saves a second parsing + rule-running pass when the frontend already
+has a report).
+
 Implementation lives in `backend/ets_checker/exporter/` — see
 `docs/annotated-docx-export.md` for the design rationale.
 
