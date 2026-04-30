@@ -15,7 +15,7 @@ services:
     ports:
       - "${ETS_PORT:-47823}:${ETS_PORT:-47823}"
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen(f'http://localhost:${ETS_PORT:-47823}/api/health', timeout=3).status==200 else 1)"]
+      test: ["CMD", "python", "-c", "import urllib.request,sys,os; p=os.environ.get('ETS_PORT','47823'); sys.exit(0 if urllib.request.urlopen(f'http://localhost:{p}/api/health',timeout=3).status==200 else 1)"]
       interval: 30s
       timeout: 5s
       retries: 3

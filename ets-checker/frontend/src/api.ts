@@ -71,15 +71,17 @@ export async function checkDocumentStreaming(
             if (!chunk.trim()) continue;
 
             let eventType = "message";
-            let dataStr = "";
+            const dataLines: string[] = [];
 
             for (const line of chunk.split("\n")) {
               if (line.startsWith("event: ")) {
                 eventType = line.slice(7).trim();
               } else if (line.startsWith("data: ")) {
-                dataStr = line.slice(6);
+                dataLines.push(line.slice(6));
               }
             }
+
+            const dataStr = dataLines.join("\n");
 
             if (!dataStr) continue;
 
@@ -118,9 +120,12 @@ export async function checkDocument(file: File): Promise<CheckReport> {
   return r.data;
 }
 
-export async function downloadAnnotated(file: File): Promise<Blob> {
+export async function downloadAnnotated(file: File, report?: CheckReport): Promise<Blob> {
   const fd = new FormData();
   fd.append("file", file);
+  if (report) {
+    fd.append("report_json", JSON.stringify(report));
+  }
   const r = await axios.post<Blob>("/api/check/annotated", fd, {
     responseType: "blob",
   });

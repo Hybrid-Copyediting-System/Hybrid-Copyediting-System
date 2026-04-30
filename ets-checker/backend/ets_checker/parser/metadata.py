@@ -58,9 +58,16 @@ def _has_page_numbers(document: DocxDocument) -> bool:
             if hf.is_linked_to_previous:
                 return False
             for p in hf.paragraphs:
-                for instr in p._element.iter(qn("w:instrText")):
+                el = p._element
+                for instr in el.iter(qn("w:instrText")):
                     if instr.text and "PAGE" in instr.text.upper():
                         return True
+                for fld in el.iter(qn("w:fldSimple")):
+                    instr_attr = fld.get(qn("w:instr")) or ""
+                    if "PAGE" in instr_attr.upper():
+                        return True
+                if el.find(f".//{qn('w:pgNum')}") is not None:
+                    return True
         except Exception:
             pass
         return False

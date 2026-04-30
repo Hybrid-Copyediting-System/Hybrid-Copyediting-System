@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import functools
 import re
 import unicodedata
 
@@ -82,6 +83,7 @@ def _find_suffix_match(
     return None
 
 
+@functools.lru_cache(maxsize=4096)
 def _damerau_levenshtein(s: str, t: str) -> int:
     """Optimal string alignment distance (handles transpositions as single edits)."""
     m, n = len(s), len(t)
@@ -123,6 +125,19 @@ def _find_near_miss(
                 if ref_year == cite_year and ref_suffix == cite_suffix:
                     return ref_norm, ref_pos
     return None
+
+
+def _year_diff(y1: str, y2: str) -> int:
+    """Compute year difference. n.d. vs numeric is treated as a moderate mismatch (2),
+    not an extreme one, so it triggers a year-mismatch warning rather than an orphan."""
+    if y1.isdigit() and y2.isdigit():
+        return abs(int(y1) - int(y2))
+    if y1 == y2:
+        return 0
+    # One is n.d. and the other is numeric — treat as moderate mismatch
+    if y1 == "n.d." or y2 == "n.d.":
+        return 2
+    return 99
 
 
 @register("citation.cross_reference", "Citation", "Citation–reference cross-check", "error")
@@ -167,7 +182,7 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
             if len(entries) == 1:
                 ref_year, ref_suffix, ref_pos = entries[0]
                 ref = doc.references[ref_pos]
-                year_diff = abs(int(cite_year) - int(ref_year)) if cite_year.isdigit() and ref_year.isdigit() else 99
+                year_diff = _year_diff(cite_year, ref_year)
                 cite_is_multi = c.has_et_al or len(c.authors) > 1
                 authorship_mismatch = cite_is_multi == _ref_is_single_author(ref)
                 likely_different_person = (
@@ -211,11 +226,11 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
                 # Multiple references with same surname — find closest year
                 best_entry = min(
                     entries,
-                    key=lambda e: abs(int(e[0]) - int(cite_year)) if e[0].isdigit() and cite_year.isdigit() else 99,
+                    key=lambda e: _year_diff(e[0], cite_year),
                 )
                 ref_year, ref_suffix, ref_pos = best_entry
                 ref = doc.references[ref_pos]
-                year_diff = abs(int(cite_year) - int(ref_year)) if cite_year.isdigit() and ref_year.isdigit() else 99
+                year_diff = _year_diff(cite_year, ref_year)
                 cite_is_multi = c.has_et_al or len(c.authors) > 1
                 authorship_mismatch = cite_is_multi == _ref_is_single_author(ref)
                 likely_different_person = (
@@ -404,9 +419,7 @@ def check_et_al_usage(doc: ParsedDocument) -> list[CheckDetail]:
                 entries = surname_index[cite_norm]
                 ref = min(
                     entries,
-                    key=lambda e: abs(int(e.year) - int(c.year))
-                    if e.year and e.year.isdigit() and c.year.isdigit()
-                    else 99,
+                    key=lambda e: _year_diff(e.year or "", c.year),
                 )
             else:
                 continue

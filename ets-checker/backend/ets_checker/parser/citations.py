@@ -23,9 +23,20 @@ PER_CITE = re.compile(
 # Include U+2019 (RIGHT SINGLE QUOTATION MARK) used by Word smart-quotes
 # so possessives like "Vygotsky’s" are captured as a single token.
 _LATIN_EXT_UPPER = "ĀĆČĎĐĒĖĘĚĞĠĢĪİĶĹĻĽŁŃŅŇŌŐŒŔŘŚŞŠŢŤŪŮŰŲŸŹŻŽ"
+# Comprehensive CJK ranges shared with structure.py and references.py:
+# Unified (U+4E00-U+9FFF), Extension A (U+3400-U+4DBF),
+# Compatibility Ideographs (U+F900-U+FAFF), Extension B (U+20000-U+2A6DF),
+# Extensions C-H (U+2A700-U+323AF).
+_CJK = (
+    "一-鿿"
+    "㐀-䶿"
+    "豈-﫿"
+    "\U00020000-\U0002A6DF"
+    "\U0002A700-\U000323AF"
+)
 _NAME = (
     r"(?:[A-ZÀ-ÖØ-Þ" + _LATIN_EXT_UPPER + r"][\w\-’’]*"
-    r"|(?<![一-鿿\w])[一-鿿]{1,6}?)"
+    + r"|(?<![" + _CJK + r"\w])[" + _CJK + r"]{1,6}?)"
 )
 
 CITATION_NARRATIVE = re.compile(
@@ -69,25 +80,19 @@ def _normalise_authors(text: str) -> tuple[list[str], bool]:
     return authors, has_et_al
 
 
-def _is_in_reference_section(
-    para_idx: int,
+def _compute_reference_bounds(
     sections: list[Section],
-) -> bool:
-    ref_start: int | None = None
-    next_section_start: int | None = None
+) -> tuple[int | None, int | None]:
     for i, s in enumerate(sections):
         if is_reference_title(s.title):
             ref_start = s.paragraph_index
+            next_start = None
             for j in range(i + 1, len(sections)):
                 if sections[j].level == 1:
-                    next_section_start = sections[j].paragraph_index
+                    next_start = sections[j].paragraph_index
                     break
-            break
-    if ref_start is None:
-        return False
-    if next_section_start is not None:
-        return ref_start <= para_idx < next_section_start
-    return para_idx >= ref_start
+            return ref_start, next_start
+    return None, None
 
 
 def extract(
@@ -96,9 +101,12 @@ def extract(
 ) -> list[Citation]:
     results: list[Citation] = []
 
+    ref_start, ref_end = _compute_reference_bounds(sections)
+
     for p in paragraphs:
-        if _is_in_reference_section(p.index, sections):
-            continue
+        if ref_start is not None and p.index >= ref_start:
+            if ref_end is None or p.index < ref_end:
+                continue
 
         # Parenthetical
         for m in CITATION_PAREN.finditer(p.text):

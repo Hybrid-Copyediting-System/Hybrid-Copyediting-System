@@ -20,6 +20,7 @@ FONT_BODY = ("Times New Roman", 10.0, False, False)
 FONT_ABSTRACT = ("Times New Roman", 10.0, False, True)
 FONT_HEADING_1 = ("Times New Roman", 12.0, True, False)
 FONT_HEADING_2 = ("Times New Roman", 10.0, True, False)
+FONT_HEADING_3 = ("Times New Roman", 10.0, True, True)
 FONT_REFERENCE = ("Times New Roman", 9.0, False, False)
 
 # ─── Structure ─────────────────────────────────────────────────────────

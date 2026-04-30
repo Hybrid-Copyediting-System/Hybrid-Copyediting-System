@@ -88,7 +88,20 @@ def _get_body_paragraph_indices(doc: ParsedDocument) -> set[int]:
                 abstract_end = para.index + 1
                 break
         if abstract_end is None:
-            abstract_end = abstract_start + ABSTRACT_FALLBACK_PARAGRAPHS + 1
+            max_idx = max((p.index for p in doc.paragraphs), default=abstract_start)
+            fallback_limit = abstract_start + ABSTRACT_FALLBACK_PARAGRAPHS + 1
+            next_heading = next(
+                (p.index for p in doc.paragraphs
+                 if p.index > abstract_start
+                 and p.index < fallback_limit
+                 and p.style_name is not None
+                 and ("heading" in p.style_name.lower() or "標題" in p.style_name)),
+                None,
+            )
+            abstract_end = min(
+                next_heading if next_heading is not None else fallback_limit,
+                max_idx + 1,
+            )
 
     # Paragraphs before the first detected section (title, authors, affiliations)
     # are front matter and should not be checked against body font rules.
@@ -114,6 +127,16 @@ def check_body_font(doc: ParsedDocument) -> list[CheckDetail]:
     details: list[CheckDetail] = []
     body_indices = _get_body_paragraph_indices(doc)
     expected_name, expected_size = p.FONT_BODY[0], p.FONT_BODY[1]
+
+    if not doc.sections:
+        details.append(CheckDetail(
+            location="document",
+            locator=Locator(kind="document"),
+            message=(
+                "No section headings detected — font check may include "
+                "title/author paragraphs and produce false positives"
+            ),
+        ))
 
     count = 0
     unresolved_size_runs = 0
@@ -281,7 +304,20 @@ def _get_abstract_paragraph_indices(doc: ParsedDocument) -> set[int]:
                 abstract_end = para.index
                 break
         if abstract_end is None:
-            abstract_end = abstract_start + ABSTRACT_FALLBACK_PARAGRAPHS + 1
+            max_idx = max((pa.index for pa in doc.paragraphs), default=abstract_start)
+            fallback_limit = abstract_start + ABSTRACT_FALLBACK_PARAGRAPHS + 1
+            next_heading = next(
+                (pa.index for pa in doc.paragraphs
+                 if pa.index > abstract_start
+                 and pa.index < fallback_limit
+                 and pa.style_name is not None
+                 and ("heading" in pa.style_name.lower() or "標題" in pa.style_name)),
+                None,
+            )
+            abstract_end = min(
+                next_heading if next_heading is not None else fallback_limit,
+                max_idx + 1,
+            )
 
     indices: set[int] = set()
 
@@ -389,6 +425,9 @@ def check_heading_font(doc: ParsedDocument) -> list[CheckDetail]:
         elif s.level == 2:
             exp_name, exp_size, exp_bold, exp_italic = p.FONT_HEADING_2
             level_label = "Heading 2"
+        elif s.level == 3:
+            exp_name, exp_size, exp_bold, exp_italic = p.FONT_HEADING_3
+            level_label = "Heading 3"
         else:
             continue
 

@@ -34,9 +34,12 @@ async def _check_url(
                 code = resp.status_code
                 if code in (404, 410):
                     return url, f"HTTP {code} - page not found"
-                # 403/429/5xx: access restricted or server-side blocking (common for
-                # publisher sites that block automated requests). Cannot confirm broken.
-                return url, None
+                if code >= 500:
+                    last_error = f"HTTP {code} - server error"
+                    # Retry on 5xx — may be transient
+                else:
+                    # 403/429/2xx/3xx: either accessible or bot-blocked
+                    return url, None
             except httpx.TimeoutException:
                 last_error = "request timed out"
             except httpx.ConnectError:

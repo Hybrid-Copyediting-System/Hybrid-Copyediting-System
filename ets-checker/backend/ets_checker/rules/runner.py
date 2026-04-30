@@ -13,12 +13,13 @@ from ets_checker.models import (
     ReportSummary,
 )
 
+Severity = Literal["error", "warning", "info"]
 RuleFunc = Callable[[ParsedDocument], list[CheckDetail]]
 AsyncRuleFunc = Callable[[ParsedDocument], Awaitable[list[CheckDetail]]]
 ProgressCallback = Callable[[dict], Awaitable[None]]
 
-_REGISTRY: list[tuple[str, str, str, str, RuleFunc]] = []
-_ASYNC_REGISTRY: list[tuple[str, str, str, str, AsyncRuleFunc]] = []
+_REGISTRY: list[tuple[str, str, str, Severity, RuleFunc]] = []
+_ASYNC_REGISTRY: list[tuple[str, str, str, Severity, AsyncRuleFunc]] = []
 
 # Threads a per-link progress callback into async rules without changing their signatures.
 _link_progress_var: contextvars.ContextVar[
@@ -34,7 +35,7 @@ def register(
     rule_id: str,
     category: str,
     name: str,
-    severity: str,
+    severity: Severity,
 ) -> Callable[[RuleFunc], RuleFunc]:
     def decorator(fn: RuleFunc) -> RuleFunc:
         _REGISTRY.append((rule_id, category, name, severity, fn))
@@ -46,7 +47,7 @@ def register_async(
     rule_id: str,
     category: str,
     name: str,
-    severity: str,
+    severity: Severity,
 ) -> Callable[[AsyncRuleFunc], AsyncRuleFunc]:
     def decorator(fn: AsyncRuleFunc) -> AsyncRuleFunc:
         _ASYNC_REGISTRY.append((rule_id, category, name, severity, fn))
@@ -58,7 +59,7 @@ def _make_result(
     rule_id: str,
     category: str,
     name: str,
-    severity: str,
+    severity: Severity,
     details: list[CheckDetail],
 ) -> CheckResult:
     status: Literal["pass", "fail"] = "pass" if not details else "fail"
@@ -67,7 +68,7 @@ def _make_result(
         category=category,
         name=name,
         status=status,
-        severity=severity,  # type: ignore[arg-type]
+        severity=severity,
         details=details,
     )
 

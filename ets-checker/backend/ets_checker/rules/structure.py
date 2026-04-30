@@ -15,9 +15,12 @@ from ets_checker.rules.runner import register
 ABSTRACT_FALLBACK_PARAGRAPHS = 30
 
 
+_CJK_CHAR = re.compile(r"[一-鿿㐀-䶿豈-﫿\U00020000-\U0002A6DF\U0002A700-\U000323AF]")
+
+
 def _count_words(text: str) -> int:
-    chinese = len(re.findall(r"[一-鿿㐀-䶿]", text))
-    text_no_cjk = re.sub(r"[一-鿿㐀-䶿]", " ", text)
+    chinese = len(_CJK_CHAR.findall(text))
+    text_no_cjk = _CJK_CHAR.sub(" ", text)
     english = len(text_no_cjk.split())
     return chinese + english
 
@@ -36,7 +39,20 @@ def _abstract_end_index(
                 and not para.is_in_table
                 and KEYWORDS_PREFIX.match(para.text.strip())):
             return para.index
-    return abstract_idx + ABSTRACT_FALLBACK_PARAGRAPHS + 1
+    max_idx = max((p.index for p in doc.paragraphs), default=abstract_idx)
+    fallback_limit = abstract_idx + ABSTRACT_FALLBACK_PARAGRAPHS + 1
+    next_heading = next(
+        (para.index for para in doc.paragraphs
+         if para.index > abstract_idx
+         and para.index < fallback_limit
+         and para.style_name is not None
+         and ("heading" in para.style_name.lower() or "標題" in para.style_name)),
+        None,
+    )
+    return min(
+        next_heading if next_heading is not None else fallback_limit,
+        max_idx + 1,
+    )
 
 
 @register("structure.abstract_length", "Structure", "Abstract length check", "warning")

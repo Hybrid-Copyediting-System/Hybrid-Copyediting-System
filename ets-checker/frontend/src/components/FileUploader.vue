@@ -8,6 +8,8 @@ const emit = defineEmits<{
 const isDragging = ref(false);
 const fileInput = ref<HTMLInputElement | null>(null);
 
+const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50 MB
+
 function validateAndEmit(file: File) {
   const name = file.name.toLowerCase();
   if (name.endsWith(".doc") && !name.endsWith(".docx")) {
@@ -20,7 +22,12 @@ function validateAndEmit(file: File) {
     alert("Please upload a .docx file.");
     return;
   }
+  if (file.size > MAX_FILE_SIZE) {
+    alert(`File is too large (${(file.size / 1024 / 1024).toFixed(1)} MB). Maximum size is 50 MB.`);
+    return;
+  }
   emit("file-selected", file);
+  if (fileInput.value) fileInput.value.value = "";
 }
 
 function onDrop(e: DragEvent) {

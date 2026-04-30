@@ -35,15 +35,22 @@ _URL_NONDOI = re.compile(
 # Strip trailing punctuation that is part of surrounding reference text, not the
 # URL/DOI itself. \] in the string concatenation becomes \] in the pattern,
 # which is the escape for ] inside a regex character class.
-_TAIL_PUNCT = re.compile("[.,;)\\]" + _Q + "]+$")
+_TAIL_PUNCT = re.compile("[.,;\\]" + _Q + "]+$")
 # Recovers a DOI/URL that Word split across lines by inserting a space.
 # Matches whitespace + a continuation that starts with lowercase/digit/underscore/(.
 # The negative lookahead prevents extending into a new https?:// URL.
-_CONT = re.compile(r'[\s ]+(?!https?://)([a-z0-9_(]\S*)')
+_CONT = re.compile(r'[\s ]+(?!https?://)([0-9_(]\S*)')
+
+
+def _strip_unbalanced_trailing_parens(s: str) -> str:
+    while s.endswith(")") and s.count(")") > s.count("("):
+        s = s[:-1]
+    return s
 
 
 def _clean(s: str) -> str:
-    return _TAIL_PUNCT.sub("", s)
+    s = _TAIL_PUNCT.sub("", s)
+    return _strip_unbalanced_trailing_parens(s)
 
 
 def _doi_join(fragment: str, rest: str) -> str:
@@ -112,7 +119,7 @@ def _count_authors(author_text: str) -> int | None:
         return len([p for p in cjk_parts if p.strip()])
 
     # Chinese full-width comma separator (e.g. "王小明，李大明")
-    if "，" in author_text and any("一" <= c <= "鿿" for c in author_text):
+    if "，" in author_text and _CJK_CHAR_RE.search(author_text):
         cjk_parts = re.split(r"[，、]", author_text)
         return len([p for p in cjk_parts if p.strip()])
 
@@ -121,6 +128,10 @@ def _count_authors(author_text: str) -> int | None:
 REF_FIRST_AUTHOR = re.compile(
     r"^(?P<surname>[^\W\d_][\w\-' ]*?)\.?\s*(?:[,.]|$)",
     re.UNICODE,
+)
+
+_CJK_CHAR_RE = re.compile(
+    "[一-鿿㐀-䶿豈-﫿\U00020000-\U0002A6DF\U0002A700-\U000323AF]"
 )
 
 

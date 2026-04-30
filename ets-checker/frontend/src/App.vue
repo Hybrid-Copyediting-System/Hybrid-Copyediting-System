@@ -27,7 +27,11 @@ const progressEvent = ref<ProgressEvent | null>(null);
 const theme = useTheme();
 
 onMounted(async () => {
-  backendReady.value = await healthCheck();
+  for (let attempt = 0; attempt < 5; attempt++) {
+    backendReady.value = await healthCheck();
+    if (backendReady.value) break;
+    await new Promise((r) => setTimeout(r, 2000 * (attempt + 1)));
+  }
 });
 
 async function onFileSelected(file: File) {
@@ -64,13 +68,14 @@ async function downloadAnnotatedDocx() {
   annotatedLoading.value = true;
   downloadError.value = "";
   try {
-    const blob = await downloadAnnotated(lastFile.value);
+    const blob = await downloadAnnotated(lastFile.value, report.value ?? undefined);
     const stem = report.value.file_name.replace(/\.docx$/i, "");
     const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
+    const objUrl = URL.createObjectURL(blob);
+    a.href = objUrl;
     a.download = `${stem}.annotated.docx`;
     a.click();
-    URL.revokeObjectURL(a.href);
+    setTimeout(() => URL.revokeObjectURL(objUrl), 60_000);
   } catch (err: unknown) {
     downloadError.value = extractErrorMessage(
       err,
@@ -87,10 +92,11 @@ function downloadJson() {
     type: "application/json",
   });
   const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
+  const objUrl = URL.createObjectURL(blob);
+  a.href = objUrl;
   a.download = `${report.value.file_name}-report.json`;
   a.click();
-  URL.revokeObjectURL(a.href);
+  setTimeout(() => URL.revokeObjectURL(objUrl), 60_000);
 }
 
 function toggleTheme() {

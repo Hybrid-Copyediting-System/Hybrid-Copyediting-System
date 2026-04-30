@@ -3,8 +3,6 @@ from __future__ import annotations
 import re
 from typing import TYPE_CHECKING
 
-from lxml import etree
-
 from ets_checker.models import Figure, Paragraph, Table
 
 if TYPE_CHECKING:
@@ -13,41 +11,54 @@ if TYPE_CHECKING:
 _FIG_CAPTION = re.compile(r"^Figure\.?\s+(\d+)\s*[.:]", re.IGNORECASE)
 _TBL_CAPTION = re.compile(r"^Table\.?\s+(\d+)\s*[.:]", re.IGNORECASE)
 
-NSMAP = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
-
-
 def _has_image(docx_para: object) -> bool:
+    from docx.oxml.ns import qn
+
     xml = getattr(docx_para, "_element", None)
     if xml is None:
         return False
-    xml_str = etree.tostring(xml, encoding="unicode")
-    return "<w:drawing" in xml_str or "<w:pict" in xml_str
+    return (
+        xml.find(f".//{qn('w:drawing')}") is not None
+        or xml.find(f".//{qn('w:pict')}") is not None
+    )
 
 
 def _walk_document_events(
     document: DocxDocument,
+    paragraphs: list,
 ) -> list[dict]:
     """Walk the document XML in order and return a flat list of events
-    for every paragraph that is either an image or a figure caption."""
+    for every paragraph that is either an image or a figure caption.
+
+    `paragraphs` is the canonical list built by paragraphs.iter_all().
+    Its indices are used as the authoritative seq values so that figure
+    paragraph_index values stay in sync with the rest of the system even
+    if the two walkers' traversal logic ever diverges.
+    """
     from docx.oxml.ns import qn
     from docx.text.paragraph import Paragraph as DocxParagraph
 
     events: list[dict] = []
-    seq = 0
+    pos = 0  # mirrors the Paragraph list index (== Paragraph.index)
 
     def _visit_para(elem: object, in_table: bool) -> None:
-        nonlocal seq
-        p = DocxParagraph(elem, document)
-        text = (p.text or "").strip()
-        is_img = _has_image(p)
+        nonlocal pos
+        if pos < len(paragraphs):
+            actual_index = paragraphs[pos].index
+            text = paragraphs[pos].text.strip()
+        else:
+            actual_index = pos
+            text = (DocxParagraph(elem, document).text or "").strip()
+        docx_p = DocxParagraph(elem, document)
+        is_img = _has_image(docx_p)
         m = _FIG_CAPTION.match(text)
         if is_img:
-            events.append({"kind": "image", "seq": seq, "in_table": in_table,
+            events.append({"kind": "image", "seq": actual_index, "in_table": in_table,
                            "fig_num": None, "text": text})
         if m:
-            events.append({"kind": "caption", "seq": seq, "in_table": in_table,
+            events.append({"kind": "caption", "seq": actual_index, "in_table": in_table,
                            "fig_num": int(m.group(1)), "text": text})
-        seq += 1
+        pos += 1
 
     def _walk_table(tbl_elem: object) -> None:
         for tr in tbl_elem.iterchildren(qn("w:tr")):
@@ -74,7 +85,7 @@ def detect(
     figures: list[Figure] = []
     tables: list[Table] = []
 
-    events = _walk_document_events(document)
+    events = _walk_document_events(document, paragraphs)
 
     images = [e for e in events if e["kind"] == "image"]
     captions = [e for e in events if e["kind"] == "caption"]
@@ -83,10 +94,25 @@ def detect(
     for cap in captions:
         caption_by_num.setdefault(cap["fig_num"], cap)
 
-    para_by_text: dict[str, Paragraph] = {}
+    para_by_text: dict[str, list[Paragraph]] = {}
     for p in paragraphs:
-        if p.text.strip() and p.text.strip() not in para_by_text:
-            para_by_text[p.text.strip()] = p
+        stripped = p.text.strip()
+        if stripped:
+            para_by_text.setdefault(stripped, []).append(p)
+
+    para_text_used: dict[str, int] = {}
+
+    def _lookup_para(text: str) -> Paragraph | None:
+        entries = para_by_text.get(text)
+        if not entries:
+            return None
+        use_idx = para_text_used.get(text, 0)
+        if use_idx < len(entries):
+            para_text_used[text] = use_idx + 1
+            return entries[use_idx]
+        return entries[-1]
+
+    MAX_CAPTION_DISTANCE = 10
 
     used_captions: set[int] = set()
 
@@ -97,6 +123,8 @@ def detect(
             if cap["fig_num"] in used_captions:
                 continue
             dist = abs(cap["seq"] - img_event["seq"])
+            if dist > MAX_CAPTION_DISTANCE:
+                continue
             if dist < best_dist:
                 best_dist = dist
                 best = cap
@@ -107,20 +135,23 @@ def detect(
         cap = _find_nearest_caption(img)
         fig_num: int | None = None
         caption_text: str | None = None
-        para_index = 0
+        para_index = img["seq"]
         caption_pos: str | None = None
 
         if cap is not None:
             fig_num = cap["fig_num"]
             caption_text = cap["text"]
             used_captions.add(fig_num)
-            p = para_by_text.get(caption_text)
+            p = _lookup_para(caption_text)
             if p is not None:
                 para_index = p.index
             if cap["seq"] < img["seq"]:
                 caption_pos = "above"
             elif cap["seq"] > img["seq"]:
                 caption_pos = "below"
+
+        if para_index >= len(paragraphs):
+            para_index = max(0, len(paragraphs) - 1)
 
         figures.append(Figure(
             index=fig_idx,
@@ -133,12 +164,12 @@ def detect(
 
     for cap in captions:
         if cap["fig_num"] not in used_captions:
-            p = para_by_text.get(cap["text"])
+            p = _lookup_para(cap["text"])
             figures.append(Figure(
                 index=fig_idx,
                 figure_number=cap["fig_num"],
                 caption_text=cap["text"],
-                paragraph_index=p.index if p else 0,
+                paragraph_index=p.index if p else cap["seq"],
             ))
             fig_idx += 1
             used_captions.add(cap["fig_num"])

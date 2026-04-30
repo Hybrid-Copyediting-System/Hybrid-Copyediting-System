@@ -59,10 +59,7 @@ def check_line_spacing(doc: ParsedDocument) -> list[CheckDetail]:
             # (single-line = 1.0), which meets the ET&S requirement.
             return details
         from statistics import mode
-        try:
-            dominant = mode(per_para_spacings)
-        except Exception:
-            dominant = per_para_spacings[0]
+        dominant = mode(per_para_spacings)
         if abs(dominant - p.LINE_SPACING) > p.LINE_SPACING_TOLERANCE:
             details.append(CheckDetail(
                 location="document",

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from typing import TYPE_CHECKING
 
 from ets_checker.models import Paragraph, Run
@@ -7,6 +8,8 @@ from ets_checker.models import Paragraph, Run
 if TYPE_CHECKING:
     from docx.document import Document as DocxDocument
     from docx.text.paragraph import Paragraph as DocxParagraph
+
+logger = logging.getLogger(__name__)
 
 EMU_PER_CM = 360000
 EMU_PER_PT = 12700
@@ -65,7 +68,9 @@ def _resolve_style_font(
     font_name: str | None = None
     font_size_pt: float | None = None
     s = style
-    while s is not None:
+    seen: set[int] = set()
+    while s is not None and id(s) not in seen:
+        seen.add(id(s))
         f = getattr(s, "font", None)
         if f is not None:
             if font_name is None and f.name:
@@ -85,7 +90,9 @@ def _resolve_style_italic(style: object) -> bool:
     explicit setting, returns False (matching Word's document default).
     """
     s = style
-    while s is not None:
+    seen: set[int] = set()
+    while s is not None and id(s) not in seen:
+        seen.add(id(s))
         f = getattr(s, "font", None)
         if f is not None:
             italic = getattr(f, "italic", None)
@@ -147,8 +154,10 @@ def _get_doc_default_font(document: DocxDocument) -> tuple[str | None, float | N
 
     from docx.oxml.ns import qn
 
-    rpr = document.styles._element.find(
-        f"{qn('w:docDefaults')}/{qn('w:rPrDefault')}/{qn('w:rPr')}",
+    _styles_elem = getattr(document.styles, 'element', None) or getattr(document.styles, '_element', None)
+    rpr = (
+        _styles_elem.find(f"{qn('w:docDefaults')}/{qn('w:rPrDefault')}/{qn('w:rPr')}")
+        if _styles_elem is not None else None
     )
     if rpr is not None:
         if font_name is None:
@@ -179,7 +188,9 @@ def _resolve_theme_font(document: DocxDocument, theme_attr: str) -> str | None:
         theme_part = document.part.package.part_related_by(
             "http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme"
         )
-        theme_elem = theme_part._element
+        theme_elem = getattr(theme_part, 'element', None) or getattr(theme_part, '_element', None)
+        if theme_elem is None:
+            return None
         ns = {"a": "http://schemas.openxmlformats.org/drawingml/2006/main"}
         mapping = {
             "minorHAnsi": ".//a:minorFont/a:latin",
@@ -192,8 +203,10 @@ def _resolve_theme_font(document: DocxDocument, theme_attr: str) -> str | None:
             elem = theme_elem.find(xpath, ns)
             if elem is not None:
                 return elem.get("typeface")
-    except Exception:
+    except (KeyError, AttributeError, ValueError):
         pass
+    except Exception:
+        logger.warning("Unexpected error resolving theme font '%s'", theme_attr, exc_info=True)
     return None
 
 

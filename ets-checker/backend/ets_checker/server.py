@@ -2,12 +2,13 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
 import os
 import tempfile
 from pathlib import Path
 from urllib.parse import quote
 
-from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response, StreamingResponse
 from fastapi.staticfiles import StaticFiles
@@ -17,22 +18,24 @@ from ets_checker.models import CheckReport
 from ets_checker.parser.docx_parser import parse
 from ets_checker.rules.runner import run_async
 
-# Import rule modules so they register via decorators
-import ets_checker.rules.layout  # noqa: F401
-import ets_checker.rules.fonts  # noqa: F401
-import ets_checker.rules.structure  # noqa: F401
-import ets_checker.rules.citation  # noqa: F401
-import ets_checker.rules.reference  # noqa: F401
-import ets_checker.rules.figures_tables  # noqa: F401
-import ets_checker.rules.reference_links  # noqa: F401
+import ets_checker.rules  # noqa: F401 — triggers rule registration via __init__
+
+logger = logging.getLogger(__name__)
 
 MAX_FILE_SIZE = 50 * 1024 * 1024  # 50 MB
 
 app = FastAPI(title="ET&S Format Checker", version="0.1.0")
 
+_ets_port = os.environ.get("ETS_PORT", "8080")
+_cors_origins = [
+    "http://localhost:5173",
+    "http://localhost:8080",
+    f"http://localhost:{_ets_port}",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:8080"],
+    allow_origins=list(set(_cors_origins)),
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -64,9 +67,17 @@ async def _validate_and_save(file: UploadFile) -> tuple[str, str]:
             detail="Unsupported file type. Please upload a .docx file.",
         )
 
-    content = await file.read()
-    if len(content) > MAX_FILE_SIZE:
-        raise HTTPException(status_code=413, detail="File too large (max 50 MB)")
+    chunks: list[bytes] = []
+    total = 0
+    while True:
+        chunk = await file.read(1024 * 1024)
+        if not chunk:
+            break
+        total += len(chunk)
+        if total > MAX_FILE_SIZE:
+            raise HTTPException(status_code=413, detail="File too large (max 50 MB)")
+        chunks.append(chunk)
+    content = b"".join(chunks)
 
     with tempfile.NamedTemporaryFile(delete=False, suffix=".docx") as tmp:
         tmp_path = tmp.name
@@ -86,9 +97,10 @@ async def check(file: UploadFile = File(...)) -> CheckReport:
         try:
             parsed = parse(tmp_path)
         except Exception as e:
+            logger.exception("Failed to parse uploaded document")
             raise HTTPException(
                 status_code=422,
-                detail=f"Could not parse file: {e}",
+                detail="Could not parse the uploaded document. Ensure it is a valid .docx file.",
             )
 
         return await run_async(parsed, filename)
@@ -109,7 +121,8 @@ async def check_stream(file: UploadFile = File(...)) -> StreamingResponse:
             try:
                 parsed = parse(tmp_path)
             except Exception as e:
-                yield _sse("error", {"message": f"Could not parse file: {e}"})
+                logger.exception("Failed to parse uploaded document (stream)")
+                yield _sse("error", {"message": "Could not parse the uploaded document. Ensure it is a valid .docx file."})
                 return
 
             queue: asyncio.Queue[dict] = asyncio.Queue()
@@ -154,25 +167,37 @@ async def check_stream(file: UploadFile = File(...)) -> StreamingResponse:
 
 
 @app.post("/api/check/annotated")
-async def check_annotated(file: UploadFile = File(...)) -> Response:
+async def check_annotated(
+    file: UploadFile = File(...),
+    report_json: str | None = Form(default=None),
+) -> Response:
     tmp_path, filename = await _validate_and_save(file)
     try:
-        try:
-            parsed = parse(tmp_path)
-        except Exception as e:
-            raise HTTPException(
-                status_code=422,
-                detail=f"Could not parse file: {e}",
-            )
+        report: CheckReport | None = None
+        if report_json:
+            try:
+                report = CheckReport.model_validate_json(report_json)
+            except Exception:
+                logger.warning("Invalid report_json provided; re-running checks")
 
-        report = await run_async(parsed, filename)
+        if report is None:
+            try:
+                parsed = parse(tmp_path)
+            except Exception:
+                logger.exception("Failed to parse uploaded document (annotated)")
+                raise HTTPException(
+                    status_code=422,
+                    detail="Could not parse the uploaded document. Ensure it is a valid .docx file.",
+                )
+            report = await run_async(parsed, filename)
 
         try:
             blob = annotate(tmp_path, report)
-        except Exception as e:
+        except Exception:
+            logger.exception("Failed to annotate document")
             raise HTTPException(
                 status_code=500,
-                detail=f"Could not annotate file: {e}",
+                detail="Could not generate annotated document.",
             )
 
         stem = filename.rsplit(".", 1)[0]
