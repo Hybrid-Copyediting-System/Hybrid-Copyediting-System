@@ -58,6 +58,29 @@ _ET_AL_PATTERN = re.compile(r"\bet\s+al\.?|\s*等\s*$", re.IGNORECASE)
 _AUTHOR_SPLIT = re.compile(r"[,&、]|\band\b|\s*[與及]\s*")
 # Possessive suffixes added by Word smart-quotes ("’s" / "’s")
 _POSSESSIVE = re.compile(r"[‘’]s?$")
+# Double quotes (straight or curly) inside an author token mean prose was
+# accidentally captured by the citation regex — e.g. the body of
+# `(termed "AI guilt" by Chan, 2025)`. Single quotes are NOT rejected:
+# legitimate surnames like "O'Brien" contain apostrophes.
+_PROSE_QUOTES = re.compile(r"[\"“”]")
+
+# Body of a parenthetical that is a pure list of years, e.g. "2018, 2023",
+# "2018a, 2018b", or even a single "2018". Used to detect "(year[-list])"
+# parens that may belong to a preceding narrative author block —
+# "Bediou et al., (2018, 2023)" or "Bediou et al., (2018)".
+_YEAR_ONLY_BODY = re.compile(
+    r"^\s*(?:19|20)\d{2}[a-z]?(?:\s*,\s*(?:19|20)\d{2}[a-z]?)*\s*$"
+)
+_YEAR_TOKEN = re.compile(r"((?:19|20)\d{2})([a-z]?)")
+# Trailing narrative-author block immediately before "(": one or more capitalised
+# tokens (with optional CJK), an optional "et al.", and an optional comma. Used
+# to recover the author when the year-list paren has none of its own.
+_NARRATIVE_TRAILER = re.compile(
+    rf"((?:{_NAME})(?:\s*[,、]\s*{_NAME})*"
+    rf"(?:\s*[,、]?\s*(?:and|&|與|及)\s*{_NAME})?"
+    r"(?:\s+et\s+al\.|\s*等)?)\s*,?\s*$",
+    re.UNICODE,
+)
 
 # Common English discourse markers that can appear before a narrative citation
 # (e.g. "Similarly, Smith (2023)") — these are never author surnames.
@@ -78,6 +101,15 @@ def _normalise_authors(text: str) -> tuple[list[str], bool]:
     authors = [_POSSESSIVE.sub("", p.strip()).rstrip(".").lower()
                for p in parts if p.strip()]
     return authors, has_et_al
+
+
+def _is_prose_contaminated(author_text: str) -> bool:
+    """Author text captured from a parenthetical aside like
+    `(termed "AI guilt" by Chan, 2025)` contains double quotes that no
+    legitimate APA author block would carry. Detected by the call site so
+    contaminated matches can be *skipped* (not fall back to the previous
+    citation's authors, which would silently mis-attribute the year)."""
+    return bool(_PROSE_QUOTES.search(author_text))
 
 
 def _compute_reference_bounds(
@@ -113,6 +145,42 @@ def extract(
             body = m.group("body")
             if not re.search(r"(?:19|20)\d{2}|n\.d\.", body):
                 continue
+
+            # Year-only body: may belong to a narrative author block sitting
+            # immediately before the paren. Recover the author and emit one
+            # citation per year so "Bediou et al., (2018, 2023)" yields both
+            # bediou+2018 and bediou+2023 instead of being lost or producing
+            # a phantom "year-as-author" citation.
+            #
+            # Strong-trailer guard: only accept when the recovered author block
+            # unambiguously identifies a real citation source — it ends in
+            # "et al." OR includes a co-author conjunction (≥2 authors), OR the
+            # body is a multi-year list (single names + multi-year + paren is
+            # implausible outside of citations). This rules out sentence
+            # starters like "Sometimes, (2020) was a pivotal year." that
+            # would otherwise be picked up as a citation by the trailer regex.
+            if _YEAR_ONLY_BODY.match(body):
+                trailer = _NARRATIVE_TRAILER.search(p.text[:m.start()])
+                if trailer and not _is_prose_contaminated(trailer.group(1)):
+                    t_authors, t_et_al = _normalise_authors(trailer.group(1))
+                    while t_authors and t_authors[0] in _DISCOURSE_MARKERS:
+                        t_authors = t_authors[1:]
+                    is_strong = t_et_al or len(t_authors) >= 2
+                    is_multi_year = len(_YEAR_TOKEN.findall(body)) >= 2
+                    if t_authors and (is_strong or is_multi_year):
+                        for ym in _YEAR_TOKEN.finditer(body):
+                            year = ym.group(1)
+                            suffix = ym.group(2) or None
+                            results.append(Citation(
+                                raw_text=f"{trailer.group(1).strip().rstrip(',')}, {year}{suffix or ''}",
+                                authors=t_authors,
+                                year=year,
+                                year_suffix=suffix,
+                                has_et_al=t_et_al,
+                                citation_type="narrative",
+                                paragraph_index=p.index,
+                            ))
+                        continue
             # Split compound citations ("Smith, 2020; Jones, 2021") on
             # semicolons before applying PER_CITE so the delimiter never
             # bleeds into the next citation's author token.
@@ -121,13 +189,32 @@ def extract(
                 last_has_et_al = False
                 last_raw_author_text = ""
                 for cm in PER_CITE.finditer(segment):
-                    authors, has_et_al = _normalise_authors(cm.group("authors"))
+                    raw_authors = cm.group("authors")
+                    # Skip prose-contaminated matches outright. Falling back
+                    # to last_authors here would attribute the year to a
+                    # citation that the user never wrote — e.g. in
+                    # `(Smith, 2020, termed "X" by Chan, 2025)` the second
+                    # match would otherwise emit a phantom Smith/2025.
+                    if _is_prose_contaminated(raw_authors):
+                        continue
+                    authors, has_et_al = _normalise_authors(raw_authors)
+                    # Reject author tokens that contain no letters (pure
+                    # digits/punctuation): these come from year-only lists
+                    # like "(2018, 2023)" where lazy matching grabs an
+                    # earlier year as the "author". Without this filter, the
+                    # citation parser produces a phantom citation whose
+                    # surname is a year.
+                    authors = [a for a in authors if re.search(r"[^\W\d_]", a, re.UNICODE)]
                     if not authors and last_authors:
                         authors = last_authors
                         has_et_al = last_has_et_al
                         suffix = cm.group("suffix")
                         year = cm.group("year")
                         raw = f"{last_raw_author_text}, {year}{suffix or ''}"
+                    elif not authors:
+                        # No usable authors and no preceding citation in this
+                        # segment to inherit from — skip.
+                        continue
                     else:
                         last_authors = authors
                         last_has_et_al = has_et_al
@@ -147,7 +234,10 @@ def extract(
 
         # Narrative
         for m in CITATION_NARRATIVE.finditer(p.text):
-            authors, has_et_al = _normalise_authors(m.group("authors"))
+            raw_authors = m.group("authors")
+            if _is_prose_contaminated(raw_authors):
+                continue
+            authors, has_et_al = _normalise_authors(raw_authors)
             # Strip leading discourse markers (e.g. "Similarly, Smith (2023)")
             while authors and authors[0] in _DISCOURSE_MARKERS:
                 authors = authors[1:]
@@ -163,4 +253,18 @@ def extract(
                 paragraph_index=p.index,
             ))
 
-    return results
+    # Dedup citations that were captured by both the narrative regex and the
+    # year-only-paren trailer branch (e.g. "Smith and Jones (2020)" — the
+    # narrative regex matches the bare paren and the trailer branch matches
+    # the same paren via lookback). Keys are by (paragraph, normalised
+    # authors, year, suffix) so duplicate text in the same paragraph is
+    # collapsed but the same citation in different paragraphs stays distinct.
+    seen: set[tuple[int, tuple[str, ...], str, str]] = set()
+    deduped: list[Citation] = []
+    for c in results:
+        key = (c.paragraph_index, tuple(c.authors), c.year, c.year_suffix or "")
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(c)
+    return deduped

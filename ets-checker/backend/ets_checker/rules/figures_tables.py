@@ -198,9 +198,14 @@ def check_table_format(doc: ParsedDocument) -> list[CheckDetail]:
         ))
 
     # Phase 2: Detect vertical borders (APA 7th requires horizontal rules only)
+    # Skip tables without a "Table N." caption — those are layout/utility tables
+    # (page-grid scaffolding, image positioning, etc.), not data tables that the
+    # APA border rule applies to. Anchoring would also be wrong: with no caption
+    # paragraph, the locator falls back to paragraph 0 (document start), which
+    # produces useless annotations.
     for t in doc.tables:
-        if t.has_vertical_borders:
-            label = f"Table {t.table_number}" if t.table_number else f"Table (index {t.index})"
+        if t.has_vertical_borders and t.table_number is not None:
+            label = f"Table {t.table_number}"
             details.append(CheckDetail(
                 location=label,
                 locator=Locator(kind="paragraph", paragraph_index=t.paragraph_index),

@@ -248,17 +248,40 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
                         ))
                     continue
 
-                ref_year_str = f"{ref_year}{ref_suffix}" if ref_suffix else ref_year
+                # When the citation drops the suffix and several references
+                # share the same year, list every candidate so the author
+                # knows which one to pick (e.g. 2021a vs 2021b).
+                same_year_entries = [
+                    (ry, rs, rp) for (ry, rs, rp) in entries if ry == cite_year
+                ]
                 cite_year_str = f"{cite_year}{cite_suffix}" if cite_suffix else cite_year
                 cited_keys.add((cite_norm, ref_year, ref_suffix))
                 year_mismatch_count += 1
                 if year_mismatch_count <= MAX_REPORTED:
-                    if ref_year == cite_year:
+                    if (
+                        ref_year == cite_year
+                        and not cite_suffix
+                        and len(same_year_entries) >= 2
+                    ):
+                        suffix_list = ", ".join(
+                            f"Reference #{doc.references[rp].index} has {ry}{rs}"
+                            for (ry, rs, rp) in same_year_entries
+                            if rs
+                        )
+                        msg = (
+                            f"Citation year-suffix mismatch: '{c.raw_text}' cites {cite_year_str} "
+                            f"but the references list contains multiple {cite_year} entries "
+                            f"under '{ref.first_author_surname}' — {suffix_list}; "
+                            f"specify the correct suffix in the citation"
+                        )
+                    elif ref_year == cite_year:
+                        ref_year_str = f"{ref_year}{ref_suffix}" if ref_suffix else ref_year
                         msg = (
                             f"Citation year-suffix mismatch: '{c.raw_text}' cites {cite_year_str}, "
                             f"but Reference #{ref.index} ({ref.first_author_surname}) has {ref_year_str}"
                         )
                     else:
+                        ref_year_str = f"{ref_year}{ref_suffix}" if ref_suffix else ref_year
                         msg = (
                             f"Citation year mismatch: '{c.raw_text}' cites {cite_year_str}, "
                             f"but Reference #{ref.index} ({ref.first_author_surname}) has {ref_year_str}"

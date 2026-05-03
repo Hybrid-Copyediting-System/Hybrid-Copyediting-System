@@ -79,13 +79,25 @@ def _diff_reason(prev: Reference, cur: Reference) -> tuple[str, str]:
         p = prev_authors[i] if i < len(prev_authors) else ""
         if c == p:
             continue
+        # APA 7 §9.46: a one-author entry precedes a multi-author entry that
+        # begins with the same first author. The rule only fires when
+        # prev_key > cur_key, and tuple comparison ranks shorter chains
+        # below longer ones — so the only way one side runs out of authors
+        # here is when *cur* is the single-author entry that should sort
+        # first. (The reverse, cur=multi after prev=single, is correctly
+        # ordered and never reaches this branch.)
+        if not c or not p:
+            return (
+                "single-author entry before multi-author entry with the same first author (APA 7 §9.46)",
+                "multi-author entry placed before single-author entry with the same first author",
+            )
         c_surname, c_init = _split_author_key(c)
         p_surname, p_init = _split_author_key(p)
         if c_surname != p_surname:
             position = "first author" if i == 0 else f"author #{i + 1}"
             return (
-                f"{c_surname or '(empty)'} ({position}) before {p_surname or '(empty)'}",
-                f"{p_surname or '(empty)'} before {c_surname or '(empty)'}",
+                f"{c_surname} ({position}) before {p_surname}",
+                f"{p_surname} before {c_surname}",
             )
         # Same surname, different initials.
         position = "first author" if i == 0 else f"author #{i + 1}"

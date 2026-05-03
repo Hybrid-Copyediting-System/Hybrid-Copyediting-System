@@ -93,62 +93,21 @@ _APPENDIX_HEADING = re.compile(
     re.IGNORECASE,
 )
 
-_GENERATIONAL_SUFFIX = re.compile(r",?\s*(?:Jr|Sr|III?|IV|V)\.", re.IGNORECASE)
-
-# Detects APA initial groups: ", X." or ", X. Y." or ", X.-Y."
-_HAS_INITIALS = re.compile(r",\s*[A-Z]\.")
-
-# Matches " & " used as an APA author separator — requires surrounding
-# whitespace (or preceding period) to distinguish from "&" embedded in an
-# institutional name (e.g. "Science & Technology").
-_APA_AMPERSAND = re.compile(r"(?:\.|,)\s*&\s+")
-
+# APA generational suffixes. V/IV are intentionally not in the alternation because
+# they collide with legitimate single-letter initials ("Carvalho, V."); the risk
+# of stripping a real Roman V/IV suffix is far smaller than swallowing an initial.
+_GENERATIONAL_SUFFIX = re.compile(r",?\s*(?:Jr|Sr|III?)\.", re.IGNORECASE)
 
 def _count_authors(author_text: str) -> int | None:
     """Estimate author count from an APA reference author block.
 
-    Each author contributes a "Surname, X." or "Surname, X. Y." block.
-    Blocks are separated by "., " (period + comma + space).
+    Delegates to _split_authors so the count and the per-author sort keys
+    always agree.
     """
     if not author_text or not author_text.strip():
         return None
-
-    cleaned = re.sub(r"\(Eds?\.\)", "", author_text)
-    cleaned = _GENERATIONAL_SUFFIX.sub("", cleaned).strip()
-
-    # Primary strategy: split on ". ," boundary between author blocks.
-    parts = re.split(r"\.\s*,\s*", cleaned)
-    parts = [p for p in parts if p.strip()]
-    if not parts:
-        return None
-
-    has_initials = any(re.search(r"[A-Z]\.", p) for p in parts)
-    if has_initials:
-        return len(parts)
-
-    # No initials found — likely institutional / CJK authors.
-    # Use APA-style ampersand (requires preceding period/comma + space around &)
-    # to distinguish author separators from "&" within organisation names.
-    if _APA_AMPERSAND.search(author_text):
-        return _APA_AMPERSAND.split(author_text).__len__()
-
-    # Standalone "&" / "and" — only count if the text also contains a comma that
-    # looks like an author separator (to avoid miscounting "Science & Technology").
-    if ("&" in author_text or " and " in author_text.lower()) and _HAS_INITIALS.search(author_text):
-        separators = len(re.findall(r"&|\band\b", author_text, re.IGNORECASE))
-        return separators + 1
-
-    # CJK enumeration comma separator
-    if "、" in author_text:
-        cjk_parts = author_text.split("、")
-        return len([p for p in cjk_parts if p.strip()])
-
-    # Chinese full-width comma separator (e.g. "王小明，李大明")
-    if "，" in author_text and _CJK_CHAR_RE.search(author_text):
-        cjk_parts = re.split(r"[，、]", author_text)
-        return len([p for p in cjk_parts if p.strip()])
-
-    return 1
+    parts = _split_authors(author_text)
+    return len(parts) if parts else None
 
 REF_FIRST_AUTHOR = re.compile(
     r"^(?P<surname>[^\W\d_][\w\-' ]*?)\.?\s*(?:[,.]|$)",
@@ -180,12 +139,12 @@ def _normalise_for_sort(s: str) -> str:
 def _split_authors(author_text: str) -> list[str]:
     """Split an APA author block into individual "Surname, Initials" parts.
 
-    Handles three common APA layouts:
+    Handles four common layouts:
       - Two authors:    "Smith, J., & Jones, K."
       - Three+ authors: "Smith, J., Jones, K., & Taylor, L."
       - One author:     "Smith, J."
-    The trailing " & " before the last author is normalised to ", " so a
-    single split-on-".," gives consistent parts.
+      - CJK lists:      "Dai Qiong, Xu Haiqing, & Zhou Aiqin." (no comma+initial
+                         pattern; split on plain commas instead).
     """
     if not author_text or not author_text.strip():
         return []
@@ -195,7 +154,30 @@ def _split_authors(author_text: str) -> list[str]:
     cleaned = re.sub(r"\s*,?\s*&\s+", ", ", cleaned)
     cleaned = re.sub(r"\s*,?\s+and\s+", ", ", cleaned, flags=re.IGNORECASE)
     parts = re.split(r"\.\s*,\s*", cleaned)
-    return [p.strip().rstrip(".").strip() for p in parts if p.strip()]
+    parts = [p.strip().rstrip(".").strip() for p in parts if p.strip()]
+
+    # CJK / no-initial fallback: when the ".," boundary couldn't separate
+    # authors (because none of them carry a "Surname, X." initial group), fall
+    # back to splitting on commas + CJK enumeration marks. Detected by the
+    # absence of a "[A-Z]\." initial pattern in the cleaned text. We also
+    # rewrite each "Surname Given" token to "Surname, Given" so the standard
+    # sort-key path treats the family name as the surname (downstream
+    # _author_to_sort_key splits on the first comma). This rewrite never
+    # applies to a single-author chunk because `comma_parts <= 1` then —
+    # which keeps institutional sole authors like "World Health Organization"
+    # intact (they have spaces but no comma list).
+    if (len(parts) <= 1 and parts) and not re.search(r"[A-Z]\.", cleaned):
+        comma_parts = [
+            p.strip().rstrip(".").strip()
+            for p in re.split(r"\s*[,，、]\s*", cleaned)
+            if p.strip()
+        ]
+        if len(comma_parts) > 1:
+            return [
+                re.sub(r"^(\S+)\s+", r"\1, ", p) if " " in p else p
+                for p in comma_parts
+            ]
+    return parts
 
 
 _AUTHOR_KEY_SEP = "\x01"
@@ -213,10 +195,13 @@ def _author_to_sort_key(author: str) -> str | None:
     if not author:
         return None
     # Surname is everything before the first comma; initials follow.
+    # CJK / pinyin chunks coming out of _split_authors carry a synthetic
+    # comma already ("Dai, Qiong"), so the comma branch handles them too.
+    # Institutional sole authors ("World Health Organization") have no
+    # comma and are treated as a single surname token.
     if "," in author:
         surname, rest = author.split(",", 1)
     else:
-        # Institutional / single-token author with no initials.
         surname, rest = author, ""
     surname_norm = _normalise_for_sort(surname)
     initials_norm = _normalise_for_sort(rest)
@@ -233,6 +218,24 @@ def _build_author_sort_keys(author_text: str) -> list[str]:
         if key is not None:
             keys.append(key)
     return keys
+
+
+def _is_continuation(text: str) -> bool:
+    """A reference paragraph is a continuation of the previous one when the
+    user has pressed Enter mid-reference, splitting one bibliography entry
+    into two paragraphs. Detected by the first non-whitespace character: a
+    real new reference always begins with an uppercase Latin surname or a
+    CJK family-name character; everything else (lowercase, digit, URL, quote,
+    paren) is fragment prose that should be merged back."""
+    stripped = text.lstrip()
+    if not stripped:
+        return False
+    c = stripped[0]
+    if c.isupper():
+        return False
+    if _CJK_CHAR_RE.match(c):
+        return False
+    return True
 
 
 def extract(
@@ -277,9 +280,29 @@ def extract(
             continue
         ref_paragraphs.append(p)
 
-    results: list[Reference] = []
-    for idx, p in enumerate(ref_paragraphs):
+    # Repair references split across paragraphs by an accidental hard-break.
+    # A paragraph that fails REF_AUTHOR_YEAR *and* starts with a non-surname
+    # character is folded into the preceding reference; the anchor paragraph
+    # is preserved so hanging-indent and other paragraph-level checks keep
+    # operating on the entry's first line.
+    merged: list[tuple[Paragraph, str]] = []
+    for p in ref_paragraphs:
         raw = p.text.strip()
+        marker_match = _LEADING_MARKER.match(raw)
+        parse_text = raw[marker_match.end():] if marker_match else raw
+        starts_a_ref = bool(REF_AUTHOR_YEAR.match(parse_text))
+        if (
+            not starts_a_ref
+            and _is_continuation(raw)
+            and merged
+        ):
+            anchor, prev_text = merged[-1]
+            merged[-1] = (anchor, prev_text + " " + raw)
+        else:
+            merged.append((p, raw))
+
+    results: list[Reference] = []
+    for idx, (p, raw) in enumerate(merged):
         # Strip leading meta-analysis marker (* / † / ‡) so the surname is
         # parsed from the actual author text. We keep the original raw text
         # in the reference so the rule output still shows the marker.
@@ -309,6 +332,16 @@ def extract(
                 # Strip a trailing single uppercase initial that gets absorbed when
                 # APA comma is missing, e.g. "Wannes M., ..." → "Wannes M" → "Wannes"
                 first_author = re.sub(r"\s+[A-Z]$", "", first_author).strip()
+                # CJK / pinyin pattern: when the author block has no APA initials
+                # ("Dai Qiong, Xu Haiqing, ...") the family name is the first
+                # whitespace-delimited token, not the whole "Surname Given" pair.
+                # Multi-word Western surnames ("Van der Berg") still keep the
+                # full match because their author block carries "Y." initials.
+                if (
+                    " " in first_author
+                    and not re.search(r"[A-Z]\.", author_text)
+                ):
+                    first_author = first_author.split(" ", 1)[0]
                 confidence = 1.0
             else:
                 confidence = 0.5
