@@ -32,7 +32,7 @@ class Section(BaseModel):
     title: str
     level: int
     paragraph_index: int
-    detection_method: Literal["style", "heuristic"]
+    detection_method: Literal["style", "heuristic", "inline_abstract", "appendix"]
 
 
 # ─── Citation / Reference ──────────────────────────────────────────────
@@ -58,6 +58,12 @@ class Reference(BaseModel):
     doi: str | None = None
     urls: list[str] = []
     author_count: int | None = None
+    # Per-author sort tokens, one per author, formatted "<surname>|<initials>"
+    # already normalised for case-insensitive comparison. Used by the
+    # alphabetical-order rule to distinguish authors with the same surname
+    # but different initials, and to order multi-author entries by their
+    # second/third author when the first author matches.
+    author_sort_keys: list[str] = []
 
 
 # ─── Figures / Tables ──────────────────────────────────────────────────

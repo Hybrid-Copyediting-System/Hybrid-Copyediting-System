@@ -36,6 +36,78 @@ def check_no_et_al(doc: ParsedDocument) -> list[CheckDetail]:
 
 # ── Item 6: Alphabetical order ────────────────────────────────────────
 
+_AUTHOR_KEY_SEP = "\x01"
+
+_SortKey = tuple[tuple[str, ...], int, str]
+
+
+def _sort_key(r: Reference) -> _SortKey:
+    """Build a tuple key that orders references by APA 7 §9.46 rules:
+    surname → initials → second-author surname → … → year → year_suffix.
+
+    The key is constructed so that the *natural* tuple comparison gives the
+    correct order: a single-author entry with surname "Ali, S." sorts before
+    "Ali, S. A." because "s" < "sa"; same first author with different second
+    authors orders by the second-author key; same first-author chain orders
+    chronologically; same year orders by suffix (a, b, c…).
+    """
+    keys = list(r.author_sort_keys)
+    # Fallback: if the author chain wasn't parsed, use the surname alone
+    # so the entry still participates in ordering.
+    if not keys and r.first_author_surname:
+        keys = [normalise_surname(r.first_author_surname) + _AUTHOR_KEY_SEP]
+    year = int(r.year) if r.year and r.year.isdigit() else 0
+    suffix = r.year_suffix or ""
+    return (tuple(keys), year, suffix)
+
+
+def _split_author_key(k: str) -> tuple[str, str]:
+    surname, _, initials = k.partition(_AUTHOR_KEY_SEP)
+    return surname, initials
+
+
+def _diff_reason(prev: Reference, cur: Reference) -> tuple[str, str]:
+    """Return (expected_text, actual_text) describing the first axis on which
+    *cur* is sorted before *prev* — used to generate a precise message."""
+    cur_authors = cur.author_sort_keys or []
+    prev_authors = prev.author_sort_keys or []
+
+    # Compare author by author — the first axis where they differ is the
+    # reason for the ordering issue.
+    for i in range(max(len(cur_authors), len(prev_authors))):
+        c = cur_authors[i] if i < len(cur_authors) else ""
+        p = prev_authors[i] if i < len(prev_authors) else ""
+        if c == p:
+            continue
+        c_surname, c_init = _split_author_key(c)
+        p_surname, p_init = _split_author_key(p)
+        if c_surname != p_surname:
+            position = "first author" if i == 0 else f"author #{i + 1}"
+            return (
+                f"{c_surname or '(empty)'} ({position}) before {p_surname or '(empty)'}",
+                f"{p_surname or '(empty)'} before {c_surname or '(empty)'}",
+            )
+        # Same surname, different initials.
+        position = "first author" if i == 0 else f"author #{i + 1}"
+        return (
+            f"initials '{c_init}' ({position}, {c_surname}) before '{p_init}'",
+            f"initials '{p_init}' before '{c_init}'",
+        )
+
+    # Author chains identical — must be year or suffix.
+    if (cur.year or "") != (prev.year or ""):
+        return (
+            f"{cur.year or '(no year)'} before {prev.year or '(no year)'}",
+            f"{prev.year or '(no year)'} before {cur.year or '(no year)'}",
+        )
+    cur_suf = cur.year_suffix or ""
+    prev_suf = prev.year_suffix or ""
+    return (
+        f"suffix '{cur_suf}' before '{prev_suf}'",
+        f"suffix '{prev_suf}' before '{cur_suf}'",
+    )
+
+
 @register(
     "reference.alphabetical_order",
     "Reference",
@@ -43,78 +115,46 @@ def check_no_et_al(doc: ParsedDocument) -> list[CheckDetail]:
     "warning",
 )
 def check_alphabetical_order(doc: ParsedDocument) -> list[CheckDetail]:
+    """Compare each reference against the previous one using a full APA 7
+    sort key (author chain → year → suffix). CJK-leading entries are skipped
+    so a mixed Chinese/English bibliography doesn't trigger spurious issues
+    when the two scripts are interleaved by the author."""
     details: list[CheckDetail] = []
     issue_count = 0
 
-    last_english: tuple[str, str, Reference] | None = None
+    last_english: tuple[_SortKey, Reference] | None = None
 
     for r in doc.references:
         if not r.first_author_surname or r.parse_confidence < 0.5:
             continue
-
-        name = r.first_author_surname
-
-        if _is_cjk(name):
+        if _is_cjk(r.first_author_surname):
             continue
 
-        norm = normalise_surname(name)
-        if not norm:
-            continue
+        cur_key = _sort_key(r)
+        cur_name = r.first_author_surname
 
         if last_english is not None:
-            prev_norm, prev_name, prev_ref = last_english
-
-            if prev_norm > norm:
+            prev_key, prev_ref = last_english
+            if prev_key > cur_key:
+                expected, actual = _diff_reason(prev_ref, r)
                 issue_count += 1
                 if issue_count <= MAX_REPORTED:
+                    prev_name = prev_ref.first_author_surname or "(unknown)"
                     details.append(CheckDetail(
                         location=f"Reference #{r.index}",
                         locator=Locator(kind="paragraph", paragraph_index=r.paragraph_index),
                         message=(
-                            f"Out of alphabetical order: '{name}' (Reference #{r.index}) "
-                            f"should come before '{prev_name}' (Reference #{prev_ref.index})"
+                            f"Out of alphabetical order: Reference #{r.index} "
+                            f"('{cur_name}', {r.year or 'n.d.'}) should come before "
+                            f"Reference #{prev_ref.index} ('{prev_name}', "
+                            f"{prev_ref.year or 'n.d.'})"
                         ),
-                        expected=f"{name} before {prev_name}",
-                        actual=f"{prev_name} before {name}",
+                        expected=expected,
+                        actual=actual,
                         excerpt=r.raw_text[:200],
                     ))
-            elif prev_norm == norm:
-                prev_year = int(prev_ref.year) if prev_ref.year and prev_ref.year.isdigit() else 0
-                cur_year = int(r.year) if r.year and r.year.isdigit() else 0
-                if prev_year > cur_year > 0:
-                    issue_count += 1
-                    if issue_count <= MAX_REPORTED:
-                        details.append(CheckDetail(
-                            location=f"Reference #{r.index}",
-                            locator=Locator(kind="paragraph", paragraph_index=r.paragraph_index),
-                            message=(
-                                f"Same author '{name}': year {r.year} (Reference #{r.index}) "
-                                f"should come before {prev_ref.year} (Reference #{prev_ref.index})"
-                            ),
-                            expected=f"{r.year} before {prev_ref.year}",
-                            actual=f"{prev_ref.year} before {r.year}",
-                            excerpt=r.raw_text[:200],
-                        ))
-                elif prev_year == cur_year and prev_year > 0:
-                    prev_suffix = prev_ref.year_suffix or ""
-                    cur_suffix = r.year_suffix or ""
-                    if prev_suffix > cur_suffix and cur_suffix:
-                        issue_count += 1
-                        if issue_count <= MAX_REPORTED:
-                            details.append(CheckDetail(
-                                location=f"Reference #{r.index}",
-                                locator=Locator(kind="paragraph", paragraph_index=r.paragraph_index),
-                                message=(
-                                    f"Same author '{name}', same year {r.year}: "
-                                    f"suffix '{cur_suffix}' (Reference #{r.index}) "
-                                    f"should come before '{prev_suffix}' (Reference #{prev_ref.index})"
-                                ),
-                                expected=f"{r.year}{cur_suffix} before {prev_ref.year}{prev_suffix}",
-                                actual=f"{prev_ref.year}{prev_suffix} before {r.year}{cur_suffix}",
-                                excerpt=r.raw_text[:200],
-                            ))
 
-        last_english = (norm, name, r)
+        last_english = (cur_key, r)
 
     if issue_count > MAX_REPORTED:
         details.append(CheckDetail(

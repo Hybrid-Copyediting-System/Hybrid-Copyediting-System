@@ -38,17 +38,36 @@ def _get_line_spacing(p: DocxParagraph) -> float | None:
     return None
 
 
+def _resolve_style_indent(style: object, attr: str) -> int | None:
+    """Walk the paragraph style chain looking for an inherited indent value
+    (paragraph_format.left_indent or first_line_indent). Returns the EMU value
+    of the first explicit setting found, or None if the chain has none."""
+    s = style
+    seen: set[int] = set()
+    while s is not None and id(s) not in seen:
+        seen.add(id(s))
+        pf = getattr(s, "paragraph_format", None)
+        if pf is not None:
+            val = getattr(pf, attr, None)
+            if val is not None:
+                return int(val)
+        s = getattr(s, "base_style", None)
+    return None
+
+
 def _get_indent_left_cm(p: DocxParagraph) -> float | None:
-    pf = p.paragraph_format
-    val = pf.left_indent
+    val = p.paragraph_format.left_indent
+    if val is None:
+        val = _resolve_style_indent(p.style, "left_indent")
     if val is not None:
         return round(int(val) / EMU_PER_CM, 4)
     return None
 
 
 def _get_indent_first_line_cm(p: DocxParagraph) -> float | None:
-    pf = p.paragraph_format
-    val = pf.first_line_indent
+    val = p.paragraph_format.first_line_indent
+    if val is None:
+        val = _resolve_style_indent(p.style, "first_line_indent")
     if val is not None:
         return round(int(val) / EMU_PER_CM, 4)
     return None
@@ -154,7 +173,9 @@ def _get_doc_default_font(document: DocxDocument) -> tuple[str | None, float | N
 
     from docx.oxml.ns import qn
 
-    _styles_elem = getattr(document.styles, 'element', None) or getattr(document.styles, '_element', None)
+    _styles_elem = getattr(document.styles, "element", None)
+    if _styles_elem is None:
+        _styles_elem = getattr(document.styles, "_element", None)
     rpr = (
         _styles_elem.find(f"{qn('w:docDefaults')}/{qn('w:rPrDefault')}/{qn('w:rPr')}")
         if _styles_elem is not None else None

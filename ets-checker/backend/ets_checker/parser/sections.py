@@ -23,9 +23,20 @@ _CANONICAL_HEADINGS = {
     "literature review", "background", "related work",
     "theoretical framework", "implications", "limitations",
     "appendix", "appendices",
+    # End-matter sections common in journal articles. Without these, bold
+    # standalone headings like "Funding" get filtered out by the canonical-only
+    # gate when the doc otherwise uses styled headings, and the next paragraph
+    # then trips font.body / structure rules with a ghost heading mismatch.
+    "funding", "data availability", "data availability statement",
+    "author contributions", "authors contributions",
+    "conflict of interest", "conflicts of interest",
+    "declaration of interest", "declarations of interest",
+    "ethics statement", "ethics approval", "ethical approval",
+    "supplementary material", "supplementary materials",
+    "competing interests", "disclosure",
     "摘要", "關鍵詞", "關鍵字", "引言", "緒論", "前言",
     "方法", "研究方法", "結果", "討論", "結論", "參考文獻", "致謝",
-    "附錄",
+    "附錄", "經費", "資金", "致謝詞", "利益衝突",
 }
 
 ABSTRACT_TITLES = {"abstract", "摘要", "摘 要"}
@@ -38,6 +49,15 @@ KEYWORDS_PREFIX = re.compile(
 # Matches inline abstract labels like "ABSTRACT:" or "摘要：" at paragraph start.
 INLINE_ABSTRACT_PREFIX = re.compile(
     r"^(?:ABSTRACT|摘要|摘\s*要)\s*[:：]\s*",
+    re.IGNORECASE,
+)
+
+# Matches an "Appendix" / "Appendices" / "附錄" caption used as an end-matter
+# section heading, even when the paragraph isn't styled or bold. Stops at
+# any reasonable caption length so a paragraph that *mentions* "Appendix" mid-
+# sentence isn't promoted to a section.
+_APPENDIX_CAPTION = re.compile(
+    r"^\s*(?:Appendix|Appendices|附錄)\b[\s.:：A-Za-z0-9\-]{0,80}$",
     re.IGNORECASE,
 )
 
@@ -91,6 +111,23 @@ def _infer_level_from_font(p: Paragraph) -> int:
     return 3
 
 
+# Detects an APA-style numeric heading prefix and reports its depth:
+# "1." → 1, "1.1." → 2, "1.1.1." → 3. Used to pick the correct heading
+# level for sub-headings that are detected by the heuristic pass (the body of
+# the paper rarely styles every "5.4." as Heading 2, but we still need to
+# evaluate it against the right font expectations).
+_NUMERIC_PREFIX = re.compile(r"^\s*(\d+(?:\.\d+)*)\.?\s+\S")
+
+
+def _level_from_numbering(text: str) -> int | None:
+    m = _NUMERIC_PREFIX.match(text)
+    if not m:
+        return None
+    depth = m.group(1).count(".") + 1
+    # Cap at the deepest level our font profile defines (Heading 3).
+    return min(depth, 3)
+
+
 def _is_canonical_heading(text: str) -> bool:
     cleaned = _normalise_title(re.sub(r"^\d+(\.\d+)*\.?\s*", "", text.strip()))
     if cleaned in _CANONICAL_HEADINGS:
@@ -129,9 +166,19 @@ def detect(paragraphs: list[Paragraph]) -> list[Section]:
             continue
         if canonical_only and not _is_canonical_heading(p.text):
             continue
+        # Prefer numeric-prefix depth ("5.4." → L2) over the canonical-only
+        # default of L1, so sub-headings detected by the heuristic don't get
+        # graded against the L1 font profile.
+        numbered_level = _level_from_numbering(p.text)
+        if numbered_level is not None:
+            level = numbered_level
+        elif canonical_only:
+            level = 1
+        else:
+            level = _infer_level_from_font(p)
         heuristic_sections.append(Section(
             title=p.text.strip(),
-            level=1 if canonical_only else _infer_level_from_font(p),
+            level=level,
             paragraph_index=p.index,
             detection_method="heuristic",
         ))
@@ -146,7 +193,24 @@ def detect(paragraphs: list[Paragraph]) -> list[Section]:
                 title="Abstract",
                 level=1,
                 paragraph_index=p.index,
-                detection_method="heuristic",
+                detection_method="inline_abstract",
+            ))
+
+    # Detect "Appendix [letter/number]" captions even when they aren't bold.
+    # These are de facto end-matter section boundaries that several rules
+    # (font.reference scope, references parser) use to know when the body
+    # ends. Italics-only captions (e.g. "Appendix B. Characteristics …")
+    # are common and would otherwise leak into the references scan.
+    already_indexed = style_indices | {s.paragraph_index for s in heuristic_sections}
+    for p in paragraphs:
+        if p.is_in_table or p.index in already_indexed:
+            continue
+        if _APPENDIX_CAPTION.match(p.text.strip()):
+            heuristic_sections.append(Section(
+                title=p.text.strip(),
+                level=1,
+                paragraph_index=p.index,
+                detection_method="appendix",
             ))
 
     merged = style_sections + heuristic_sections

@@ -68,6 +68,31 @@ REF_AUTHOR_YEAR = re.compile(
     re.UNICODE,
 )
 
+# Leading author-list markers used in meta-analyses to flag included studies
+# (asterisk, dagger, double-dagger). Stripped before surname parsing so
+# "*Xu, Y., …" parses the same as "Xu, Y., …". Accepts one or more markers
+# so "**Smith" / "*†Smith" also parse cleanly.
+_LEADING_MARKER = re.compile(r"^[\*†‡]+\s*")
+
+# Matches the explanatory note that prefaces an asterisk-marked reference list
+# in meta-analysis papers, e.g. "References marked with an asterisk (*)
+# indicate studies included in the meta-analysis." It looks like a paragraph
+# in the References section but is metadata, not a citation.
+_REF_NOTE_PREFIX = re.compile(
+    r"^\s*References?\s+marked\s+with\b",
+    re.IGNORECASE,
+)
+
+# Matches "Appendix" / "Appendices" used as a section/caption heading at
+# paragraph start. The references parser stops here so the appendix caption
+# (which is not styled as a heading) doesn't get pulled in as a reference.
+# Hyphen is allowed so captions like "Appendix B. Characteristics … meta-
+# analysis" still match.
+_APPENDIX_HEADING = re.compile(
+    r"^\s*(?:Appendix|Appendices|附錄)\b[\s.:：A-Za-z0-9\-]{0,80}$",
+    re.IGNORECASE,
+)
+
 _GENERATIONAL_SUFFIX = re.compile(r",?\s*(?:Jr|Sr|III?|IV|V)\.", re.IGNORECASE)
 
 # Detects APA initial groups: ", X." or ", X. Y." or ", X.-Y."
@@ -134,6 +159,81 @@ _CJK_CHAR_RE = re.compile(
     "[一-鿿㐀-䶿豈-﫿\U00020000-\U0002A6DF\U0002A700-\U000323AF]"
 )
 
+# Strip pattern for author-key normalisation: whitespace, hyphens, apostrophes,
+# and dots. Mirrors rules.citation.normalise_surname so author keys compare on
+# the same basis a citation surname is matched against.
+_AUTHOR_KEY_STRIP = re.compile(
+    r"[\s\-'." + chr(0x2018) + chr(0x2019) + r"]"
+)
+
+
+def _normalise_for_sort(s: str) -> str:
+    """Lowercase + strip diacritics + drop separators (whitespace, hyphens,
+    apostrophes, dots) for stable cross-locale ordering."""
+    import unicodedata as _ud
+    s = _ud.normalize("NFD", s)
+    s = "".join(c for c in s if _ud.category(c) != "Mn")
+    s = s.replace("ı", "i").lower()
+    return _AUTHOR_KEY_STRIP.sub("", s)
+
+
+def _split_authors(author_text: str) -> list[str]:
+    """Split an APA author block into individual "Surname, Initials" parts.
+
+    Handles three common APA layouts:
+      - Two authors:    "Smith, J., & Jones, K."
+      - Three+ authors: "Smith, J., Jones, K., & Taylor, L."
+      - One author:     "Smith, J."
+    The trailing " & " before the last author is normalised to ", " so a
+    single split-on-".," gives consistent parts.
+    """
+    if not author_text or not author_text.strip():
+        return []
+    cleaned = re.sub(r"\(Eds?\.\)", "", author_text)
+    cleaned = _GENERATIONAL_SUFFIX.sub("", cleaned).strip()
+    # Normalise the final " & "/" and " separator so it splits like the others.
+    cleaned = re.sub(r"\s*,?\s*&\s+", ", ", cleaned)
+    cleaned = re.sub(r"\s*,?\s+and\s+", ", ", cleaned, flags=re.IGNORECASE)
+    parts = re.split(r"\.\s*,\s*", cleaned)
+    return [p.strip().rstrip(".").strip() for p in parts if p.strip()]
+
+
+_AUTHOR_KEY_SEP = "\x01"
+
+
+def _author_to_sort_key(author: str) -> str | None:
+    """Convert one "Surname, X. Y." chunk into a normalised "<surname><SEP><initials>"
+    sort token. Returns None if the chunk doesn't look like an APA author.
+
+    The separator is U+0001 (Start Of Heading) — chosen because it sorts
+    *before* every letter, so a surname-initials key like "tu\\x01x" sorts
+    before "tulli\\x01s" (the right APA order: Tu, X. before Tulli, S.).
+    A printable separator like '|' would break that since '|' (0x7C) is
+    greater than every lowercase letter."""
+    if not author:
+        return None
+    # Surname is everything before the first comma; initials follow.
+    if "," in author:
+        surname, rest = author.split(",", 1)
+    else:
+        # Institutional / single-token author with no initials.
+        surname, rest = author, ""
+    surname_norm = _normalise_for_sort(surname)
+    initials_norm = _normalise_for_sort(rest)
+    if not surname_norm:
+        return None
+    return f"{surname_norm}{_AUTHOR_KEY_SEP}{initials_norm}"
+
+
+def _build_author_sort_keys(author_text: str) -> list[str]:
+    """Return one normalised sort token per author in the block."""
+    keys: list[str] = []
+    for chunk in _split_authors(author_text):
+        key = _author_to_sort_key(chunk)
+        if key is not None:
+            keys.append(key)
+    return keys
+
 
 def extract(
     paragraphs: list[Paragraph],
@@ -154,24 +254,45 @@ def extract(
     if ref_section_idx is None:
         return []
 
-    ref_paragraphs = [
-        p for p in paragraphs
-        if p.index > ref_section_idx
-        and (next_section_idx is None or p.index < next_section_idx)
-        and not p.is_in_table
-        and p.text.strip()
-    ]
+    ref_paragraphs: list[Paragraph] = []
+    for p in paragraphs:
+        if p.index <= ref_section_idx:
+            continue
+        if next_section_idx is not None and p.index >= next_section_idx:
+            break
+        if p.is_in_table:
+            continue
+        text = p.text.strip()
+        if not text:
+            continue
+        # Stop at an Appendix caption — even if it isn't styled as a heading,
+        # the bibliography ends here. This prevents the Appendix title and
+        # any free text before its (in-table) body from being mis-parsed as
+        # references.
+        if _APPENDIX_HEADING.match(text):
+            break
+        # Skip the asterisk-explainer note that prefaces some meta-analysis
+        # bibliographies; it's metadata, not a reference.
+        if _REF_NOTE_PREFIX.match(text):
+            continue
+        ref_paragraphs.append(p)
 
     results: list[Reference] = []
     for idx, p in enumerate(ref_paragraphs):
         raw = p.text.strip()
-        m = REF_AUTHOR_YEAR.match(raw)
+        # Strip leading meta-analysis marker (* / † / ‡) so the surname is
+        # parsed from the actual author text. We keep the original raw text
+        # in the reference so the rule output still shows the marker.
+        marker_match = _LEADING_MARKER.match(raw)
+        parse_text = raw[marker_match.end():] if marker_match else raw
+        m = REF_AUTHOR_YEAR.match(parse_text)
         year: str | None = None
         year_suffix: str | None = None
         first_author: str | None = None
         confidence = 0.2
 
         author_count: int | None = None
+        author_sort_keys: list[str] = []
 
         if m:
             year = m.group("year")
@@ -181,6 +302,7 @@ def extract(
             # "State Council of the People's Republic of China"
             author_text = m.group("authors").strip().replace('‘', "'").replace('’', "'")
             author_count = _count_authors(author_text)
+            author_sort_keys = _build_author_sort_keys(author_text)
             am = REF_FIRST_AUTHOR.match(author_text)
             if am:
                 first_author = am.group("surname").strip()
@@ -225,6 +347,7 @@ def extract(
             doi=doi,
             urls=urls,
             author_count=author_count,
+            author_sort_keys=author_sort_keys,
         ))
 
     return results

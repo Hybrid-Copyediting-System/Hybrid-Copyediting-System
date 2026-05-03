@@ -415,12 +415,19 @@ def check_et_al_usage(doc: ParsedDocument) -> list[CheckDetail]:
 
         ref = ref_index.get(key)
         if ref is None:
+            # Fall back to surname-only lookup ONLY when a same-year reference
+            # exists. Without this guard, "Xu, 2022" would match "Xu, 2024" and
+            # produce a misleading et al. warning sourced from the wrong work.
+            # Same-year (suffix-only diff) is fine — that handles the common
+            # APA pattern where the citation drops the suffix, e.g. cite
+            # "Huang, 2022" while the reference is "Huang, 2022a".
             if cite_norm in surname_index:
-                entries = surname_index[cite_norm]
-                ref = min(
-                    entries,
-                    key=lambda e: _year_diff(e.year or "", c.year),
-                )
+                same_year_entries = [
+                    e for e in surname_index[cite_norm] if (e.year or "") == c.year
+                ]
+                if not same_year_entries:
+                    continue
+                ref = same_year_entries[0]
             else:
                 continue
 

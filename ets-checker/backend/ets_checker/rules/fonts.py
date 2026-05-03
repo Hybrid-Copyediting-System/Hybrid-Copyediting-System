@@ -205,6 +205,27 @@ def _is_stat_symbol(sym: str) -> bool:
     return False
 
 
+def _looks_like_definition(text: str, match_end: int) -> bool:
+    """Return True when the value after a `<sym> = …` match looks like a
+    definition phrase (e.g. "LB = Lower Bound") rather than a numeric value.
+
+    Used to suppress false positives in figure/table notes where authors
+    define custom abbreviations that incidentally match the stat-symbol
+    pattern. Statistical values are numeric (".05", "2.3", "100"); a
+    leading alphabetical character indicates a textual definition.
+    """
+    rest = text[match_end:].lstrip()
+    if not rest:
+        return False
+    first = rest[0]
+    # Numeric, signed, decimal, or Greek lowercase — treat as a stat value.
+    if first.isdigit() or first in "+-.":
+        return False
+    if first in "αβγδεζηθικλμνξοπρστυφχψω":
+        return False
+    return first.isalpha()
+
+
 @register("font.stat_italic", "Fonts", "Statistical symbol italics", "warning")
 def check_stat_italic(doc: ParsedDocument) -> list[CheckDetail]:
     """Warn when a statistical symbol (non-Greek letter) appears without italic
@@ -265,6 +286,10 @@ def check_stat_italic(doc: ParsedDocument) -> list[CheckDetail]:
                 count += 1
 
         for m in _STAT_PATTERN.finditer(combined_text):
+            # Suppress matches where the right-hand side is a definition
+            # phrase (e.g. "LB = Lower Bound" in a figure/table note).
+            if _looks_like_definition(combined_text, m.end()):
+                continue
             _check_match(m, known_only=False)
 
         # Second pass: APA df-in-parens form, e.g. t(79), F(1, 98)
@@ -419,6 +444,16 @@ def check_heading_font(doc: ParsedDocument) -> list[CheckDetail]:
     count = 0
 
     for s in doc.sections:
+        # Inline-abstract sections (e.g. "ABSTRACT: <body text>") are body
+        # paragraphs, not headings — skip them so we don't flag the body font
+        # as a Heading 1 mismatch.
+        if s.detection_method == "inline_abstract":
+            continue
+        # Appendix captions don't follow the Heading 1 font profile (often
+        # italic + 10pt, which is correct for an appendix caption). They're
+        # promoted to L1 only as a section boundary marker.
+        if s.detection_method == "appendix":
+            continue
         if s.level == 1:
             exp_name, exp_size, exp_bold, exp_italic = p.FONT_HEADING_1
             level_label = "Heading 1"
