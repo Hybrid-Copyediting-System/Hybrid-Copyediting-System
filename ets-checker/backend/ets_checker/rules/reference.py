@@ -51,9 +51,9 @@ def _sort_key(r: Reference) -> _SortKey:
     authors orders by the second-author key; same first-author chain orders
     chronologically; same year orders by suffix (a, b, c…).
     """
-    keys = list(r.author_sort_keys)
-    # Fallback: if the author chain wasn't parsed, use the surname alone
-    # so the entry still participates in ordering.
+    # Filter empty / whitespace-only entries so a malformed key chain doesn't
+    # short-circuit past the surname fallback.
+    keys = [k for k in r.author_sort_keys if k and k.strip()]
     if not keys and r.first_author_surname:
         keys = [normalise_surname(r.first_author_surname) + _AUTHOR_KEY_SEP]
     year = int(r.year) if r.year and r.year.isdigit() else 0
@@ -149,8 +149,7 @@ def check_alphabetical_order(doc: ParsedDocument) -> list[CheckDetail]:
             prev_key, prev_ref = last_english
             if prev_key > cur_key:
                 expected, actual = _diff_reason(prev_ref, r)
-                issue_count += 1
-                if issue_count <= MAX_REPORTED:
+                if issue_count < MAX_REPORTED:
                     prev_name = prev_ref.first_author_surname or "(unknown)"
                     details.append(CheckDetail(
                         location=f"Reference #{r.index}",
@@ -165,6 +164,7 @@ def check_alphabetical_order(doc: ParsedDocument) -> list[CheckDetail]:
                         actual=actual,
                         excerpt=r.raw_text[:200],
                     ))
+                issue_count += 1
 
         last_english = (cur_key, r)
 
@@ -193,7 +193,10 @@ def check_hanging_indent(doc: ParsedDocument) -> list[CheckDetail]:
     issue_count = 0
 
     for r in doc.references:
-        if r.paragraph_index >= len(doc.paragraphs):
+        # Guard against both out-of-range and negative indices. Python's
+        # negative-index wrap-around would silently point at the wrong
+        # paragraph for a malformed reference index, masking the real bug.
+        if not (0 <= r.paragraph_index < len(doc.paragraphs)):
             continue
 
         para = doc.paragraphs[r.paragraph_index]
@@ -201,8 +204,7 @@ def check_hanging_indent(doc: ParsedDocument) -> list[CheckDetail]:
         left = para.indent_left_cm
 
         if first_line is None and left is None:
-            issue_count += 1
-            if issue_count <= MAX_REPORTED:
+            if issue_count < MAX_REPORTED:
                 details.append(CheckDetail(
                     location=f"Reference #{r.index}",
                     locator=Locator(kind="paragraph", paragraph_index=r.paragraph_index),
@@ -211,12 +213,12 @@ def check_hanging_indent(doc: ParsedDocument) -> list[CheckDetail]:
                     actual="no indent set",
                     excerpt=r.raw_text[:200],
                 ))
+            issue_count += 1
             continue
 
         has_hanging = first_line is not None and first_line < 0
         if not has_hanging:
-            issue_count += 1
-            if issue_count <= MAX_REPORTED:
+            if issue_count < MAX_REPORTED:
                 details.append(CheckDetail(
                     location=f"Reference #{r.index}",
                     locator=Locator(kind="paragraph", paragraph_index=r.paragraph_index),
@@ -229,12 +231,12 @@ def check_hanging_indent(doc: ParsedDocument) -> list[CheckDetail]:
                     ),
                     excerpt=r.raw_text[:200],
                 ))
+            issue_count += 1
             continue
 
         hanging_cm = abs(first_line)
         if abs(hanging_cm - expected) > tol:
-            issue_count += 1
-            if issue_count <= MAX_REPORTED:
+            if issue_count < MAX_REPORTED:
                 details.append(CheckDetail(
                     location=f"Reference #{r.index}",
                     locator=Locator(kind="paragraph", paragraph_index=r.paragraph_index),
@@ -243,6 +245,7 @@ def check_hanging_indent(doc: ParsedDocument) -> list[CheckDetail]:
                     actual=f"{hanging_cm:.2f} cm",
                     excerpt=r.raw_text[:200],
                 ))
+            issue_count += 1
 
     if issue_count > MAX_REPORTED:
         details.append(CheckDetail(

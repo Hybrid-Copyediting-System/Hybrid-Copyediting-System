@@ -65,43 +65,69 @@ def _build_char_run_map(runs: list[Run]) -> tuple[str, list[Run]]:
     return "".join(parts), chars
 
 
-def _get_body_paragraph_indices(doc: ParsedDocument) -> set[int]:
-    heading_indices = {s.paragraph_index for s in doc.sections}
+def _compute_abstract_bounds(
+    doc: ParsedDocument,
+    keywords_ends_abstract: bool,
+) -> tuple[int | None, int | None]:
+    """Locate the abstract by section title, then resolve its end paragraph.
 
+    ``keywords_ends_abstract`` selects between the two callers' subtly
+    different conventions: the body-font check treats the Keywords line
+    as part of the abstract block (so it gets *excluded*); the abstract
+    italics check stops *before* the Keywords line (so the line itself
+    is not flagged as abstract content).
+    """
     abstract_start: int | None = None
     abstract_end: int | None = None
-    ref_start: int | None = None
 
     for i, s in enumerate(doc.sections):
-        if abstract_start is None and is_abstract_title(s.title):
+        if is_abstract_title(s.title):
             abstract_start = s.paragraph_index
             if i + 1 < len(doc.sections):
                 abstract_end = doc.sections[i + 1].paragraph_index
-        if ref_start is None and is_reference_title(s.title):
-            ref_start = s.paragraph_index
+            break
 
-    if abstract_start is not None and abstract_end is None:
-        for para in doc.paragraphs:
-            if (para.index > abstract_start
-                    and not para.is_in_table
-                    and KEYWORDS_PREFIX.match(para.text.strip())):
-                abstract_end = para.index + 1
-                break
-        if abstract_end is None:
-            max_idx = max((p.index for p in doc.paragraphs), default=abstract_start)
-            fallback_limit = abstract_start + ABSTRACT_FALLBACK_PARAGRAPHS + 1
-            next_heading = next(
-                (p.index for p in doc.paragraphs
-                 if p.index > abstract_start
-                 and p.index < fallback_limit
-                 and p.style_name is not None
-                 and ("heading" in p.style_name.lower() or "標題" in p.style_name)),
-                None,
-            )
-            abstract_end = min(
-                next_heading if next_heading is not None else fallback_limit,
-                max_idx + 1,
-            )
+    if abstract_start is None:
+        return None, None
+
+    if abstract_end is not None:
+        return abstract_start, abstract_end
+
+    for para in doc.paragraphs:
+        if (para.index > abstract_start
+                and not para.is_in_table
+                and KEYWORDS_PREFIX.match(para.text.strip())):
+            abstract_end = para.index + 1 if keywords_ends_abstract else para.index
+            break
+    if abstract_end is None:
+        max_idx = max((p.index for p in doc.paragraphs), default=abstract_start)
+        fallback_limit = abstract_start + ABSTRACT_FALLBACK_PARAGRAPHS + 1
+        next_heading = next(
+            (p.index for p in doc.paragraphs
+             if p.index > abstract_start
+             and p.index < fallback_limit
+             and p.style_name is not None
+             and ("heading" in p.style_name.lower() or "標題" in p.style_name)),
+            None,
+        )
+        abstract_end = min(
+            next_heading if next_heading is not None else fallback_limit,
+            max_idx + 1,
+        )
+
+    return abstract_start, abstract_end
+
+
+def _get_body_paragraph_indices(doc: ParsedDocument) -> set[int]:
+    heading_indices = {s.paragraph_index for s in doc.sections}
+
+    abstract_start, abstract_end = _compute_abstract_bounds(
+        doc, keywords_ends_abstract=True
+    )
+    ref_start: int | None = next(
+        (s.paragraph_index for s in doc.sections if is_reference_title(s.title)),
+        None,
+    )
 
     # Paragraphs before the first detected section (title, authors, affiliations)
     # are front matter and should not be checked against body font rules.
@@ -308,41 +334,11 @@ def check_stat_italic(doc: ParsedDocument) -> list[CheckDetail]:
 
 def _get_abstract_paragraph_indices(doc: ParsedDocument) -> set[int]:
     """Return paragraph indices belonging to the abstract body (excluding Keywords)."""
-    abstract_start: int | None = None
-    abstract_end: int | None = None
-
-    for i, s in enumerate(doc.sections):
-        if is_abstract_title(s.title):
-            abstract_start = s.paragraph_index
-            if i + 1 < len(doc.sections):
-                abstract_end = doc.sections[i + 1].paragraph_index
-            break
-
-    if abstract_start is None:
+    abstract_start, abstract_end = _compute_abstract_bounds(
+        doc, keywords_ends_abstract=False
+    )
+    if abstract_start is None or abstract_end is None:
         return set()
-
-    if abstract_end is None:
-        for para in doc.paragraphs:
-            if (para.index > abstract_start
-                    and not para.is_in_table
-                    and KEYWORDS_PREFIX.match(para.text.strip())):
-                abstract_end = para.index
-                break
-        if abstract_end is None:
-            max_idx = max((pa.index for pa in doc.paragraphs), default=abstract_start)
-            fallback_limit = abstract_start + ABSTRACT_FALLBACK_PARAGRAPHS + 1
-            next_heading = next(
-                (pa.index for pa in doc.paragraphs
-                 if pa.index > abstract_start
-                 and pa.index < fallback_limit
-                 and pa.style_name is not None
-                 and ("heading" in pa.style_name.lower() or "標題" in pa.style_name)),
-                None,
-            )
-            abstract_end = min(
-                next_heading if next_heading is not None else fallback_limit,
-                max_idx + 1,
-            )
 
     indices: set[int] = set()
 

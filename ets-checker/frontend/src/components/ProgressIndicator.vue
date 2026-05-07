@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import type { ProgressEvent } from "../api";
+import type { ProgressEvent } from "../types";
 
 const props = withDefaults(
   defineProps<{ progress?: ProgressEvent | null }>(),

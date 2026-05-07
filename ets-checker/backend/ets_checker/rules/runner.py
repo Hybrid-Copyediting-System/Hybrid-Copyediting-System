@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import asyncio
-import contextvars
 from datetime import datetime, timezone
 from typing import Awaitable, Callable, Literal
 
@@ -15,20 +14,58 @@ from ets_checker.models import (
 
 Severity = Literal["error", "warning", "info"]
 RuleFunc = Callable[[ParsedDocument], list[CheckDetail]]
-AsyncRuleFunc = Callable[[ParsedDocument], Awaitable[list[CheckDetail]]]
+LinkProgressCallback = Callable[[int, int], Awaitable[None]]
+AsyncRuleFunc = Callable[
+    [ParsedDocument, LinkProgressCallback | None],
+    Awaitable[list[CheckDetail]],
+]
 ProgressCallback = Callable[[dict], Awaitable[None]]
 
-_REGISTRY: list[tuple[str, str, str, Severity, RuleFunc]] = []
-_ASYNC_REGISTRY: list[tuple[str, str, str, Severity, AsyncRuleFunc]] = []
 
-# Threads a per-link progress callback into async rules without changing their signatures.
-_link_progress_var: contextvars.ContextVar[
-    Callable[[int, int], Awaitable[None]] | None
-] = contextvars.ContextVar("_link_progress", default=None)
+class RuleRegistry:
+    """Explicit registry for sync and async rules.
+
+    Replaces a pair of module-level lists. Iteration order is the order
+    in which rules were registered, but the registry exposes ``run`` /
+    ``run_async`` so callers don't depend on import order beyond that.
+    """
+
+    def __init__(self) -> None:
+        self._sync: list[tuple[str, str, str, Severity, RuleFunc]] = []
+        self._async: list[tuple[str, str, str, Severity, AsyncRuleFunc]] = []
+
+    def register(
+        self,
+        rule_id: str,
+        category: str,
+        name: str,
+        severity: Severity,
+        fn: RuleFunc,
+    ) -> None:
+        self._sync.append((rule_id, category, name, severity, fn))
+
+    def register_async(
+        self,
+        rule_id: str,
+        category: str,
+        name: str,
+        severity: Severity,
+        fn: AsyncRuleFunc,
+    ) -> None:
+        self._async.append((rule_id, category, name, severity, fn))
+
+    @property
+    def sync_rules(self) -> list[tuple[str, str, str, Severity, RuleFunc]]:
+        return list(self._sync)
+
+    @property
+    def async_rules(self) -> list[tuple[str, str, str, Severity, AsyncRuleFunc]]:
+        return list(self._async)
 
 
-def get_link_progress() -> Callable[[int, int], Awaitable[None]] | None:
-    return _link_progress_var.get()
+# Default registry used by the @register / @register_async decorators below.
+# Rules import the decorators; the registry stays a private detail.
+_REGISTRY = RuleRegistry()
 
 
 def register(
@@ -38,7 +75,7 @@ def register(
     severity: Severity,
 ) -> Callable[[RuleFunc], RuleFunc]:
     def decorator(fn: RuleFunc) -> RuleFunc:
-        _REGISTRY.append((rule_id, category, name, severity, fn))
+        _REGISTRY.register(rule_id, category, name, severity, fn)
         return fn
     return decorator
 
@@ -50,7 +87,7 @@ def register_async(
     severity: Severity,
 ) -> Callable[[AsyncRuleFunc], AsyncRuleFunc]:
     def decorator(fn: AsyncRuleFunc) -> AsyncRuleFunc:
-        _ASYNC_REGISTRY.append((rule_id, category, name, severity, fn))
+        _REGISTRY.register_async(rule_id, category, name, severity, fn)
         return fn
     return decorator
 
@@ -95,7 +132,7 @@ def _build_report(file_name: str, results: list[CheckResult]) -> CheckReport:
 
 def run(doc: ParsedDocument, file_name: str) -> CheckReport:
     results: list[CheckResult] = []
-    for rule_id, category, name, severity, fn in _REGISTRY:
+    for rule_id, category, name, severity, fn in _REGISTRY.sync_rules:
         results.append(_make_result(rule_id, category, name, severity, fn(doc)))
     return _build_report(file_name, results)
 
@@ -106,13 +143,15 @@ async def run_async(
     on_progress: ProgressCallback | None = None,
 ) -> CheckReport:
     results: list[CheckResult] = []
-    total_steps = len(_REGISTRY) + len(_ASYNC_REGISTRY)
+    sync_rules = _REGISTRY.sync_rules
+    async_rules = _REGISTRY.async_rules
+    total_steps = len(sync_rules) + len(async_rules)
 
     async def _emit(event: dict) -> None:
         if on_progress is not None:
             await on_progress(event)
 
-    for i, (rule_id, category, name, severity, fn) in enumerate(_REGISTRY):
+    for i, (rule_id, category, name, severity, fn) in enumerate(sync_rules):
         await _emit({
             "phase": "rule",
             "rule_id": rule_id,
@@ -123,8 +162,8 @@ async def run_async(
         })
         results.append(_make_result(rule_id, category, name, severity, fn(doc)))
 
-    if _ASYNC_REGISTRY:
-        link_step = len(_REGISTRY) + 1
+    if async_rules:
+        link_step = len(sync_rules) + 1
         await _emit({
             "phase": "links_start",
             "step": link_step,
@@ -142,16 +181,12 @@ async def run_async(
                 "message": f"Checking links ({done}/{total})...",
             })
 
-        token = _link_progress_var.set(_link_cb)
-        try:
-            details_list = await asyncio.gather(
-                *[fn(doc) for _, _, _, _, fn in _ASYNC_REGISTRY]
-            )
-        finally:
-            _link_progress_var.reset(token)
+        details_list = await asyncio.gather(
+            *[fn(doc, _link_cb) for _, _, _, _, fn in async_rules]
+        )
 
         for (rule_id, category, name, severity, _), details in zip(
-            _ASYNC_REGISTRY, details_list
+            async_rules, details_list
         ):
             results.append(_make_result(rule_id, category, name, severity, details))
 

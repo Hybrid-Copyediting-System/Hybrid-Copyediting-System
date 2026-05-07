@@ -24,8 +24,13 @@ class TestMetadata:
     def test_margins_on_template(self) -> None:
         p = _get_fixture("ets_template.docx")
         doc = parse(str(p))
-        assert abs(doc.metadata.margin_top_cm - 2.5) < 0.2
-        assert abs(doc.metadata.margin_left_cm - 2.5) < 0.2
+        # ET&S template specifies 2.5 cm margins. A 0.2 cm tolerance is loose
+        # enough that a parser bug rounding to whole cm could still pass —
+        # tighten to 0.05 cm (well within float-conversion noise from EMU).
+        assert abs(doc.metadata.margin_top_cm - 2.5) < 0.05
+        assert abs(doc.metadata.margin_left_cm - 2.5) < 0.05
+        assert abs(doc.metadata.margin_bottom_cm - 2.5) < 0.05
+        assert abs(doc.metadata.margin_right_cm - 2.5) < 0.05
 
 
 class TestParagraphs:

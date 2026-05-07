@@ -1,7 +1,24 @@
 import axios from "axios";
-import type { CheckReport } from "./types";
+import type { CheckReport, ProgressEvent } from "./types";
+
+/**
+ * Error type for HTTP/SSE failures originating in this module.
+ *
+ * Carries a user-facing detail string. extractErrorMessage handles both
+ * APIError instances (the SSE path) and axios errors (the JSON path),
+ * so callers don't need to branch on which transport was used.
+ */
+export class APIError extends Error {
+  constructor(public detail: string) {
+    super(detail);
+    this.name = "APIError";
+  }
+}
 
 export function extractErrorMessage(err: unknown, fallback: string): string {
+  if (err instanceof APIError) {
+    return err.detail || fallback;
+  }
   if (
     typeof err === "object" &&
     err !== null &&
@@ -13,12 +30,6 @@ export function extractErrorMessage(err: unknown, fallback: string): string {
   }
   return fallback;
 }
-
-export type ProgressEvent =
-  | { phase: "parsing"; message: string }
-  | { phase: "rule"; rule_id: string; name: string; step: number; total_steps: number; message: string }
-  | { phase: "links_start"; step: number; total_steps: number; message: string }
-  | { phase: "links"; done: number; total: number; step: number; total_steps: number; message: string };
 
 /**
  * POST the file to /api/check/stream, parse the SSE response, and call onProgress
@@ -44,12 +55,14 @@ export async function checkDocumentStreaming(
       const data = (await response.json()) as { detail?: string };
       detail = data.detail ?? detail;
     } catch { /* ignore */ }
-    throw Object.assign(new Error(detail), { response: { data: { detail } } });
+    throw new APIError(detail);
   }
 
   const reader = response.body.getReader();
   const decoder = new TextDecoder();
   let buffer = "";
+  let malformedEvents = 0;
+  const MAX_MALFORMED = 5;
 
   return new Promise<CheckReport>((resolve, reject) => {
     async function pump() {
@@ -57,8 +70,7 @@ export async function checkDocumentStreaming(
         while (true) {
           const { done, value } = await reader.read();
           if (done) {
-            const msg = "Stream ended unexpectedly";
-            reject(Object.assign(new Error(msg), { response: { data: { detail: msg } } }));
+            reject(new APIError("Stream ended unexpectedly"));
             return;
           }
 
@@ -89,6 +101,11 @@ export async function checkDocumentStreaming(
             try {
               data = JSON.parse(dataStr);
             } catch {
+              malformedEvents += 1;
+              if (malformedEvents > MAX_MALFORMED) {
+                reject(new APIError("Server stream sent malformed events"));
+                return;
+              }
               continue;
             }
 
@@ -99,7 +116,7 @@ export async function checkDocumentStreaming(
               return;
             } else if (eventType === "error") {
               const msg = (data as { message?: string }).message ?? "Unknown error";
-              reject(Object.assign(new Error(msg), { response: { data: { detail: msg } } }));
+              reject(new APIError(msg));
               return;
             }
           }
@@ -111,13 +128,6 @@ export async function checkDocumentStreaming(
 
     pump();
   });
-}
-
-export async function checkDocument(file: File): Promise<CheckReport> {
-  const fd = new FormData();
-  fd.append("file", file);
-  const r = await axios.post<CheckReport>("/api/check", fd);
-  return r.data;
 }
 
 export async function downloadAnnotated(file: File, report?: CheckReport): Promise<Blob> {

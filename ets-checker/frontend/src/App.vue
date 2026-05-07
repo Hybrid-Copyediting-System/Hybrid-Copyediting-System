@@ -1,14 +1,18 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import { useTheme } from "vuetify";
-import type { CheckReport } from "./types";
-import type { ProgressEvent } from "./api";
+import type { CheckReport, ProgressEvent } from "./types";
 import {
   checkDocumentStreaming,
   downloadAnnotated,
   extractErrorMessage,
   healthCheck,
 } from "./api";
+import {
+  BLOB_REVOKE_DELAY_MS,
+  HEALTH_RETRY_BASE_MS,
+  HEALTH_RETRY_MAX_ATTEMPTS,
+} from "./constants";
 import FileUploader from "./components/FileUploader.vue";
 import ProgressIndicator from "./components/ProgressIndicator.vue";
 import ReportSummary from "./components/ReportSummary.vue";
@@ -21,22 +25,34 @@ const report = ref<CheckReport | null>(null);
 const lastFile = ref<File | null>(null);
 const annotatedLoading = ref(false);
 const errorMessage = ref("");
+const uploadError = ref("");
 const downloadError = ref("");
 const backendReady = ref(false);
 const progressEvent = ref<ProgressEvent | null>(null);
 const theme = useTheme();
 
-onMounted(async () => {
-  for (let attempt = 0; attempt < 5; attempt++) {
+onMounted(() => {
+  // Fire-and-forget health probe with linear backoff so the UI mounts
+  // immediately and the warning banner clears once the backend responds.
+  let attempt = 0;
+  const checkHealth = async () => {
     backendReady.value = await healthCheck();
-    if (backendReady.value) break;
-    await new Promise((r) => setTimeout(r, 2000 * (attempt + 1)));
-  }
+    if (!backendReady.value && attempt < HEALTH_RETRY_MAX_ATTEMPTS) {
+      attempt += 1;
+      setTimeout(checkHealth, HEALTH_RETRY_BASE_MS * attempt);
+    }
+  };
+  void checkHealth();
 });
+
+function onValidationError(message: string) {
+  uploadError.value = message;
+}
 
 async function onFileSelected(file: File) {
   state.value = "loading";
   errorMessage.value = "";
+  uploadError.value = "";
   downloadError.value = "";
   progressEvent.value = null;
   lastFile.value = file;
@@ -59,6 +75,7 @@ function reset() {
   report.value = null;
   lastFile.value = null;
   errorMessage.value = "";
+  uploadError.value = "";
   downloadError.value = "";
   progressEvent.value = null;
 }
@@ -67,15 +84,17 @@ async function downloadAnnotatedDocx() {
   if (!lastFile.value || !report.value) return;
   annotatedLoading.value = true;
   downloadError.value = "";
+  let objUrl: string | null = null;
+  let succeeded = false;
   try {
     const blob = await downloadAnnotated(lastFile.value, report.value ?? undefined);
     const stem = report.value.file_name.replace(/\.docx$/i, "");
     const a = document.createElement("a");
-    const objUrl = URL.createObjectURL(blob);
+    objUrl = URL.createObjectURL(blob);
     a.href = objUrl;
     a.download = `${stem}.annotated.docx`;
     a.click();
-    setTimeout(() => URL.revokeObjectURL(objUrl), 60_000);
+    succeeded = true;
   } catch (err: unknown) {
     downloadError.value = extractErrorMessage(
       err,
@@ -83,6 +102,16 @@ async function downloadAnnotatedDocx() {
     );
   } finally {
     annotatedLoading.value = false;
+    if (objUrl) {
+      // On success, defer revocation so the download has time to start.
+      // On failure, revoke immediately so the blob URL doesn't leak.
+      const url = objUrl;
+      if (succeeded) {
+        setTimeout(() => URL.revokeObjectURL(url), BLOB_REVOKE_DELAY_MS);
+      } else {
+        URL.revokeObjectURL(url);
+      }
+    }
   }
 }
 
@@ -96,7 +125,7 @@ function downloadJson() {
   a.href = objUrl;
   a.download = `${report.value.file_name}-report.json`;
   a.click();
-  setTimeout(() => URL.revokeObjectURL(objUrl), 60_000);
+  setTimeout(() => URL.revokeObjectURL(objUrl), BLOB_REVOKE_DELAY_MS);
 }
 
 function toggleTheme() {
@@ -105,15 +134,7 @@ function toggleTheme() {
 }
 
 function getCategories(r: CheckReport): string[] {
-  const seen = new Set<string>();
-  const result: string[] = [];
-  for (const item of r.results) {
-    if (!seen.has(item.category)) {
-      seen.add(item.category);
-      result.push(item.category);
-    }
-  }
-  return result;
+  return [...new Set(r.results.map((item) => item.category))];
 }
 </script>
 
@@ -141,7 +162,20 @@ function getCategories(r: CheckReport): string[] {
 
         <!-- Idle: upload -->
         <div v-if="state === 'idle'">
-          <FileUploader @file-selected="onFileSelected" />
+          <v-alert
+            v-if="uploadError"
+            type="error"
+            variant="tonal"
+            closable
+            class="mb-4"
+            @click:close="uploadError = ''"
+          >
+            {{ uploadError }}
+          </v-alert>
+          <FileUploader
+            @file-selected="onFileSelected"
+            @validation-error="onValidationError"
+          />
           <v-card variant="outlined" class="mt-4 pa-4">
             <v-card-text class="text-body-2 text-medium-emphasis">
               <strong>Tip:</strong> If your document was created with Zotero or Mendeley,
@@ -178,7 +212,7 @@ function getCategories(r: CheckReport): string[] {
               variant="outlined"
               class="mr-2"
               :loading="annotatedLoading"
-              :disabled="!lastFile"
+              :disabled="!lastFile || !report"
               @click="downloadAnnotatedDocx"
             >
               <v-icon start>mdi-file-document-edit-outline</v-icon>

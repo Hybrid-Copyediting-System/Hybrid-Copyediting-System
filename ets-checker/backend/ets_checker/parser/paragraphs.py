@@ -38,6 +38,19 @@ def _get_line_spacing(p: DocxParagraph) -> float | None:
     return None
 
 
+def _safe_int(val: object) -> int | None:
+    """Coerce a python-docx length/EMU value to int, tolerating malformed
+    strings from corrupt DOCX inputs. Returns None if the value can't be
+    parsed; callers must treat None as "no value set"."""
+    if val is None:
+        return None
+    try:
+        return int(val)
+    except (TypeError, ValueError):
+        logger.warning("Invalid dimension value: %r", val)
+        return None
+
+
 def _resolve_style_indent(style: object, attr: str) -> int | None:
     """Walk the paragraph style chain looking for an inherited indent value
     (paragraph_format.left_indent or first_line_indent). Returns the EMU value
@@ -50,7 +63,9 @@ def _resolve_style_indent(style: object, attr: str) -> int | None:
         if pf is not None:
             val = getattr(pf, attr, None)
             if val is not None:
-                return int(val)
+                coerced = _safe_int(val)
+                if coerced is not None:
+                    return coerced
         s = getattr(s, "base_style", None)
     return None
 
@@ -59,8 +74,9 @@ def _get_indent_left_cm(p: DocxParagraph) -> float | None:
     val = p.paragraph_format.left_indent
     if val is None:
         val = _resolve_style_indent(p.style, "left_indent")
-    if val is not None:
-        return round(int(val) / EMU_PER_CM, 4)
+    coerced = _safe_int(val)
+    if coerced is not None:
+        return round(coerced / EMU_PER_CM, 4)
     return None
 
 
@@ -68,8 +84,9 @@ def _get_indent_first_line_cm(p: DocxParagraph) -> float | None:
     val = p.paragraph_format.first_line_indent
     if val is None:
         val = _resolve_style_indent(p.style, "first_line_indent")
-    if val is not None:
-        return round(int(val) / EMU_PER_CM, 4)
+    coerced = _safe_int(val)
+    if coerced is not None:
+        return round(coerced / EMU_PER_CM, 4)
     return None
 
 
@@ -95,7 +112,9 @@ def _resolve_style_font(
             if font_name is None and f.name:
                 font_name = f.name
             if font_size_pt is None and f.size:
-                font_size_pt = round(int(f.size) / EMU_PER_PT, 1)
+                size_int = _safe_int(f.size)
+                if size_int is not None:
+                    font_size_pt = round(size_int / EMU_PER_PT, 1)
         if font_name is not None and font_size_pt is not None:
             break
         s = getattr(s, "base_style", None)

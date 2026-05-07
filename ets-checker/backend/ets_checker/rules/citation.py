@@ -2,11 +2,11 @@ from __future__ import annotations
 
 import functools
 import re
-import unicodedata
 
 from ets_checker import ets_profile as P
 from ets_checker.models import CheckDetail, Locator, ParsedDocument, Reference
 from ets_checker.rules.runner import register
+from ets_checker.utils.text import normalise_surname
 
 MAX_REPORTED = 20
 
@@ -26,20 +26,6 @@ _MIN_PREFIX_LEN = 6
 # multi-word surname (e.g. "Berg" from "Van der Berg") almost always indicates
 # the same person, and both entries must also share the same year.
 _MIN_SUFFIX_LEN = 4
-
-# Strip pattern for surname normalisation: whitespace, hyphens, and all
-# apostrophe variants (ASCII U+0027, smart U+2018/U+2019).
-# Built with chr() so editors cannot silently convert the literal quotes.
-_STRIP_RE = re.compile(r"[\s\-'" + chr(0x2018) + chr(0x2019) + r"]")
-
-
-def normalise_surname(s: str) -> str:
-    """Normalise a surname for comparison: strip diacritics, hyphens, apostrophes."""
-    s = unicodedata.normalize("NFD", s)
-    s = "".join(c for c in s if unicodedata.category(c) != "Mn")
-    s = s.replace("ı", "i")
-    return _STRIP_RE.sub("", s).lower()
-
 
 def _find_prefix_match(
     cite_norm: str,
@@ -190,21 +176,20 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
                     or year_diff > 5
                 )
                 if likely_different_person:
-                    orphan_count += 1
-                    if orphan_count <= MAX_REPORTED:
+                    if orphan_count < MAX_REPORTED:
                         details.append(CheckDetail(
                             location=f"paragraph {c.paragraph_index}",
                             locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
                             message=f"Citation '{c.raw_text}' has no matching reference (a reference with surname '{ref.first_author_surname}' exists but appears to be a different author)",
                             excerpt=c.raw_text,
                         ))
+                    orphan_count += 1
                     continue
 
                 ref_year_str = f"{ref_year}{ref_suffix}" if ref_suffix else ref_year
                 cite_year_str = f"{cite_year}{cite_suffix}" if cite_suffix else cite_year
                 cited_keys.add((cite_norm, ref_year, ref_suffix))
-                year_mismatch_count += 1
-                if year_mismatch_count <= MAX_REPORTED:
+                if year_mismatch_count < MAX_REPORTED:
                     if ref_year == cite_year:
                         msg = (
                             f"Citation year-suffix mismatch: '{c.raw_text}' cites {cite_year_str}, "
@@ -221,6 +206,7 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
                         message=msg,
                         excerpt=c.raw_text,
                     ))
+                year_mismatch_count += 1
                 continue
             else:
                 # Multiple references with same surname — find closest year
@@ -238,14 +224,14 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
                     or year_diff > 5
                 )
                 if likely_different_person:
-                    orphan_count += 1
-                    if orphan_count <= MAX_REPORTED:
+                    if orphan_count < MAX_REPORTED:
                         details.append(CheckDetail(
                             location=f"paragraph {c.paragraph_index}",
                             locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
                             message=f"Citation '{c.raw_text}' has no matching reference (a reference with surname '{ref.first_author_surname}' exists but appears to be a different author)",
                             excerpt=c.raw_text,
                         ))
+                    orphan_count += 1
                     continue
 
                 # When the citation drops the suffix and several references
@@ -256,8 +242,7 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
                 ]
                 cite_year_str = f"{cite_year}{cite_suffix}" if cite_suffix else cite_year
                 cited_keys.add((cite_norm, ref_year, ref_suffix))
-                year_mismatch_count += 1
-                if year_mismatch_count <= MAX_REPORTED:
+                if year_mismatch_count < MAX_REPORTED:
                     if (
                         ref_year == cite_year
                         and not cite_suffix
@@ -292,6 +277,7 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
                         message=msg,
                         excerpt=c.raw_text,
                     ))
+                year_mismatch_count += 1
                 continue
 
         # ── Institutional author prefix match ────────────────────────────────
@@ -311,8 +297,7 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
             ref_norm, ref_year, ref_suffix, ref_pos = suffix_hit
             ref = doc.references[ref_pos]
             cited_keys.add((ref_norm, ref_year, ref_suffix))
-            surname_mismatch_count += 1
-            if surname_mismatch_count <= MAX_REPORTED:
+            if surname_mismatch_count < MAX_REPORTED:
                 details.append(CheckDetail(
                     location=f"paragraph {c.paragraph_index}",
                     locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
@@ -323,6 +308,7 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
                     ),
                     excerpt=c.raw_text,
                 ))
+            surname_mismatch_count += 1
             continue
 
         # ── Near-miss surname (likely spelling/transposition error) ─────────
@@ -331,8 +317,7 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
             ref_norm, near_pos = near_hit
             ref = doc.references[near_pos]
             cited_keys.add((ref_norm, cite_year, cite_suffix))
-            surname_mismatch_count += 1
-            if surname_mismatch_count <= MAX_REPORTED:
+            if surname_mismatch_count < MAX_REPORTED:
                 details.append(CheckDetail(
                     location=f"paragraph {c.paragraph_index}",
                     locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
@@ -343,17 +328,18 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
                     ),
                     excerpt=c.raw_text,
                 ))
+            surname_mismatch_count += 1
             continue
 
         # ── True orphan: author not found at all in references ───────────────
-        orphan_count += 1
-        if orphan_count <= MAX_REPORTED:
+        if orphan_count < MAX_REPORTED:
             details.append(CheckDetail(
                 location=f"paragraph {c.paragraph_index}",
                 locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
                 message=f"Citation '{c.raw_text}' has no matching reference",
                 excerpt=c.raw_text,
             ))
+        orphan_count += 1
 
     if year_mismatch_count > MAX_REPORTED:
         details.append(CheckDetail(
@@ -459,8 +445,7 @@ def check_et_al_usage(doc: ParsedDocument) -> list[CheckDetail]:
 
         if c.has_et_al and ref.author_count < threshold:
             reported.add(dedup_key)
-            issue_count += 1
-            if issue_count <= MAX_REPORTED:
+            if issue_count < MAX_REPORTED:
                 details.append(CheckDetail(
                     location=f"paragraph {c.paragraph_index}",
                     locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
@@ -474,11 +459,11 @@ def check_et_al_usage(doc: ParsedDocument) -> list[CheckDetail]:
                     actual="et al.",
                     excerpt=c.raw_text,
                 ))
+            issue_count += 1
 
         elif not c.has_et_al and len(c.authors) <= 2 and ref.author_count >= threshold:
             reported.add(dedup_key)
-            issue_count += 1
-            if issue_count <= MAX_REPORTED:
+            if issue_count < MAX_REPORTED:
                 details.append(CheckDetail(
                     location=f"paragraph {c.paragraph_index}",
                     locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
@@ -492,6 +477,7 @@ def check_et_al_usage(doc: ParsedDocument) -> list[CheckDetail]:
                     actual=c.raw_text,
                     excerpt=c.raw_text,
                 ))
+            issue_count += 1
 
     if issue_count > MAX_REPORTED:
         details.append(CheckDetail(

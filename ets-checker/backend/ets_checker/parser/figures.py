@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import logging
 import re
 from typing import TYPE_CHECKING
 
 from ets_checker.models import Figure, Paragraph, Table
+
+logger = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
     from docx.document import Document as DocxDocument
@@ -151,6 +154,10 @@ def detect(
                 caption_pos = "below"
 
         if para_index >= len(paragraphs):
+            logger.warning(
+                "Figure para_index %d out of range (paragraphs=%d); clamping",
+                para_index, len(paragraphs),
+            )
             para_index = max(0, len(paragraphs) - 1)
 
         figures.append(Figure(

@@ -1,29 +1,33 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { MAX_FILE_SIZE_BYTES, MAX_FILE_SIZE_LABEL } from "../constants";
 
 const emit = defineEmits<{
   (e: "file-selected", file: File): void;
+  (e: "validation-error", message: string): void;
 }>();
 
 const isDragging = ref(false);
 const fileInput = ref<HTMLInputElement | null>(null);
 
-const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50 MB
-
 function validateAndEmit(file: File) {
   const name = file.name.toLowerCase();
   if (name.endsWith(".doc") && !name.endsWith(".docx")) {
-    alert(
-      "ET&S MVP only accepts .docx files.\nOpen in Word and use Save As → .docx."
+    emit(
+      "validation-error",
+      "ET&S MVP only accepts .docx files. Open in Word and use Save As → .docx.",
     );
     return;
   }
   if (!name.endsWith(".docx")) {
-    alert("Please upload a .docx file.");
+    emit("validation-error", "Please upload a .docx file.");
     return;
   }
-  if (file.size > MAX_FILE_SIZE) {
-    alert(`File is too large (${(file.size / 1024 / 1024).toFixed(1)} MB). Maximum size is 50 MB.`);
+  if (file.size > MAX_FILE_SIZE_BYTES) {
+    emit(
+      "validation-error",
+      `File is too large (${(file.size / 1024 / 1024).toFixed(1)} MB). Maximum size is ${MAX_FILE_SIZE_LABEL}.`,
+    );
     return;
   }
   emit("file-selected", file);

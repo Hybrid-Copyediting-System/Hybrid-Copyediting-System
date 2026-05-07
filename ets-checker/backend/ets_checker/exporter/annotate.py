@@ -14,7 +14,7 @@ from ets_checker.models import CheckDetail, CheckReport, CheckResult
 
 
 def _format_comment_text(result: CheckResult, detail: CheckDetail) -> str:
-    lines = [f"[{result.severity}] {result.rule_id} — {detail.message}"]
+    lines = [f"[{result.severity}] {result.name} — {detail.message}"]
     if detail.expected is not None:
         lines.append(f"Expected: {detail.expected}")
     if detail.actual is not None:

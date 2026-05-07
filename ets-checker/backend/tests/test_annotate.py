@@ -146,7 +146,7 @@ class TestAnnotate:
         assert comment_ids == starts == ends == refs
         assert len(comment_ids) == 2
 
-    def test_comment_text_carries_severity_and_rule_id(
+    def test_comment_text_carries_severity_and_rule_name(
         self, synthetic_docx: Path
     ) -> None:
         blob = annotate(str(synthetic_docx), _two_finding_report())
@@ -154,8 +154,8 @@ class TestAnnotate:
             text = zf.read("word/comments.xml").decode("utf-8")
         assert "[error]" in text
         assert "[warning]" in text
-        assert "layout.margins" in text
-        assert "structure.abstract_length" in text
+        assert "Margin check" in text
+        assert "Abstract length check" in text
 
     def test_pass_results_skipped(self, synthetic_docx: Path) -> None:
         report = CheckReport(
@@ -182,7 +182,8 @@ class TestAnnotate:
                 assert root.findall(f"{{{W_NS}}}comment") == []
 
     def test_out_of_range_index_falls_back(self, synthetic_docx: Path) -> None:
-        """An anchor pointing past the doc must not raise; fall back to first para."""
+        """An anchor pointing past the doc must not raise; fall back to first para
+        AND emit a comment so the user actually sees the finding."""
         report = CheckReport(
             file_name="x.docx",
             timestamp=datetime.now(timezone.utc),
@@ -200,7 +201,7 @@ class TestAnnotate:
                         CheckDetail(
                             location="paragraph 99999",
                             locator=Locator(kind="paragraph", paragraph_index=99999),
-                            message="x",
+                            message="out-of-bounds-finding",
                         ),
                     ],
                 ),
@@ -208,6 +209,24 @@ class TestAnnotate:
         )
         blob = annotate(str(synthetic_docx), report)
         Document(BytesIO(blob))
+
+        # The fallback must still surface the finding as a comment, not just
+        # silently drop it. Verify a comment was created and that its
+        # range-start is anchored to a real paragraph (not orphaned).
+        with zipfile.ZipFile(BytesIO(blob)) as zf:
+            assert "word/comments.xml" in zf.namelist()
+            com_root = etree.fromstring(zf.read("word/comments.xml"))
+            doc_root = etree.fromstring(zf.read("word/document.xml"))
+
+        comments = com_root.findall(f"{{{W_NS}}}comment")
+        assert len(comments) == 1
+        comment_text = etree.tostring(comments[0], encoding="unicode")
+        assert "out-of-bounds-finding" in comment_text
+
+        # The range markers must be present in document.xml so Word actually
+        # renders the comment somewhere visible to the user.
+        starts = _ids_at(doc_root, f".//{{{W_NS}}}commentRangeStart")
+        assert len(starts) == 1
 
     def test_reannotating_appends_without_id_collision(
         self, synthetic_docx: Path, tmp_path: Path

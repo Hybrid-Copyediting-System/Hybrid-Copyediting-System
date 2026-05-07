@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import logging
 import re
 
 from ets_checker.models import Citation, Paragraph, Section
-from ets_checker.parser.sections import is_reference_title
+from ets_checker.utils.sections import compute_reference_bounds
+
+logger = logging.getLogger(__name__)
 
 CITATION_PAREN = re.compile(
     r"[\(（](?:(?:see|e\.g\.,?|cf\.)\s+)?(?P<body>[^()（）]+)[\)）]",
@@ -112,28 +115,13 @@ def _is_prose_contaminated(author_text: str) -> bool:
     return bool(_PROSE_QUOTES.search(author_text))
 
 
-def _compute_reference_bounds(
-    sections: list[Section],
-) -> tuple[int | None, int | None]:
-    for i, s in enumerate(sections):
-        if is_reference_title(s.title):
-            ref_start = s.paragraph_index
-            next_start = None
-            for j in range(i + 1, len(sections)):
-                if sections[j].level == 1:
-                    next_start = sections[j].paragraph_index
-                    break
-            return ref_start, next_start
-    return None, None
-
-
 def extract(
     paragraphs: list[Paragraph],
     sections: list[Section],
 ) -> list[Citation]:
     results: list[Citation] = []
 
-    ref_start, ref_end = _compute_reference_bounds(sections)
+    ref_start, ref_end = compute_reference_bounds(sections)
 
     for p in paragraphs:
         if ref_start is not None and p.index >= ref_start:
@@ -163,8 +151,15 @@ def extract(
                 trailer = _NARRATIVE_TRAILER.search(p.text[:m.start()])
                 if trailer and not _is_prose_contaminated(trailer.group(1)):
                     t_authors, t_et_al = _normalise_authors(trailer.group(1))
+                    original_authors = list(t_authors)
                     while t_authors and t_authors[0] in _DISCOURSE_MARKERS:
                         t_authors = t_authors[1:]
+                    if not t_authors and original_authors:
+                        logger.warning(
+                            "Narrative trailer reduced to empty after discourse-marker stripping; "
+                            "dropping potential citation: %r",
+                            trailer.group(1),
+                        )
                     is_strong = t_et_al or len(t_authors) >= 2
                     is_multi_year = len(_YEAR_TOKEN.findall(body)) >= 2
                     if t_authors and (is_strong or is_multi_year):

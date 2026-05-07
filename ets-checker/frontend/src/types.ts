@@ -37,3 +37,9 @@ export interface CheckReport {
   summary: ReportSummary;
   results: CheckResult[];
 }
+
+export type ProgressEvent =
+  | { phase: "parsing"; message: string }
+  | { phase: "rule"; rule_id: string; name: string; step: number; total_steps: number; message: string }
+  | { phase: "links_start"; step: number; total_steps: number; message: string }
+  | { phase: "links"; done: number; total: number; step: number; total_steps: number; message: string };

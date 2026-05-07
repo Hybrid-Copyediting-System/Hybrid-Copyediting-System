@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+import logging
 from typing import TYPE_CHECKING
 
 from ets_checker.models import DocumentMetadata
+
+logger = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
     from docx.document import Document as DocxDocument
@@ -69,7 +72,7 @@ def _has_page_numbers(document: DocxDocument) -> bool:
                 if el.find(f".//{qn('w:pgNum')}") is not None:
                     return True
         except Exception:
-            pass
+            logger.warning("Header/footer scan failed", exc_info=True)
         return False
 
     for section in document.sections:

@@ -69,7 +69,7 @@ def resolve_anchor(
                 "falling back to first paragraph. message=%s",
                 idx,
                 len(para_index),
-                detail.message,
+                detail.message[:120],
             )
             return para_index[0]
         return para_index[idx]

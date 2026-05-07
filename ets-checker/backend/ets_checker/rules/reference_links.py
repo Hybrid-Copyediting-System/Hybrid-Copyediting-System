@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 import random
 
 import httpx
 
 from ets_checker.models import CheckDetail, Locator, ParsedDocument, Reference
-from ets_checker.rules.runner import get_link_progress, register_async
+from ets_checker.rules.runner import LinkProgressCallback, register_async
+
+logger = logging.getLogger(__name__)
 
 TIMEOUT = 10.0
 CONCURRENCY = 5
@@ -24,6 +27,14 @@ async def _check_url(
 
     The semaphore is acquired per-attempt so the slot is free during sleep between retries.
     """
+    # Reject non-http(s) schemes up front. httpx will happily attempt arbitrary
+    # schemes which would expose internal resources (e.g. file://) or expand
+    # the attack surface (ftp://, gopher://). follow_redirects=True is also
+    # gated by httpx itself to http/https only — but we re-check here so a
+    # crafted reference can't smuggle a file:// URL into the report path.
+    if not url.startswith(("http://", "https://")):
+        return url, "unsupported URL scheme"
+
     last_error: str | None = None
     for attempt in range(MAX_RETRIES):
         async with sem:
@@ -44,12 +55,12 @@ async def _check_url(
                 last_error = "request timed out"
             except httpx.ConnectError:
                 last_error = "could not connect"
-            except Exception as exc:
-                msg = str(exc)
-                # Decompression failures mean the server responded — reachable.
-                if any(k in msg for k in ("Zstandard", "zstd", "decompress", "Decompress")):
-                    return url, None
-                return url, f"error: {msg[:60]}"  # unknown error; don't retry
+            except httpx.DecodingError:
+                # Server responded but the body decompression failed — it's reachable.
+                return url, None
+            except Exception:
+                logger.exception("Unexpected error checking reference link")
+                return url, "network error checking URL"
 
         if attempt < MAX_RETRIES - 1:
             delay = RETRY_BASE_DELAY * (2 ** attempt) + random.uniform(0.0, 0.5)
@@ -59,7 +70,10 @@ async def _check_url(
 
 
 @register_async("reference.links", "Reference", "Reference link check", "warning")
-async def check_reference_links(doc: ParsedDocument) -> list[CheckDetail]:
+async def check_reference_links(
+    doc: ParsedDocument,
+    on_link_progress: LinkProgressCallback | None = None,
+) -> list[CheckDetail]:
     tasks: list[tuple[Reference, str, str]] = []
     for ref in doc.references:
         if ref.doi:
@@ -72,7 +86,6 @@ async def check_reference_links(doc: ParsedDocument) -> list[CheckDetail]:
 
     total = len(tasks)
     completed = [0]  # single-element list avoids nonlocal in nested async def
-    on_link_progress = get_link_progress()
     sem = asyncio.Semaphore(CONCURRENCY)
 
     async with httpx.AsyncClient(

@@ -3,7 +3,8 @@ from __future__ import annotations
 import re
 
 from ets_checker.models import Paragraph, Reference, Section
-from ets_checker.parser.sections import is_reference_title
+from ets_checker.utils.sections import compute_reference_bounds
+from ets_checker.utils.text import normalise_surname as _normalise_for_sort
 
 # All ASCII and Unicode smart-quote variants (built with chr() to avoid embedding
 # literal quote chars that editors/tools can silently convert to smart-quote variants).
@@ -39,7 +40,8 @@ _TAIL_PUNCT = re.compile("[.,;\\]" + _Q + "]+$")
 # Recovers a DOI/URL that Word split across lines by inserting a space.
 # Matches whitespace + a continuation that starts with lowercase/digit/underscore/(.
 # The negative lookahead prevents extending into a new https?:// URL.
-_CONT = re.compile(r'[\s ]+(?!https?://)([0-9_(]\S*)')
+# Bounded \S quantifier keeps catastrophic-backtracking exposure small.
+_CONT = re.compile(r'[\s ]+(?!https?://)([0-9_(]\S{0,200})')
 
 
 def _strip_unbalanced_trailing_parens(s: str) -> str:
@@ -98,6 +100,10 @@ _APPENDIX_HEADING = re.compile(
 # of stripping a real Roman V/IV suffix is far smaller than swallowing an initial.
 _GENERATIONAL_SUFFIX = re.compile(r",?\s*(?:Jr|Sr|III?)\.", re.IGNORECASE)
 
+# Editor markers stripped before author splitting so "(Eds.)" / "(Ed.)" do not
+# leak into the surname of the last author.
+_RE_EDS = re.compile(r"\(Eds?\.\)")
+
 def _count_authors(author_text: str) -> int | None:
     """Estimate author count from an APA reference author block.
 
@@ -118,24 +124,6 @@ _CJK_CHAR_RE = re.compile(
     "[一-鿿㐀-䶿豈-﫿\U00020000-\U0002A6DF\U0002A700-\U000323AF]"
 )
 
-# Strip pattern for author-key normalisation: whitespace, hyphens, apostrophes,
-# and dots. Mirrors rules.citation.normalise_surname so author keys compare on
-# the same basis a citation surname is matched against.
-_AUTHOR_KEY_STRIP = re.compile(
-    r"[\s\-'." + chr(0x2018) + chr(0x2019) + r"]"
-)
-
-
-def _normalise_for_sort(s: str) -> str:
-    """Lowercase + strip diacritics + drop separators (whitespace, hyphens,
-    apostrophes, dots) for stable cross-locale ordering."""
-    import unicodedata as _ud
-    s = _ud.normalize("NFD", s)
-    s = "".join(c for c in s if _ud.category(c) != "Mn")
-    s = s.replace("ı", "i").lower()
-    return _AUTHOR_KEY_STRIP.sub("", s)
-
-
 def _split_authors(author_text: str) -> list[str]:
     """Split an APA author block into individual "Surname, Initials" parts.
 
@@ -148,7 +136,7 @@ def _split_authors(author_text: str) -> list[str]:
     """
     if not author_text or not author_text.strip():
         return []
-    cleaned = re.sub(r"\(Eds?\.\)", "", author_text)
+    cleaned = _RE_EDS.sub("", author_text)
     cleaned = _GENERATIONAL_SUFFIX.sub("", cleaned).strip()
     # Normalise the final " & "/" and " separator so it splits like the others.
     cleaned = re.sub(r"\s*,?\s*&\s+", ", ", cleaned)
@@ -242,17 +230,7 @@ def extract(
     paragraphs: list[Paragraph],
     sections: list[Section],
 ) -> list[Reference]:
-    ref_section_idx: int | None = None
-    next_section_idx: int | None = None
-
-    for i, s in enumerate(sections):
-        if is_reference_title(s.title):
-            ref_section_idx = s.paragraph_index
-            for j in range(i + 1, len(sections)):
-                if sections[j].level == 1:
-                    next_section_idx = sections[j].paragraph_index
-                    break
-            break
+    ref_section_idx, next_section_idx = compute_reference_bounds(sections)
 
     if ref_section_idx is None:
         return []
