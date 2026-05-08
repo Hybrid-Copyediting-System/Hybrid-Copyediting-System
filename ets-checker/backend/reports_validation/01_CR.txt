@@ -1,0 +1,317 @@
+====================================================================================================
+FILE: ../../local To be Tested/01_CR.docx
+====================================================================================================
+paragraphs=297 tables=1 references=53 citations=65 figures=4 sections=10 footnotes=0
+SUMMARY: total=47 passed=31 errors=2 warnings=8 info=6
+----------------------------------------------------------------------------------------------------
+FAILED rules (16):
+  [error  ] citation.cross_reference                   (7 details)  Citation–reference cross-check
+  [info   ] figures_tables.caption_format              (10 details)  Caption format: number bold, title italic
+  [info   ] headings.no_numbering                      (8 details)  Headings must not be numbered (APA 7)
+  [error  ] layout.paper_size                          (1 details)  Paper size check
+  [info   ] layout.first_line_indent                   (1 details)  Body first-line indent
+  [info   ] layout.body_alignment                      (21 details)  Body paragraph alignment
+  [warning] quotation.pagination                       (2 details)  Direct quotations need a page locator
+  [warning] reference.alphabetical_order               (2 details)  Reference list alphabetical order
+  [warning] reference.hanging_indent                   (21 details)  Reference hanging indent
+  [warning] reference.apa_format                       (1 details)  Reference APA structural format
+  [warning] reference.italics_journal_volume           (1 details)  Reference italics: journal name + volume
+  [warning] reference.author_count_rule                (3 details)  Author-list APA 7 §9.8 (≤ 20 list all; 21+ uses ellipsis + last)
+  [warning] statistics.p_value_format                  (9 details)  p-value formatting (APA 7 §6.44)
+  [info   ] structure.title_length                     (1 details)  Paper title length (APA 7 ≤ 12 words)
+  [info   ] structure.no_introduction_heading          (1 details)  Do not label the first section 'Introduction' (APA 7)
+  [warning] reference.links                            (3 details)  Reference link check
+----------------------------------------------------------------------------------------------------
+
+### [citation.cross_reference] Citation–reference cross-check  sev=error  (7 details)
+  - paragraph 13: Possible spelling error: Citation 'Ney et al., 2014' may refer to Reference #40 ('Nye', 2014) — check the author surname spelling
+      excerpt: 'Ney et al., 2014'
+  - paragraph 24: Citation 'D’Mello & Graesser, 2021b' has no matching reference (references with surname 'D'Mello' exist for year(s) 2012a, 2012b, but none match the cited 2021 — likely a year typo or a different work)
+      excerpt: 'D’Mello & Graesser, 2021b'
+  - paragraph 44: Possible spelling error: Citation 'Kalelioglu & Gülbahar, 2014' may refer to Reference #32 ('Kaleliglu', 2014) — check the author surname spelling
+      excerpt: 'Kalelioglu & Gülbahar, 2014'
+  - Reference #16: Reference is not cited in text
+      excerpt: 'D’Mello, S., & Graesser, A. (2012b). Dynamics of affective states during complex learning. Learning and Instruction, 22(2), 145-157. https://doi.org/10.1016/j.learninstruc.2011.10.001'
+  - Reference #47: Reference is not cited in text
+      excerpt: 'Taub, M., Azevedo, R., Rajendran, R., Cloude, E., Gautam, B., & Price, M. (2021). How are students’ emotions related to the accuracy of cognitive and metacognitive processes during learning with an in'
+  - Reference #53: Reference is not cited in text
+      excerpt: 'Zhang, L., Lin, J., Kuang, Z., Xu, S., Yeasin, M., & Hu, X. (2024). SPL: A Socratic Playground for Learning Powered by Large Language Mode. https://doi.org/10.48550/arXiv.2406.13919'
+  - Reference #44: Reference could not be parsed (missing author or year)
+      excerpt: 'Schmucker, R., Xia, M., Azaria, A., & Mitchell, T. Ruffle & Riley: Towards the automated induction of conversational tutoring systems. https://doi.org/10.48550/arXiv.2310.01420'
+
+### [figures_tables.caption_format] Caption format: number bold, title italic  sev=info  (10 details)
+  - Figure 1: Figure number 'Figure 1' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold
+      expected='bold'  actual='not bold'
+      excerpt: 'Figure 1. The system architecture of SPL'
+  - Figure 1: Figure 1 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Figure 1. The system architecture of SPL'
+  - Figure 2: Figure number 'Figure 2' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold
+      expected='bold'  actual='not bold'
+      excerpt: "Figure 2. An example learning interface of SPL: (a) menu of the key content; (b) learning entrance; (c) six phases of LLM-ST corresponding to Bloom's taxonomy; (d) learners' input area; (e) dialogue h"
+  - Figure 2: Figure 2 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: "Figure 2. An example learning interface of SPL: (a) menu of the key content; (b) learning entrance; (c) six phases of LLM-ST corresponding to Bloom's taxonomy; (d) learners' input area; (e) dialogue h"
+  - Figure 3: Figure number 'Figure 3' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold
+      expected='bold'  actual='not bold'
+      excerpt: 'Figure 3. Detailed procedure of the study'
+  - Figure 3: Figure 3 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Figure 3. Detailed procedure of the study'
+  - Figure 4: Figure number 'Figure 4' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold
+      expected='bold'  actual='not bold'
+      excerpt: 'Figure 4. Daily trend of emotions'
+  - Figure 4: Figure 4 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Figure 4. Daily trend of emotions'
+  - Table 1: Table number 'Table 1' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold
+      expected='bold'  actual='not bold'
+      excerpt: 'Table 1. Descriptive statistics'
+  - Table 1: Table 1 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Table 1. Descriptive statistics'
+
+### [headings.no_numbering] Headings must not be numbered (APA 7)  sev=info  (8 details)
+  - paragraph 11: Heading '1. Introduction' has a numeric prefix '1.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '1.'"
+      excerpt: '1. Introduction'
+  - paragraph 18: Heading '2. Related Work' has a numeric prefix '2.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '2.'"
+      excerpt: '2. Related Work'
+  - paragraph 61: Heading '3. Socratic Playground for Learning: A Socratic Tutoring System Powered by LLM' has a numeric prefix '3.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '3.'"
+      excerpt: '3. Socratic Playground for Learning: A Socratic Tutoring System Powered by LLM'
+  - paragraph 79: Heading '4. Aims and Questions of the Current Study' has a numeric prefix '4.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '4.'"
+      excerpt: '4. Aims and Questions of the Current Study'
+  - paragraph 92: Heading '5. Method' has a numeric prefix '5.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '5.'"
+      excerpt: '5. Method'
+  - paragraph 146: Heading '6. Results and Discussion' has a numeric prefix '6.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '6.'"
+      excerpt: '6. Results and Discussion'
+  - paragraph 226: Heading '7. Implications, Limitations, and Future Directions' has a numeric prefix '7.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '7.'"
+      excerpt: '7. Implications, Limitations, and Future Directions'
+  - paragraph 237: Heading '8. Conclusions' has a numeric prefix '8.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '8.'"
+      excerpt: '8. Conclusions'
+
+### [layout.paper_size] Paper size check  sev=error  (1 details)
+  - document: Paper size should be A4
+      expected='A4 (21.0×29.7 cm)'  actual='Letter (21.5935×27.9435 cm)'
+
+### [layout.first_line_indent] Body first-line indent  sev=info  (1 details)
+  - document: No first-line indent detected on body paragraphs — APA 7 §2.24 / ET&S expect a first-line indent of 1.27 cm (0.5 inch); verify the Normal style
+      expected='1.27 cm'  actual='0 cm / unset'
+
+### [layout.body_alignment] Body paragraph alignment  sev=info  (21 details)
+  - paragraph 13: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Conversational intelligent tutoring systems (CITSs) aim to provide learners with adaptive and personalized experiences t'
+  - paragraph 15: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'One pedagogical approach that can hedge risks is Socratic tutoring. Socratic tutoring has been praised for its effective'
+  - paragraph 20: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: '2.1. Conversational Intelligent Tutoring Systems'
+  - paragraph 22: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Intelligent tutoring systems (ITSs) are computer-assisted learning environments that simulate human tutoring and offer p'
+  - paragraph 24: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: "Vygotsky's Zone of Proximal Development emphasizes the importance of social interaction and scaffolding in cognitive dev"
+  - paragraph 26: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Despite these advantages, the widespread adoption of CITSs in education has encountered several challenges. One barrier '
+  - paragraph 29: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: '2.2. Opportunities and Risks of LLMs in Education'
+  - paragraph 42: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: '2.3. The Impact of Socratic Tutoring on Learning'
+  - paragraph 63: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Socratic Playground for Learning (SPL) is a CITS powered by an LLM to facilitate online learning through Socratic tutori'
+  - paragraph 65: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Similar to most CITSs, the functionality of SPL can be characterized by an outer loop and an inner loop. For the outer l'
+  - paragraph 67: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'To support scalability and adaptability, SPL allows for easy customization across domains and learner profiles. The scen'
+  - paragraph 73: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Figure 2 shows an example of a learning interface with some key elements of SPL. Before interacting with SPL, learners c'
+  - paragraph 96: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'This study used a single-group pretest-posttest design to investigate the effects of SPL on learning performance and lea'
+  - paragraph 101: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'A total of 42 Chinese college students were recruited online, and 30 of them who completed the entire study and provided'
+  - paragraph 104: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: '5.3. Learning topic and content'
+  - paragraph 106: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'The ARIES (Acquiring Research Investigative and Evaluative Skills) program provided the learning topic about identifying'
+  - paragraph 108: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'In this study, the preliminary knowledge in learning entrance was generated by the LLM GPT-4. Each participant received '
+  - paragraph 113: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: '5.4.1. The rubric to evaluate the content quality. The rubric to evaluate the content quality: This study used the asses'
+  - paragraph 116: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: '5.4.2. Prior knowledge and posttest knowledge tests. The knowledge pretest and posttest were homogeneous transfer tests '
+  - paragraph 118: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Before this study, we recruited 35 college students to participate in the knowledge pretest and posttest, and we confirm'
+  - document: ... and 23 more body alignment issues
+
+### [quotation.pagination] Direct quotations need a page locator  sev=warning  (2 details)
+  - paragraph 128: Direct quotation without a page locator — APA 7 / AQF Item 4: cite the source with p./pp. (or Section/para.) for any quoted text
+      expected='(Author, Year, p. N) or equivalent locator'  actual='citation present, no p./pp.'
+      excerpt: '"the emotions described do not match the context at all"'
+  - paragraph 128: Direct quotation without a page locator — APA 7 / AQF Item 4: cite the source with p./pp. (or Section/para.) for any quoted text
+      expected='(Author, Year, p. N) or equivalent locator'  actual='citation present, no p./pp.'
+      excerpt: '"the emotions described fit the context perfectly"'
+
+### [reference.alphabetical_order] Reference list alphabetical order  sev=warning  (2 details)
+  - Reference #15: Out of alphabetical order: Reference #15 ('D'Mello', 2012) should come before Reference #14 ('Dwivedi', 2023)
+      expected='dmello (first author) before dwivedi'  actual='dwivedi before dmello'
+      excerpt: 'D’Mello, S., & Graesser, A. (2012a). Autotutor and affective autotutor: Learning by talking with cognitively and emotionally intelligent computers that talk back. The ACM Transactions on Interactive I'
+  - Reference #31: Out of alphabetical order: Reference #31 ('Hsu', 2022) should come before Reference #30 ('Hung', 2024)
+      expected='hsu (first author) before hung'  actual='hung before hsu'
+      excerpt: 'Hsu, F., Lin, I., Yeh, H., & Chen, N. (2022). Effect of Socratic Reflection Prompts via video-based learning system on elementary school students’ critical thinking skills. Computers & Education, 183,'
+
+### [reference.hanging_indent] Reference hanging indent  sev=warning  (21 details)
+  - Reference #1: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Aleven, V., McLaren, B. M., Sewall, J., Van Velsen, M., Popescu, O., Demi, S., Ringenberg, M., & Koedinger, K. R. (2016). Example-tracing tutors: Intelligent tutor development for nonprogrammers. Inte'
+  - Reference #2: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Aleven, V., Stahl, E., Schworm, S., Fischer, F., & Wallace, R. (2003). Help seeking and help design in interactive learning environments. Review of educational research, 73(3), 277-320. https://doi.or'
+  - Reference #3: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Anderson, L. W., Krathwohl, D. R., Airasian, P. W., Cruikshank, K. A., Mayer, R. E., Pintrich, P. R., Raths, J., & Wittrock, M. C. (2001). A taxonomy for learning, teaching, and assessing: A revision '
+  - Reference #4: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Azevedo, R., Bouchet, F., Duffy, M., Harley, J., Taub, M., Trevors, G.,...,& Cerezo, R. (2022). Lessons learned and future directions of MetaTutor: Leveraging multichannel data to scaffold self-regula'
+  - Reference #5: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Carlini, N., Tramer, F., Wallace, E., Jagielski, M., Herbert-Voss, A., Lee, K., Roberts, A., Brown, T. B., Song, D., & Erlingsson, U. (2021). Extracting training data from large language models. USENI'
+  - Reference #6: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: "Chang, J., Hung, H., & Yang, Y. C. (2024). Effects of an annotation-supported Socratic questioning approach on students' argumentative writing performance and critical thinking skills in flipped langu"
+  - Reference #7: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Chen, Y., Jensen, S., Albert, L. J., Gupta, S., & Lee, T. (2023). Artificial intelligence (AI) student assistants in the classroom: Designing chatbots to support student success. Information Systems F'
+  - Reference #8: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Chi, M. T., Adams, J., Bogusch, E. B., Bruchok, C., Kang, S., Lancaster, M., Levy, R., Li N., McEldoon, K. L., Stump, G. S., Wylie, R., Xu, D., Yaghmourian, D. L. (2018). Translating the ICAP theory o'
+  - Reference #9: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Chi, M. T., & Wylie, R. (2014). The ICAP framework: Linking cognitive engagement to active learning outcomes. Educational psychologist, 49(4), 219-243. https://doi.org/10.1080/00461520.2014.965823'
+  - Reference #10: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Cohen, L., Manion, L., & Morrison, K. (2013). Research methods in education. Routledge'
+  - Reference #11: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Dalim, S. F., Ishak, A. S., & Hamzah, L. M. (2022). Promoting students’ critical thinking through Socratic method: Views and challenges. Asian Journal of University Education, 18(4), 1034-1047. https:'
+  - Reference #12: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Ding, Y., Hu, H., Zhou, J., Chen, Q., Jiang, B., & He, L. (2024, October). Boosting Large Language Models with Socratic Method for Conversational Mathematics Teaching. In E. Serra, & F. Spezzano (Eds.'
+  - Reference #13: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Dinkins, C. S., & Cangelosi, P. R. (2019). Putting Socrates back in Socratic method: Theory-based debriefing in the nursing classroom. Nursing Philosophy, 20(2), Article e12240. https://doi.org/10.111'
+  - Reference #14: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Dwivedi, Y. K., Kshetri, N., Hughes, L., Slade, E. L., Jeyaraj, A., Kar, A. K., ... & Wright, R. (2023). So what if ChatGPT wrote it? Multidisciplinary perspectives on opportunities, challenges and im'
+  - Reference #15: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'D’Mello, S., & Graesser, A. (2012a). Autotutor and affective autotutor: Learning by talking with cognitively and emotionally intelligent computers that talk back. The ACM Transactions on Interactive I'
+  - Reference #16: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'D’Mello, S., & Graesser, A. (2012b). Dynamics of affective states during complex learning. Learning and Instruction, 22(2), 145-157. https://doi.org/10.1016/j.learninstruc.2011.10.001'
+  - Reference #17: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Elder, L, & Paul, R. (1998). The role of Socratic questioning in thinking, teaching and learning. Clearing House, 71(5), 297-301. https://doi.org/10.1080/00098659809602729'
+  - Reference #18: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Elkowitz, D. E. (2021). Socratic questioning to engage learners. In A. For- nari & A. Poznanski (Eds.), How-to guide for active learning (pp. 107-119). Springer.'
+  - Reference #19: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Elyoseph, Z., Hadar-Shoval, D., Asraf, K., & Lvovsky, M. (2023). ChatGPT outperforms humans in emotional awareness evaluations. Frontiers in Psychology, 14, Article 1199058. https://doi.org/10.3389/fp'
+  - Reference #20: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Exintaris, B., Karunaratne, N., & Yuriev, E. (2023). Metacognition and critical thinking: Using ChatGPT-generated responses as prompts for critique in a problem-solving workshop (SMARTCHEMPer). Journa'
+  - document: ... and 33 more hanging indent issues
+
+### [reference.apa_format] Reference APA structural format  sev=warning  (1 details)
+  - Reference #10: APA format issue: entry does not end with a period
+      excerpt: 'Cohen, L., Manion, L., & Morrison, K. (2013). Research methods in education. Routledge'
+
+### [reference.italics_journal_volume] Reference italics: journal name + volume  sev=warning  (1 details)
+  - Reference #50: APA italics: volume number '76' should be italic
+      expected='journal + volume italic; issue number roman'  actual="volume number '76' should be italic"
+      excerpt: 'evidence. Journal of Personality and Social Psychology, 76(5), 820-838.'
+
+### [reference.author_count_rule] Author-list APA 7 §9.8 (≤ 20 list all; 21+ uses ellipsis + last)  sev=warning  (3 details)
+  - Reference #4: Only 8 visible author(s) but the list uses '...' — APA 7 §9.8 reserves the ellipsis for ≥ 21-author papers (first 19 + ... + final author); for shorter lists, list every author
+      expected='all 8 authors listed'  actual="author list contains '...'"
+      excerpt: 'Azevedo, R., Bouchet, F., Duffy, M., Harley, J., Taub, M., Trevors, G.,...,& Cerezo, R.'
+  - Reference #14: Only 8 visible author(s) but the list uses '...' — APA 7 §9.8 reserves the ellipsis for ≥ 21-author papers (first 19 + ... + final author); for shorter lists, list every author
+      expected='all 8 authors listed'  actual="author list contains '...'"
+      excerpt: 'Dwivedi, Y. K., Kshetri, N., Hughes, L., Slade, E. L., Jeyaraj, A., Kar, A. K., ... & Wright, R.'
+  - Reference #34: Only 8 visible author(s) but the list uses '...' — APA 7 §9.8 reserves the ellipsis for ≥ 21-author papers (first 19 + ... + final author); for shorter lists, list every author
+      expected='all 8 authors listed'  actual="author list contains '...'"
+      excerpt: 'Kasneci, E., Sessler, K., Küchemann, S., Bannert, M., Dementieva, D., Fischer, F., ... & Kasneci, G.'
+
+### [statistics.p_value_format] p-value formatting (APA 7 §6.44)  sev=warning  (9 details)
+  - paragraph 155: p value with leading zero ('0.005') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.005')
+      expected='.005'  actual='0.005'
+      excerpt: ' (r = 0.50， p = 0.005). Furthermo'
+  - paragraph 155: p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')
+      expected='.001'  actual='0.001'
+      excerpt: 'e (t = 7.57，p < 0.001, d = 1.41),'
+  - paragraph 206: p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')
+      expected='.001'  actual='0.001'
+      excerpt: ' (r = 0.89, p < 0.001). Important'
+  - paragraph 206: p value with leading zero ('0.13') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.13')
+      expected='.13'  actual='0.13'
+      excerpt: '(t = -1.58, p = 0.13) implies th'
+  - paragraph 206: p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')
+      expected='.001'  actual='0.001'
+      excerpt: ' (r = 0.95, p < 0.001), and there'
+  - paragraph 206: p value with leading zero ('0.046') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.046')
+      expected='.046'  actual='0.046'
+      excerpt: '(t = -2.09, p = 0.046, d = -0.13)'
+  - paragraph 208: p value with leading zero ('0.003') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.003')
+      expected='.003'  actual='0.003'
+      excerpt: '(t = -3.21, p = 0.003, d = -0.52;'
+  - paragraph 208: p value with leading zero ('0.046') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.046')
+      expected='.046'  actual='0.046'
+      excerpt: '(t = -2.09, p = 0.046,  d = -0.18'
+  - paragraph 213: p value with leading zero ('0.00') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.00')
+      expected='.00'  actual='0.00'
+      excerpt: ' (r = 0.65, p < 0.00; α = 0.78).'
+
+### [structure.title_length] Paper title length (APA 7 ≤ 12 words)  sev=info  (1 details)
+  - paragraph 0 (title): Paper title runs 14 words — APA 7 §2.4 recommends ≤ 12 words for clarity and indexing
+      expected='≤ 12 words'  actual='14 words'
+      excerpt: 'Unlocking the Potential of Socratic Tutoring Powered by Large Language Model: A Pilot Study'
+
+### [structure.no_introduction_heading] Do not label the first section 'Introduction' (APA 7)  sev=info  (1 details)
+  - paragraph 11: Section labelled '1. Introduction' — APA 7 §2.27: do not label the introduction with a heading; it is identified by its position immediately after the abstract
+      expected="no 'Introduction' heading"  actual='1. Introduction'
+
+### [reference.links] Reference link check  sev=warning  (3 details)
+  - Reference #11: DOI link unreachable: request timed out
+      expected='accessible link'  actual='https://doi.org/10.24191/ajue.v18i4.20012'
+      excerpt: 'Dalim, S. F., Ishak, A. S., & Hamzah, L. M. (2022). Promoting students’ critical thinking through Socratic method: Views'
+  - Reference #21: DOI link unreachable: network error checking URL
+      expected='accessible link'  actual='https://doi.org/10.37074/jalt.2023.6.1.22'
+      excerpt: 'Firat, M. (2023). What ChatGPT means for universities: Perceptions of scholars and students. Journal of Applied Learning'
+  - Reference #43: DOI link unreachable: network error checking URL
+      expected='accessible link'  actual='https://doi.org/10.37074/jalt.2023.6.1.9'
+      excerpt: 'Rudolph, J., Tan, S., & Tan, S. (2023). ChatGPT: Bullshit spewer or the end of traditional assessments in higher educati'

@@ -1,0 +1,2335 @@
+{
+  "file_name": "ETS-2025-2517.R1.docx",
+  "timestamp": "2026-05-08T15:49:55.574419Z",
+  "summary": {
+    "total_checks": 47,
+    "passed": 25,
+    "errors": 4,
+    "warnings": 12,
+    "info": 6
+  },
+  "results": [
+    {
+      "rule_id": "citation.cross_reference",
+      "category": "Citation",
+      "name": "Citation–reference cross-check",
+      "status": "fail",
+      "severity": "error",
+      "details": [
+        {
+          "location": "paragraph 43",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 43,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Possible spelling error: Citation 'Want et al., 2024' may refer to Reference #59 ('Wang', 2024) — check the author surname spelling",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Want et al., 2024"
+        },
+        {
+          "location": "paragraph 47",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 47,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation 'Sharma et al., 2024' has no matching reference",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Sharma et al., 2024"
+        },
+        {
+          "location": "paragraph 177",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 177,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation 'Kline, 2015' has no matching reference (Reference #34 has surname 'Kline' with year 2023, which differs by 8 year(s) from the cited 2015 — likely a year typo or a different work)",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Kline, 2015"
+        },
+        {
+          "location": "Reference #34",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 461,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is not cited in text",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Kline, R. B. (2023). Principles and practice of structural equation modeling (5th ed.). The Guilford Press."
+        },
+        {
+          "location": "Reference #46",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 475,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is not cited in text",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Roman, A. V., Van Wart, M., Wang, X., Liu, C., Kim, S., & McCarthy, A. (2019). Defining e-leadership as competence in ICT-mediated communications: An exploratory assessment. Public Administration Revi"
+        },
+        {
+          "location": "Reference #48",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 477,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is not cited in text",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Schermelleh-Engel, K., Moosbrugger, H., & Müller, H. (2003). Evaluating the fit of structural equation models: Tests of significance and descriptive goodness-of-fit measures. Methods of Psychological "
+        },
+        {
+          "location": "Reference #51",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 481,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference could not be parsed (missing author or year)",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Sharma RK, Kaur S, Mittal A (2024;), \"Role of transformational leadership in implementation of Education 4.0: a parallel mediation model in context of higher educational institutions (HEIs)\". Global K"
+        }
+      ]
+    },
+    {
+      "rule_id": "citation.et_al_usage",
+      "category": "Citation",
+      "name": "Et al. usage check (APA 7th)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "citation.amp_vs_and",
+      "category": "Citation",
+      "name": "Use & in parens, 'and' in narrative (APA 7 §8.17)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "figures_tables.referenced_in_text",
+      "category": "Figures & Tables",
+      "name": "Figures/tables referenced in text",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "figures_tables.caption_position",
+      "category": "Figures & Tables",
+      "name": "Caption position check (ET&S requirement)",
+      "status": "pass",
+      "severity": "info",
+      "details": []
+    },
+    {
+      "rule_id": "figures_tables.table_format",
+      "category": "Figures & Tables",
+      "name": "Table format check",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Table 1",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 77,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Table 1 has vertical borders; APA 7th requires tables to use horizontal rules only",
+          "expected": "no vertical borders",
+          "actual": "vertical borders detected",
+          "excerpt": "Table 1. Baseline sociodemographic characteristics of participants by country of origin (N = 592)"
+        }
+      ]
+    },
+    {
+      "rule_id": "figures_tables.numbering_sequence",
+      "category": "Figures & Tables",
+      "name": "Figure / table numbering sequence",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "figures_tables.caption_format",
+      "category": "Figures & Tables",
+      "name": "Caption format: number bold, title italic",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "Figure 1",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 22,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure 1 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Figure 1. Proposed Research Framework for Teaching Presence in Live Videoconferences"
+        },
+        {
+          "location": "Figure 2",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 348,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure 2 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Figure. 2 Simplified Version (without Error Terms) of the Graphical Representation of the Exploratory Structural Equation Model Accepted"
+        },
+        {
+          "location": "Figure 3",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 363,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure 3 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Figure 3. Results of the Partially Constrained Models. *p < 0.05, **p < 0.01, ***p < 0.001; β for the Learning Approach (Content Acquisition/Collaborative Learning/Individual Knowledge Building); Soli"
+        },
+        {
+          "location": "Table 1",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 77,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Table 1 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Table 1. Baseline sociodemographic characteristics of participants by country of origin (N = 592)"
+        },
+        {
+          "location": "Table 2",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 156,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Table 2 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Table 2. Questionnaire structure and items"
+        },
+        {
+          "location": "Table 3",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 193,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Table 3 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Table 3. Rotated Component Matrix (Factor Loadings) for E-Leadership (N = 592)."
+        },
+        {
+          "location": "Table 4",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 301,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Table 4 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Table 4. Summary of Fit Indices of Structural Equation Models."
+        }
+      ]
+    },
+    {
+      "rule_id": "font.body",
+      "category": "Fonts",
+      "name": "Body font check",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "font.stat_italic",
+      "category": "Fonts",
+      "name": "Statistical symbol italics",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "paragraph 71",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 71,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"N\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…ning modality (N = 733), yielding…"
+        },
+        {
+          "location": "paragraph 71",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 71,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…in (Barcelona: n = 310; Madrid: n…"
+        },
+        {
+          "location": "paragraph 71",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 71,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…= 310; Madrid: n = 282). Learning…"
+        },
+        {
+          "location": "paragraph 71",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 71,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…t acquisition (n = 220), collabor…"
+        },
+        {
+          "location": "paragraph 71",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 71,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…tive learning (n =265), and indiv…"
+        },
+        {
+          "location": "paragraph 71",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 71,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…edge building (n = 107).…"
+        },
+        {
+          "location": "paragraph 75",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 75,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…from Colombia (n = 142), Spain (n…"
+        },
+        {
+          "location": "paragraph 75",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 75,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…= 142), Spain (n = 139), and Peru…"
+        },
+        {
+          "location": "paragraph 75",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 75,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…39), and Peru (n = 114), with add…"
+        },
+        {
+          "location": "paragraph 75",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 75,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…can countries (n = 177), Europe (…"
+        },
+        {
+          "location": "paragraph 75",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 75,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…177), Europe (n = 19), and Cape…"
+        },
+        {
+          "location": "paragraph 75",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 75,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…nd Cape Verde (n = 1). The predom…"
+        },
+        {
+          "location": "paragraph 77",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 77,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"N\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…try of origin (N = 592)…"
+        },
+        {
+          "location": "paragraph 177",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 177,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"N\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…e sample size (N = 592), the χ² s…"
+        },
+        {
+          "location": "paragraph 193",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 193,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"N\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…E-Leadership (N = 592).…"
+        },
+        {
+          "location": "paragraph 340",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 340,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"p\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…: χ²: 483,236 (p < 0.000); df: 17…"
+        },
+        {
+          "location": "paragraph 342",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 342,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"p\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…ip (β = 0.990, p < 0.001), transf…"
+        },
+        {
+          "location": "paragraph 342",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 342,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"p\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…al (β = 0.387, p < 0.001), and si…"
+        },
+        {
+          "location": "paragraph 342",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 342,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"p\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…sk (β = 0.828, p < 0.001). Howeve…"
+        },
+        {
+          "location": "paragraph 342",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 342,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"p\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…nt (β = 0.091, p < 0.627). A sign…"
+        },
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "... and 33 more missing italics on statistical symbols",
+          "expected": null,
+          "actual": null,
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "font.abstract",
+      "category": "Fonts",
+      "name": "Abstract font check (ET&S: italic)",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "paragraph 6",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 6,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Abstract text should be italic (ET&S requirement)",
+          "expected": "Times New Roman 10.0pt italic",
+          "actual": "not italic",
+          "excerpt": "Teaching presence (TP) is crucial in online education, but its impact in videoco"
+        }
+      ]
+    },
+    {
+      "rule_id": "font.heading",
+      "category": "Fonts",
+      "name": "Heading font check",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "font.reference",
+      "category": "Fonts",
+      "name": "Reference font check",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "font.title",
+      "category": "Fonts",
+      "name": "Title font check",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "headings.no_numbering",
+      "category": "Structure",
+      "name": "Headings must not be numbered (APA 7)",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "paragraph 11",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 11,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '1. Introduction' has a numeric prefix '1.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '1.'",
+          "excerpt": "1. Introduction"
+        },
+        {
+          "location": "paragraph 60",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 60,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '2. Method' has a numeric prefix '2.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '2.'",
+          "excerpt": "2. Method"
+        },
+        {
+          "location": "paragraph 184",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 184,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '3. Results' has a numeric prefix '3.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '3.'",
+          "excerpt": "3. Results"
+        },
+        {
+          "location": "paragraph 376",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 376,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '4. Discussion' has a numeric prefix '4.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '4.'",
+          "excerpt": "4. Discussion"
+        },
+        {
+          "location": "paragraph 400",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 400,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '4.2. Implications and Directions for Future Research' has a numeric prefix '4.2.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '4.2.'",
+          "excerpt": "4.2. Implications and Directions for Future Research"
+        },
+        {
+          "location": "paragraph 411",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 411,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '4.2.1. Limitations' has a numeric prefix '4.2.1.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '4.2.1.'",
+          "excerpt": "4.2.1. Limitations"
+        },
+        {
+          "location": "paragraph 422",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 422,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '5. Conclusion' has a numeric prefix '5.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '5.'",
+          "excerpt": "5. Conclusion"
+        }
+      ]
+    },
+    {
+      "rule_id": "headings.level_order",
+      "category": "Structure",
+      "name": "Heading levels must not skip",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "layout.paper_size",
+      "category": "Layout",
+      "name": "Paper size check",
+      "status": "fail",
+      "severity": "error",
+      "details": [
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Paper size should be A4",
+          "expected": "A4 (21.0×29.7 cm)",
+          "actual": "Letter (21.5935×27.9435 cm)",
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "layout.margins",
+      "category": "Layout",
+      "name": "Margin check",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "layout.line_spacing",
+      "category": "Layout",
+      "name": "Line spacing check",
+      "status": "fail",
+      "severity": "error",
+      "details": [
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Dominant line spacing does not match ET&S (1.0)",
+          "expected": 1.0,
+          "actual": 2.0,
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "layout.page_numbers",
+      "category": "Layout",
+      "name": "Page number check",
+      "status": "pass",
+      "severity": "info",
+      "details": []
+    },
+    {
+      "rule_id": "layout.first_line_indent",
+      "category": "Layout",
+      "name": "Body first-line indent",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "No first-line indent detected on body paragraphs — APA 7 §2.24 / ET&S expect a first-line indent of 1.27 cm (0.5 inch); verify the Normal style",
+          "expected": "1.27 cm",
+          "actual": "0 cm / unset",
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "layout.body_alignment",
+      "category": "Layout",
+      "name": "Body paragraph alignment",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "paragraph 13",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 13,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Presence in online learning environments is a comprehensive construct that significantly influences student engagement a"
+        },
+        {
+          "location": "paragraph 15",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 15,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Teaching presence (TP) is a central factor in online learning (Su et al., 2024). In asynchronous settings, it includes c"
+        },
+        {
+          "location": "paragraph 17",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 17,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "In synchronous learning environments, e-leadership is defined as a social influence process aimed at achieving planned o"
+        },
+        {
+          "location": "paragraph 18",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 18,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Evidence suggests that students generally prefer synchronous videoconferencing to asynchronous forums, as it enhances pa"
+        },
+        {
+          "location": "paragraph 20",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 20,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "As depicted in Figure 1, this study differentiates between management of the communicational channel and the exercise of"
+        },
+        {
+          "location": "paragraph 22",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 22,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'CENTER ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "CENTER ",
+          "excerpt": "Figure 1. Proposed Research Framework for Teaching Presence in Live Videoconferences"
+        },
+        {
+          "location": "paragraph 25",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 25,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Teachers’ self-presentation in virtual environments significantly shapes students’ perceptions, influencing instructiona"
+        },
+        {
+          "location": "paragraph 28",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 28,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "1.1. Factors in Teaching Presence through Videoconferencing"
+        },
+        {
+          "location": "paragraph 30",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 30,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "According to Wu et al., (2022), beyond the cognitive asynchronous approach to teaching presence (TP), constructivism in "
+        },
+        {
+          "location": "paragraph 32",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 32,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "The research presented in this paper proposes two variables to explain how TP occurs during the constructive dialogue of"
+        },
+        {
+          "location": "paragraph 33",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 33,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Personalized communication with webcams (PCW) is an instructional approach in online education that combines sustained w"
+        },
+        {
+          "location": "paragraph 35",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 35,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "The second variable that constitutes TP in these scenarios concerns teacher e-leadership. Meuser et al. (2016) identifie"
+        },
+        {
+          "location": "paragraph 37",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 37,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Task Direction and Relationship Support – Situational Leadership II"
+        },
+        {
+          "location": "paragraph 38",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 38,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Student Empowerment & Development – Transformational Leadership"
+        },
+        {
+          "location": "paragraph 39",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 39,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Emotional Management – Socio-Emotional Leadership"
+        },
+        {
+          "location": "paragraph 41",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 41,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "These theories address complementary dimensions of videoconference teaching. Transformational leadership emphasizes valu"
+        },
+        {
+          "location": "paragraph 43",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 43,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "The first selected theory, Situational Leadership II, operates along two axes: promoting students’ social development th"
+        },
+        {
+          "location": "paragraph 45",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 45,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "H1: Personalized communication with webcams is positively correlated with situational e-leadership, fostering synchronou"
+        },
+        {
+          "location": "paragraph 47",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 47,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "The second theory, transformational leadership, is one of the most studied approaches in this field (Agazu et al., 2025)"
+        },
+        {
+          "location": "paragraph 49",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 49,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "H2: Personalized communication with webcams is positively correlated with transformational e-leadership, fostering synch"
+        },
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "... and 66 more body alignment issues",
+          "expected": null,
+          "actual": null,
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "quotation.pagination",
+      "category": "Quotation",
+      "name": "Direct quotations need a page locator",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "paragraph 15",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 15,
+            "char_start": 593,
+            "char_end": 618
+          },
+          "message": "Direct quotation without a page locator — APA 7 / AQF Item 4: cite the source with p./pp. (or Section/para.) for any quoted text",
+          "expected": "(Author, Year, p. N) or equivalent locator",
+          "actual": "citation present, no p./pp.",
+          "excerpt": "“oral communicative acts”"
+        }
+      ]
+    },
+    {
+      "rule_id": "quotation.block_format",
+      "category": "Quotation",
+      "name": "Long quotations must be block-quoted (≥ 40 words)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "reference.no_et_al",
+      "category": "Reference",
+      "name": "No 'et al.' in reference list",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "reference.alphabetical_order",
+      "category": "Reference",
+      "name": "Reference list alphabetical order",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #38",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 467,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Out of alphabetical order: Reference #38 ('Li', 2024) should come before Reference #37 ('Li', 2024)",
+          "expected": "initials 'bj' (first author, li) before 'h'",
+          "actual": "initials 'h' before 'bj'",
+          "excerpt": "Li, B. J., & Yee, A. Z. H. (2024). Development and validation of the antecedents to videoconference fatigue scale in higher education (AVFS-HE). Education and Information Technologies, 29(18), 25511–2"
+        },
+        {
+          "location": "Reference #60",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 490,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Out of alphabetical order: Reference #60 ('Wang', 2022) should come before Reference #59 ('Wang', 2024)",
+          "expected": "2022 before 2024",
+          "actual": "2024 before 2022",
+          "excerpt": "Wang, Y. (2022). Effects of teaching presence on learning engagement in online courses. Distance Education, 43(1), 139–156. https://doi.org/10.1080/01587919.2022.2029350"
+        }
+      ]
+    },
+    {
+      "rule_id": "reference.hanging_indent",
+      "category": "Reference",
+      "name": "Reference hanging indent",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #1",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 427,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Aas, M., & Brandmo, C. (2016). Revisiting instructional and transformational leadership: The contemporary Norwegian context of school leadership. Journal of educational administration, 54(1), 92-110. "
+        },
+        {
+          "location": "Reference #2",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 428,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Agazu, B. G., Kero, C. A., & Debela, K. L. (2025). Transformational leadership and firm performance: A systematic literature review. Journal of Innovation and Entrepreneurship, 14(1), 29. https://doi."
+        },
+        {
+          "location": "Reference #3",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 429,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Akrivou, K., & González, M. J. F. (2021). Beyond personalist virtue ethics: Transcendental anthropology and its implications for interpersonal communication. Frontiers in Communication, 6, 712501. htt"
+        },
+        {
+          "location": "Reference #4",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 430,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Anderson, T., & Rivera-Vargas, P. (2020). A critical look at educational technology from a distance education perspective. Digital Education Review, (37), 208–229. https://doi.org/10.1344/der.2020.37."
+        },
+        {
+          "location": "Reference #5",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 431,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Ariati, J., Pham, T., & Vogler, J. S. (2025). Constructivist learning environments: Validating the community of inquiry survey for face-to-face contexts. Active Learning in Higher Education, 26(1), 41"
+        },
+        {
+          "location": "Reference #6",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 432,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Avolio, B. J., & Kahai, S. S. (2003). Adding the \"E\" to E-leadership: How it may impact your leadership. Organizational Dynamics, 31(4), 325–338. https://doi.org/10.1016/s0090-2616(02)00133-x"
+        },
+        {
+          "location": "Reference #7",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 433,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Badia, A., Garcia, C., & Meneses, J. (2017). Approaches to teaching online: Exploring factors influencing teachers in a fully online university. British Journal of Educational Technology, 48(6), 1193–"
+        },
+        {
+          "location": "Reference #8",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 434,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Bailenson, J. N. (2021). Nonverbal overload: A theoretical argument for the causes of Zoom fatigue. Technology, Mind, and Behavior, 2(1). https://doi.org/10.1037/tmb0000030"
+        },
+        {
+          "location": "Reference #9",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 435,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Bailey, D. R., Almusharraf, N., & Almusharraf, A. (2022). Video conferencing in the e-learning context: Explaining learning outcome with the technology acceptance model. Education and Information Tech"
+        },
+        {
+          "location": "Reference #10",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 436,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Barberà, E., Zhang, J., Galván, C., & Fernández-Navarro, F. (2018). Learner support in MOOCs: Identifying variables linked to completion. Computers & Education, 122, 153–168. https://doi.org/10.1016/j"
+        },
+        {
+          "location": "Reference #11",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 437,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Bass, B. M., & Avolio, B. J. (1995). Manual for the multifactor leadership questionnaire: Raterform (5X short). Mind Garden."
+        },
+        {
+          "location": "Reference #12",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 438,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Blanchard, K., Monzani, L., & M, W. (2022). Leadership communication competencies: A foundational building block for embodying executive presence. Ivey Publishing."
+        },
+        {
+          "location": "Reference #13",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 439,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Caro-Valverde, M. T. (2018). La comunicación argumentativa en la Sociedad del Conocimiento, clave del liderazgo distribuido para un cambio educativo desde el desarrollo profesional. RED. Revista de Ed"
+        },
+        {
+          "location": "Reference #14",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 440,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Celikkan, U., Senuzun, F., Sari , D., & Sahin, Y. G. (2013). Interactive Videoconference Supported Teaching in Undergraduate Nursing: A Case Study for ECG. Educational Technology & Society, 16(1), 286"
+        },
+        {
+          "location": "Reference #15",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 441,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Chiu, T. (2021): Applying the self-determination theory (SDT) to explain student engagement in online learning during the COVID-19 pandemic, Journal of Research on Technology in Education, https://doi"
+        },
+        {
+          "location": "Reference #16",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 442,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Contreras, F., Baykal, E., & Abid, G. (2020). E-leadership and teleworking in times of COVID-19 and beyond: What we know and where do we go. Frontiers in Psychology, 11, 590271. https://doi.org/10.338"
+        },
+        {
+          "location": "Reference #17",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 443,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Cowan, L. D. (2014). E-Leadership: Leading in a virtual environment-guiding principle for nurse leaders. Nursing Economics, 32(6), 312–322."
+        },
+        {
+          "location": "Reference #18",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 444,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Curran, P. J., West, S. G., & Finch, J. F. (1996). The robustness of test statistics to nonnormality and specification error in confirmatory factor analysis. Psychological Methods, 1(1), 16–29. https:"
+        },
+        {
+          "location": "Reference #19",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 445,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Fiock, H. S. (2020). Designing a community of inquiry in online courses. The International Review of Research in Open and Distributed Learning, 21(1), 134–152. https://doi.org/10.19173/irrodl.v20i5.39"
+        },
+        {
+          "location": "Reference #20",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 446,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Firmansyah, A., Chen, M.-H., Junaedi, I. W. R., Arwani, M., & Kistyanto, A. (2022). The role of transformational leadership and knowledge management and learning organization on vocational schools per"
+        },
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "... and 44 more hanging indent issues",
+          "expected": null,
+          "actual": null,
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "reference.page_number_complete",
+      "category": "Reference",
+      "name": "Reference page-number completeness",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "reference.doi_or_url",
+      "category": "Reference",
+      "name": "Reference DOI / URL presence",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #11",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 437,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Journal-article reference is missing both a DOI/URL and a complete Volume(Issue), pages — APA 7 / ET&S require one of the two so the work can be located",
+          "expected": "DOI or URL, or full Volume(Issue), pages",
+          "actual": "neither present",
+          "excerpt": "Bass, B. M., & Avolio, B. J. (1995). Manual for the multifactor leadership questionnaire: Raterform (5X short). Mind Garden."
+        },
+        {
+          "location": "Reference #47",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 476,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Journal-article reference is missing both a DOI/URL and a complete Volume(Issue), pages — APA 7 / ET&S require one of the two so the work can be located",
+          "expected": "DOI or URL, or full Volume(Issue), pages",
+          "actual": "neither present",
+          "excerpt": "Sangrà, A. (2020). Decalogue for the improvement of online teaching. Proposals for educating in discontinuous face-to-face contexts. Editorial UOC."
+        }
+      ]
+    },
+    {
+      "rule_id": "citation.disambiguate",
+      "category": "Citation",
+      "name": "Reference suffix disambiguation (a, b, c)",
+      "status": "fail",
+      "severity": "error",
+      "details": [
+        {
+          "location": "Reference #37",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 465,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference shares surname 'Li' and year 2024 with other entries (#37, #38, #39); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate",
+          "expected": "2024a, 2024b, …",
+          "actual": "2024",
+          "excerpt": "Li, H., Chen, X., Chen, X., & Shan, C. (2024). Exploring relationship between teacher humor and online learning burnout. Educational Psychology, 44(9–10), 1073–1091.https://doi.org/10.1080/01443410.20"
+        },
+        {
+          "location": "Reference #38",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 467,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference shares surname 'Li' and year 2024 with other entries (#37, #38, #39); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate",
+          "expected": "2024a, 2024b, …",
+          "actual": "2024",
+          "excerpt": "Li, B. J., & Yee, A. Z. H. (2024). Development and validation of the antecedents to videoconference fatigue scale in higher education (AVFS-HE). Education and Information Technologies, 29(18), 25511–2"
+        },
+        {
+          "location": "Reference #39",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 468,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference shares surname 'Li' and year 2024 with other entries (#37, #38, #39); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate",
+          "expected": "2024a, 2024b, …",
+          "actual": "2024",
+          "excerpt": "Li, W., & Wang, W. (2024). The impact of teaching presence on students’ online learning experience: Evidence from 334 Chinese universities during the pandemic. Frontiers in Psychology, 15, 1291341. ht"
+        }
+      ]
+    },
+    {
+      "rule_id": "reference.apa_format",
+      "category": "Reference",
+      "name": "Reference APA structural format",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #15",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 441,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA format issue: missing '.' after year (APA: 'Author. (Year). Title.')",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Chiu, T. (2021): Applying the self-determination theory (SDT) to explain student engagement in online learning during the COVID-19 pandemic, Journal of Research on Technology in Education, https://doi"
+        },
+        {
+          "location": "Reference #55",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 485,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA format issue: missing '.' after year (APA: 'Author. (Year). Title.')",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Sun L, Ma R, Du C, Zhao J, Yang Y and Zhang X (2025) A study on the impact of teacher emotional support on university students’ online learning engagement: the mediating role of academic burnout. Fron"
+        }
+      ]
+    },
+    {
+      "rule_id": "reference.italics_journal_volume",
+      "category": "Reference",
+      "name": "Reference italics: journal name + volume",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #45",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 474,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: journal name 'Computers & Education' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "journal name 'Computers & Education' should be italic",
+          "excerpt": "se gains? Computers & Education, 191. https://"
+        },
+        {
+          "location": "Reference #45",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 474,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: volume number '191' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "volume number '191' should be italic",
+          "excerpt": "se gains? Computers & Education, 191. https://"
+        },
+        {
+          "location": "Reference #49",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 479,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: journal name 'Journal of Adult and Continuing Education' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "journal name 'Journal of Adult and Continuing Education' should be italic",
+          "excerpt": "learning. Journal of Adult and Continuing Education, 0(0). https://"
+        },
+        {
+          "location": "Reference #49",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 479,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: volume number '0' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "volume number '0' should be italic",
+          "excerpt": "learning. Journal of Adult and Continuing Education, 0(0). https://"
+        },
+        {
+          "location": "Reference #52",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 482,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: journal name 'Frontiers in Psychology' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "journal name 'Frontiers in Psychology' should be italic",
+          "excerpt": "ong Kong. Frontiers in Psychology, 10, 1070. ht"
+        },
+        {
+          "location": "Reference #52",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 482,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: volume number '10' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "volume number '10' should be italic",
+          "excerpt": "ong Kong. Frontiers in Psychology, 10, 1070. ht"
+        },
+        {
+          "location": "Reference #54",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 484,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: journal name 'Journal of Computers in Education' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "journal name 'Journal of Computers in Education' should be italic",
+          "excerpt": "teaching. Journal of Computers in Education, 11(2), 445–470."
+        },
+        {
+          "location": "Reference #54",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 484,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: volume number '11' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "volume number '11' should be italic",
+          "excerpt": "teaching. Journal of Computers in Education, 11(2), 445–470."
+        },
+        {
+          "location": "Reference #56",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 486,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: journal name 'Leadership & Organization Development Journal' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "journal name 'Leadership & Organization Development Journal' should be italic",
+          "excerpt": "pectives. Leadership & Organization Development Journal, 36(5), 527–544."
+        },
+        {
+          "location": "Reference #56",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 486,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: volume number '36' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "volume number '36' should be italic",
+          "excerpt": "pectives. Leadership & Organization Development Journal, 36(5), 527–544."
+        },
+        {
+          "location": "Reference #57",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 487,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: journal name 'International Review of Administrative Sciences' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "journal name 'International Review of Administrative Sciences' should be italic",
+          "excerpt": "adership. International Review of Administrative Sciences, 85(1), 80–97. h"
+        },
+        {
+          "location": "Reference #57",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 487,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: volume number '85' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "volume number '85' should be italic",
+          "excerpt": "adership. International Review of Administrative Sciences, 85(1), 80–97. h"
+        },
+        {
+          "location": "Reference #58",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 488,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: journal name 'Educational Psychology Review' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "journal name 'Educational Psychology Review' should be italic",
+          "excerpt": "forward. Educational Psychology Review, 29(2), 269–299."
+        },
+        {
+          "location": "Reference #58",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 488,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: volume number '29' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "volume number '29' should be italic",
+          "excerpt": "forward. Educational Psychology Review, 29(2), 269–299."
+        },
+        {
+          "location": "Reference #59",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 489,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: journal name 'Distance Education' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "journal name 'Distance Education' should be italic",
+          "excerpt": "gagement. Distance Education, 45(4), 515–534."
+        },
+        {
+          "location": "Reference #59",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 489,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: volume number '45' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "volume number '45' should be italic",
+          "excerpt": "gagement. Distance Education, 45(4), 515–534."
+        },
+        {
+          "location": "Reference #60",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 490,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: journal name 'Distance Education' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "journal name 'Distance Education' should be italic",
+          "excerpt": "courses. Distance Education, 43(1), 139–156."
+        },
+        {
+          "location": "Reference #60",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 490,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: volume number '43' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "volume number '43' should be italic",
+          "excerpt": "courses. Distance Education, 43(1), 139–156."
+        },
+        {
+          "location": "Reference #61",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 491,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: journal name 'The Internet and Higher Education' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "journal name 'The Internet and Higher Education' should be italic",
+          "excerpt": "olvement. The Internet and Higher Education, 55, 100871."
+        },
+        {
+          "location": "Reference #61",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 491,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: volume number '55' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "volume number '55' should be italic",
+          "excerpt": "olvement. The Internet and Higher Education, 55, 100871."
+        },
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "... and 6 more italics issues in references",
+          "expected": null,
+          "actual": null,
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "reference.url_terminal_punctuation",
+      "category": "Reference",
+      "name": "DOI/URL must not end with a period",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "reference.author_count_rule",
+      "category": "Reference",
+      "name": "Author-list APA 7 §9.8 (≤ 20 list all; 21+ uses ellipsis + last)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "statistics.operator_spacing",
+      "category": "Statistics",
+      "name": "Relational operator spacing",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "paragraph 71",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 71,
+            "char_start": 346,
+            "char_end": 349
+          },
+          "message": "Missing space around relational operator in statistical expression 'n =' — APA 7 §6.45: write 'n = ...' with spaces",
+          "expected": "n = ...",
+          "actual": "n =",
+          "excerpt": "e learning (n =265), and in"
+        }
+      ]
+    },
+    {
+      "rule_id": "statistics.p_value_format",
+      "category": "Statistics",
+      "name": "p-value formatting (APA 7 §6.44)",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "paragraph 340",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 340,
+            "char_start": 69,
+            "char_end": 78
+          },
+          "message": "p value with leading zero ('0.000') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.000')",
+          "expected": ".000",
+          "actual": "0.000",
+          "excerpt": "²: 483,236 (p < 0.000); df: 176; "
+        },
+        {
+          "location": "paragraph 342",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 342,
+            "char_start": 147,
+            "char_end": 156
+          },
+          "message": "p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')",
+          "expected": ".001",
+          "actual": "0.001",
+          "excerpt": "(β = 0.990, p < 0.001), transform"
+        },
+        {
+          "location": "paragraph 342",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 342,
+            "char_start": 188,
+            "char_end": 197
+          },
+          "message": "p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')",
+          "expected": ".001",
+          "actual": "0.001",
+          "excerpt": "(β = 0.387, p < 0.001), and situa"
+        },
+        {
+          "location": "paragraph 342",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 342,
+            "char_start": 233,
+            "char_end": 242
+          },
+          "message": "p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')",
+          "expected": ".001",
+          "actual": "0.001",
+          "excerpt": "(β = 0.828, p < 0.001). However, "
+        },
+        {
+          "location": "paragraph 342",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 342,
+            "char_start": 345,
+            "char_end": 354
+          },
+          "message": "p value with leading zero ('0.627') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.627')",
+          "expected": ".627",
+          "actual": "0.627",
+          "excerpt": "(β = 0.091, p < 0.627). A signifi"
+        },
+        {
+          "location": "paragraph 342",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 342,
+            "char_start": 467,
+            "char_end": 476
+          },
+          "message": "p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')",
+          "expected": ".001",
+          "actual": "0.001",
+          "excerpt": " (β = 1.29, p < 0.001)."
+        },
+        {
+          "location": "paragraph 357",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 357,
+            "char_start": 160,
+            "char_end": 169
+          },
+          "message": "p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')",
+          "expected": ".001",
+          "actual": "0.001",
+          "excerpt": ", df = 531, p < 0.001; GFI = 0.86"
+        },
+        {
+          "location": "paragraph 357",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 357,
+            "char_start": 447,
+            "char_end": 456
+          },
+          "message": "p value with leading zero ('0.354') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.354')",
+          "expected": ".354",
+          "actual": "0.354",
+          "excerpt": "invariance (p = 0.354)."
+        },
+        {
+          "location": "paragraph 359",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 359,
+            "char_start": 225,
+            "char_end": 234
+          },
+          "message": "p value with leading zero ('0.047') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.047')",
+          "expected": ".047",
+          "actual": "0.047",
+          "excerpt": "ignificant (p = 0.047), as was th"
+        },
+        {
+          "location": "paragraph 359",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 359,
+            "char_start": 295,
+            "char_end": 304
+          },
+          "message": "p value with leading zero ('0.004') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.004')",
+          "expected": ".004",
+          "actual": "0.004",
+          "excerpt": "ional-task (p = 0.004). No signif"
+        },
+        {
+          "location": "paragraph 359",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 359,
+            "char_start": 403,
+            "char_end": 412
+          },
+          "message": "p value with leading zero ('0.474') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.474')",
+          "expected": ".474",
+          "actual": "0.474",
+          "excerpt": "-emotional (p = 0.474) or between"
+        },
+        {
+          "location": "paragraph 359",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 359,
+            "char_start": 451,
+            "char_end": 460
+          },
+          "message": "p value with leading zero ('0.862') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.862')",
+          "expected": ".862",
+          "actual": "0.862",
+          "excerpt": "ormational (p = 0.862)."
+        },
+        {
+          "location": "paragraph 363",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 363,
+            "char_start": 56,
+            "char_end": 64
+          },
+          "message": "p value with leading zero ('0.05') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.05')",
+          "expected": ".05",
+          "actual": "0.05",
+          "excerpt": "ed Models. *p < 0.05, **p < 0.01"
+        },
+        {
+          "location": "paragraph 363",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 363,
+            "char_start": 68,
+            "char_end": 76
+          },
+          "message": "p value with leading zero ('0.01') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.01')",
+          "expected": ".01",
+          "actual": "0.01",
+          "excerpt": "p < 0.05, **p < 0.01, ***p < 0.0"
+        },
+        {
+          "location": "paragraph 363",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 363,
+            "char_start": 81,
+            "char_end": 90
+          },
+          "message": "p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')",
+          "expected": ".001",
+          "actual": "0.001",
+          "excerpt": " < 0.01, ***p < 0.001; β for the "
+        },
+        {
+          "location": "paragraph 365",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 365,
+            "char_start": 136,
+            "char_end": 145
+          },
+          "message": "p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')",
+          "expected": ".001",
+          "actual": "0.001",
+          "excerpt": "(β = 0.905, p = 0.001), whereas n"
+        },
+        {
+          "location": "paragraph 365",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 365,
+            "char_start": 265,
+            "char_end": 274
+          },
+          "message": "p value with leading zero ('0.826') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.826')",
+          "expected": ".826",
+          "actual": "0.826",
+          "excerpt": "β = -0.128, p = 0.826)."
+        },
+        {
+          "location": "paragraph 367",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 367,
+            "char_start": 178,
+            "char_end": 187
+          },
+          "message": "p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')",
+          "expected": ".001",
+          "actual": "0.001",
+          "excerpt": "(β = 0.691, p = 0.001) and situat"
+        },
+        {
+          "location": "paragraph 367",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 367,
+            "char_start": 231,
+            "char_end": 240
+          },
+          "message": "p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')",
+          "expected": ".001",
+          "actual": "0.001",
+          "excerpt": "(β = 0.474, p = 0.001). Additiona"
+        },
+        {
+          "location": "paragraph 367",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 367,
+            "char_start": 359,
+            "char_end": 368
+          },
+          "message": "p value with leading zero ('0.016') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.016')",
+          "expected": ".016",
+          "actual": "0.016",
+          "excerpt": "(β = 0.431, p = 0.016)."
+        },
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "... and 8 more p-value formatting issues",
+          "expected": null,
+          "actual": null,
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "structure.abstract_length",
+      "category": "Structure",
+      "name": "Abstract length check",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "structure.keywords_count",
+      "category": "Structure",
+      "name": "Keywords count check",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "structure.required_sections",
+      "category": "Structure",
+      "name": "Required sections check",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "structure.placeholder",
+      "category": "Structure",
+      "name": "Placeholder detection (ET&S)",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "structure.abstract_single_paragraph",
+      "category": "Structure",
+      "name": "Abstract must be a single paragraph (APA 7)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "structure.abstract_no_indent",
+      "category": "Structure",
+      "name": "Abstract must not be first-line indented (APA 7)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "structure.title_length",
+      "category": "Structure",
+      "name": "Paper title length (APA 7 ≤ 12 words)",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "paragraph 0 (title)",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 0,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Paper title runs 15 words — APA 7 §2.4 recommends ≤ 12 words for clarity and indexing",
+          "expected": "≤ 12 words",
+          "actual": "15 words",
+          "excerpt": "Enhancing teaching presence in videoconferences: The impact of personalized webcam communication on effective pedagogical e-leadership"
+        }
+      ]
+    },
+    {
+      "rule_id": "structure.no_introduction_heading",
+      "category": "Structure",
+      "name": "Do not label the first section 'Introduction' (APA 7)",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "paragraph 11",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 11,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Section labelled '1. Introduction' — APA 7 §2.27: do not label the introduction with a heading; it is identified by its position immediately after the abstract",
+          "expected": "no 'Introduction' heading",
+          "actual": "1. Introduction",
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "structure.section_order",
+      "category": "Structure",
+      "name": "Document section order (Abstract → Body → References → Appendix)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "structure.no_footnotes",
+      "category": "Structure",
+      "name": "No footnotes or endnotes (ET&S)",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "reference.links",
+      "category": "Reference",
+      "name": "Reference link check",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #4",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 430,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "DOI link unreachable: could not connect",
+          "expected": "accessible link",
+          "actual": "https://doi.org/10.1344/der.2020.37.208-229",
+          "excerpt": "Anderson, T., & Rivera-Vargas, P. (2020). A critical look at educational technology from a distance education perspectiv"
+        },
+        {
+          "location": "Reference #15",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 441,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "URL link unreachable: malformed URL",
+          "expected": "accessible link",
+          "actual": "https://doi:10.1080/15391523.2021.1891998",
+          "excerpt": "Chiu, T. (2021): Applying the self-determination theory (SDT) to explain student engagement in online learning during th"
+        },
+        {
+          "location": "Reference #31",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 458,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "DOI link unreachable: HTTP 404 - page not found",
+          "expected": "accessible link",
+          "actual": "https://doi.org/10.31838/srp.2020.10.109",
+          "excerpt": "Kadiyono, A. L., Sulistiobudi, R. A., Haris, I., Wahab, M. K. A., Ramdani, I., Purwanto, A., Mufid, A., Muqtada, M. R., "
+        },
+        {
+          "location": "Reference #36",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 464,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "DOI link unreachable: could not connect",
+          "expected": "accessible link",
+          "actual": "https://doi.org/10.5565/rev/educar.1528",
+          "excerpt": "Lanzo, N. C., Ortiz, L. G., & Sangrà, A. (2022). Professional development of online university teachers: An analysis fro"
+        }
+      ]
+    }
+  ]
+}

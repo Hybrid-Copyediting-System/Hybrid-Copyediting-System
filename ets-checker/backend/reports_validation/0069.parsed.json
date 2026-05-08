@@ -1,0 +1,51 @@
+{
+  "paragraphs": 1769,
+  "tables": 9,
+  "references": 62,
+  "citations": 101,
+  "figures": 7,
+  "sections": [
+    {
+      "title": "Abstract",
+      "level": 1,
+      "p": 6
+    },
+    {
+      "title": "1. Introduction",
+      "level": 1,
+      "p": 11
+    },
+    {
+      "title": "2. Methods",
+      "level": 1,
+      "p": 42
+    },
+    {
+      "title": "3. Results",
+      "level": 1,
+      "p": 183
+    },
+    {
+      "title": "4. Discussion",
+      "level": 1,
+      "p": 789
+    },
+    {
+      "title": "5. Conclusion",
+      "level": 1,
+      "p": 881
+    },
+    {
+      "title": "References",
+      "level": 1,
+      "p": 887
+    },
+    {
+      "title": "Appendix",
+      "level": 1,
+      "p": 951
+    }
+  ],
+  "footnotes_count": 0,
+  "footnote_kinds": {}
+}

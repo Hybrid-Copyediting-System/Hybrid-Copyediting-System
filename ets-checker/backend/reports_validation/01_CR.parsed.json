@@ -1,0 +1,61 @@
+{
+  "paragraphs": 297,
+  "tables": 1,
+  "references": 53,
+  "citations": 65,
+  "figures": 4,
+  "sections": [
+    {
+      "title": "Abstract",
+      "level": 1,
+      "p": 6
+    },
+    {
+      "title": "1. Introduction",
+      "level": 1,
+      "p": 11
+    },
+    {
+      "title": "2. Related Work",
+      "level": 1,
+      "p": 18
+    },
+    {
+      "title": "3. Socratic Playground for Learning: A Socratic Tutoring System Powered by LLM",
+      "level": 1,
+      "p": 61
+    },
+    {
+      "title": "4. Aims and Questions of the Current Study",
+      "level": 1,
+      "p": 79
+    },
+    {
+      "title": "5. Method",
+      "level": 1,
+      "p": 92
+    },
+    {
+      "title": "6. Results and Discussion",
+      "level": 1,
+      "p": 146
+    },
+    {
+      "title": "7. Implications, Limitations, and Future Directions",
+      "level": 1,
+      "p": 226
+    },
+    {
+      "title": "8. Conclusions",
+      "level": 1,
+      "p": 237
+    },
+    {
+      "title": "References",
+      "level": 1,
+      "p": 242
+    }
+  ],
+  "footnotes_count": 0,
+  "footnote_kinds": {}
+}

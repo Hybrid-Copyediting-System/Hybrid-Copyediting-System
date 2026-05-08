@@ -1,0 +1,495 @@
+====================================================================================================
+FILE: ../../local To be Tested/ETS-2025-2517.R1.docx
+====================================================================================================
+paragraphs=495 tables=4 references=64 citations=81 figures=3 sections=9 footnotes=0
+SUMMARY: total=47 passed=25 errors=4 warnings=12 info=6
+----------------------------------------------------------------------------------------------------
+FAILED rules (22):
+  [error  ] citation.cross_reference                   (7 details)  Citation–reference cross-check
+  [warning] figures_tables.table_format                (1 details)  Table format check
+  [info   ] figures_tables.caption_format              (7 details)  Caption format: number bold, title italic
+  [warning] font.stat_italic                           (21 details)  Statistical symbol italics
+  [warning] font.abstract                              (1 details)  Abstract font check (ET&S: italic)
+  [info   ] headings.no_numbering                      (7 details)  Headings must not be numbered (APA 7)
+  [error  ] layout.paper_size                          (1 details)  Paper size check
+  [error  ] layout.line_spacing                        (1 details)  Line spacing check
+  [info   ] layout.first_line_indent                   (1 details)  Body first-line indent
+  [info   ] layout.body_alignment                      (21 details)  Body paragraph alignment
+  [warning] quotation.pagination                       (1 details)  Direct quotations need a page locator
+  [warning] reference.alphabetical_order               (2 details)  Reference list alphabetical order
+  [warning] reference.hanging_indent                   (21 details)  Reference hanging indent
+  [warning] reference.doi_or_url                       (2 details)  Reference DOI / URL presence
+  [error  ] citation.disambiguate                      (3 details)  Reference suffix disambiguation (a, b, c)
+  [warning] reference.apa_format                       (2 details)  Reference APA structural format
+  [warning] reference.italics_journal_volume           (21 details)  Reference italics: journal name + volume
+  [warning] statistics.operator_spacing                (1 details)  Relational operator spacing
+  [warning] statistics.p_value_format                  (21 details)  p-value formatting (APA 7 §6.44)
+  [info   ] structure.title_length                     (1 details)  Paper title length (APA 7 ≤ 12 words)
+  [info   ] structure.no_introduction_heading          (1 details)  Do not label the first section 'Introduction' (APA 7)
+  [warning] reference.links                            (4 details)  Reference link check
+----------------------------------------------------------------------------------------------------
+
+### [citation.cross_reference] Citation–reference cross-check  sev=error  (7 details)
+  - paragraph 43: Possible spelling error: Citation 'Want et al., 2024' may refer to Reference #59 ('Wang', 2024) — check the author surname spelling
+      excerpt: 'Want et al., 2024'
+  - paragraph 47: Citation 'Sharma et al., 2024' has no matching reference
+      excerpt: 'Sharma et al., 2024'
+  - paragraph 177: Citation 'Kline, 2015' has no matching reference (Reference #34 has surname 'Kline' with year 2023, which differs by 8 year(s) from the cited 2015 — likely a year typo or a different work)
+      excerpt: 'Kline, 2015'
+  - Reference #34: Reference is not cited in text
+      excerpt: 'Kline, R. B. (2023). Principles and practice of structural equation modeling (5th ed.). The Guilford Press.'
+  - Reference #46: Reference is not cited in text
+      excerpt: 'Roman, A. V., Van Wart, M., Wang, X., Liu, C., Kim, S., & McCarthy, A. (2019). Defining e-leadership as competence in ICT-mediated communications: An exploratory assessment.\xa0Public Administration Revi'
+  - Reference #48: Reference is not cited in text
+      excerpt: 'Schermelleh-Engel, K., Moosbrugger, H., & Müller, H. (2003). Evaluating the fit of structural equation models: Tests of significance and descriptive goodness-of-fit measures. Methods of Psychological '
+  - Reference #51: Reference could not be parsed (missing author or year)
+      excerpt: 'Sharma RK,\xa0Kaur S,\xa0Mittal A (2024;), "Role of transformational leadership in implementation of Education 4.0: a parallel mediation model in context of higher educational institutions (HEIs)".\xa0Global K'
+
+### [figures_tables.table_format] Table format check  sev=warning  (1 details)
+  - Table 1: Table 1 has vertical borders; APA 7th requires tables to use horizontal rules only
+      expected='no vertical borders'  actual='vertical borders detected'
+      excerpt: 'Table 1. Baseline sociodemographic characteristics of participants by country of origin (N = 592)'
+
+### [figures_tables.caption_format] Caption format: number bold, title italic  sev=info  (7 details)
+  - Figure 1: Figure 1 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Figure 1. Proposed Research Framework for Teaching Presence in Live Videoconferences'
+  - Figure 2: Figure 2 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Figure. 2 Simplified Version (without Error Terms) of the Graphical Representation of the Exploratory Structural Equation Model Accepted'
+  - Figure 3: Figure 3 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Figure 3. Results of the Partially Constrained Models. *p\xa0< 0.05,\xa0**p\xa0< 0.01,\xa0***p\xa0< 0.001; β for the Learning Approach (Content Acquisition/Collaborative Learning/Individual Knowledge Building); Soli'
+  - Table 1: Table 1 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Table 1. Baseline sociodemographic characteristics of participants by country of origin (N = 592)'
+  - Table 2: Table 2 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Table 2. Questionnaire structure and items'
+  - Table 3: Table 3 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Table 3. Rotated Component Matrix (Factor Loadings) for E-Leadership (N = 592).'
+  - Table 4: Table 4 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Table 4. Summary of Fit Indices of Structural Equation Models.'
+
+### [font.stat_italic] Statistical symbol italics  sev=warning  (21 details)
+  - paragraph 71: Statistical symbol "N" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…ning modality (N = 733), yielding…'
+  - paragraph 71: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…in (Barcelona: n = 310; Madrid: n…'
+  - paragraph 71: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…= 310; Madrid: n = 282). Learning…'
+  - paragraph 71: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…t acquisition (n = 220), collabor…'
+  - paragraph 71: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…tive learning (n =265), and indiv…'
+  - paragraph 71: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…edge building (n = 107).…'
+  - paragraph 75: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…from Colombia (n = 142), Spain (n…'
+  - paragraph 75: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…= 142), Spain (n = 139), and Peru…'
+  - paragraph 75: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…39), and Peru (n = 114), with add…'
+  - paragraph 75: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…can countries (n = 177), Europe (…'
+  - paragraph 75: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…177), Europe (n = 19), and Cape…'
+  - paragraph 75: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…nd Cape Verde (n = 1). The predom…'
+  - paragraph 77: Statistical symbol "N" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…try of origin (N = 592)…'
+  - paragraph 177: Statistical symbol "N" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…e sample size (N = 592), the χ² s…'
+  - paragraph 193: Statistical symbol "N" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…E-Leadership (N = 592).…'
+  - paragraph 340: Statistical symbol "p" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…: χ²: 483,236 (p < 0.000); df: 17…'
+  - paragraph 342: Statistical symbol "p" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…ip (β = 0.990, p < 0.001), transf…'
+  - paragraph 342: Statistical symbol "p" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…al (β = 0.387, p < 0.001), and si…'
+  - paragraph 342: Statistical symbol "p" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…sk (β = 0.828, p < 0.001). Howeve…'
+  - paragraph 342: Statistical symbol "p" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…nt (β = 0.091, p < 0.627). A sign…'
+  - document: ... and 33 more missing italics on statistical symbols
+
+### [font.abstract] Abstract font check (ET&S: italic)  sev=warning  (1 details)
+  - paragraph 6: Abstract text should be italic (ET&S requirement)
+      expected='Times New Roman 10.0pt italic'  actual='not italic'
+      excerpt: 'Teaching presence (TP) is crucial in online education, but its impact in videoco'
+
+### [headings.no_numbering] Headings must not be numbered (APA 7)  sev=info  (7 details)
+  - paragraph 11: Heading '1. Introduction' has a numeric prefix '1.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '1.'"
+      excerpt: '1. Introduction'
+  - paragraph 60: Heading '2. Method' has a numeric prefix '2.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '2.'"
+      excerpt: '2. Method'
+  - paragraph 184: Heading '3. Results' has a numeric prefix '3.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '3.'"
+      excerpt: '3. Results'
+  - paragraph 376: Heading '4. Discussion' has a numeric prefix '4.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '4.'"
+      excerpt: '4. Discussion'
+  - paragraph 400: Heading '4.2. Implications and Directions for Future Research' has a numeric prefix '4.2.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '4.2.'"
+      excerpt: '4.2. Implications and Directions for Future Research'
+  - paragraph 411: Heading '4.2.1. Limitations' has a numeric prefix '4.2.1.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '4.2.1.'"
+      excerpt: '4.2.1. Limitations'
+  - paragraph 422: Heading '5. Conclusion' has a numeric prefix '5.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '5.'"
+      excerpt: '5. Conclusion'
+
+### [layout.paper_size] Paper size check  sev=error  (1 details)
+  - document: Paper size should be A4
+      expected='A4 (21.0×29.7 cm)'  actual='Letter (21.5935×27.9435 cm)'
+
+### [layout.line_spacing] Line spacing check  sev=error  (1 details)
+  - document: Dominant line spacing does not match ET&S (1.0)
+      expected=1.0  actual=2.0
+
+### [layout.first_line_indent] Body first-line indent  sev=info  (1 details)
+  - document: No first-line indent detected on body paragraphs — APA 7 §2.24 / ET&S expect a first-line indent of 1.27 cm (0.5 inch); verify the Normal style
+      expected='1.27 cm'  actual='0 cm / unset'
+
+### [layout.body_alignment] Body paragraph alignment  sev=info  (21 details)
+  - paragraph 13: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Presence in online learning environments is a comprehensive construct that significantly influences student engagement a'
+  - paragraph 15: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Teaching presence (TP) is a central factor in online learning (Su et al., 2024). In asynchronous settings, it includes c'
+  - paragraph 17: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'In synchronous learning environments, e-leadership is defined as a social influence process aimed at achieving planned o'
+  - paragraph 18: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Evidence suggests that students generally prefer synchronous videoconferencing to asynchronous forums, as it enhances pa'
+  - paragraph 20: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'As depicted in Figure 1, this study differentiates between management of the communicational channel and the exercise of'
+  - paragraph 22: Body paragraph alignment is 'CENTER ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='CENTER '
+      excerpt: 'Figure 1. Proposed Research Framework for Teaching Presence in Live Videoconferences'
+  - paragraph 25: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Teachers’ self-presentation in virtual environments significantly shapes students’ perceptions, influencing instructiona'
+  - paragraph 28: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: '1.1. Factors in Teaching Presence through Videoconferencing'
+  - paragraph 30: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'According to Wu et al., (2022), beyond the cognitive asynchronous approach to teaching presence (TP), constructivism in '
+  - paragraph 32: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'The research presented in this paper proposes two variables to explain how TP occurs during the constructive dialogue of'
+  - paragraph 33: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Personalized communication with webcams (PCW) is an instructional approach in online education that combines sustained w'
+  - paragraph 35: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'The second variable that constitutes TP in these scenarios concerns teacher e-leadership. Meuser et al. (2016) identifie'
+  - paragraph 37: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Task Direction and Relationship Support – Situational Leadership II'
+  - paragraph 38: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Student Empowerment & Development – Transformational Leadership'
+  - paragraph 39: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Emotional Management – Socio-Emotional Leadership'
+  - paragraph 41: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'These theories address complementary dimensions of videoconference teaching. Transformational leadership emphasizes valu'
+  - paragraph 43: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'The first selected theory, Situational Leadership II, operates along two axes: promoting students’ social development th'
+  - paragraph 45: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'H1: Personalized communication with webcams is positively correlated with situational e-leadership, fostering synchronou'
+  - paragraph 47: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'The second theory, transformational leadership, is one of the most studied approaches in this field (Agazu et al., 2025)'
+  - paragraph 49: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'H2: Personalized communication with webcams is positively correlated with transformational e-leadership, fostering synch'
+  - document: ... and 66 more body alignment issues
+
+### [quotation.pagination] Direct quotations need a page locator  sev=warning  (1 details)
+  - paragraph 15: Direct quotation without a page locator — APA 7 / AQF Item 4: cite the source with p./pp. (or Section/para.) for any quoted text
+      expected='(Author, Year, p. N) or equivalent locator'  actual='citation present, no p./pp.'
+      excerpt: '“oral communicative acts”'
+
+### [reference.alphabetical_order] Reference list alphabetical order  sev=warning  (2 details)
+  - Reference #38: Out of alphabetical order: Reference #38 ('Li', 2024) should come before Reference #37 ('Li', 2024)
+      expected="initials 'bj' (first author, li) before 'h'"  actual="initials 'h' before 'bj'"
+      excerpt: 'Li, B. J., & Yee, A. Z. H. (2024). Development and validation of the antecedents to videoconference fatigue scale in higher education (AVFS-HE). Education and Information Technologies, 29(18), 25511–2'
+  - Reference #60: Out of alphabetical order: Reference #60 ('Wang', 2022) should come before Reference #59 ('Wang', 2024)
+      expected='2022 before 2024'  actual='2024 before 2022'
+      excerpt: 'Wang, Y. (2022). Effects of teaching presence on learning engagement in online courses. Distance Education, 43(1), 139–156. https://doi.org/10.1080/01587919.2022.2029350'
+
+### [reference.hanging_indent] Reference hanging indent  sev=warning  (21 details)
+  - Reference #1: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Aas, M., & Brandmo, C. (2016). Revisiting instructional and transformational leadership: The contemporary Norwegian context of school leadership. Journal of educational administration, 54(1), 92-110. '
+  - Reference #2: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Agazu, B. G., Kero, C. A., & Debela, K. L. (2025). Transformational leadership and firm performance: A systematic literature review. Journal of Innovation and Entrepreneurship, 14(1), 29. https://doi.'
+  - Reference #3: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Akrivou, K., & González, M. J. F. (2021). Beyond personalist virtue ethics: Transcendental anthropology and its implications for interpersonal communication. Frontiers in Communication, 6, 712501. htt'
+  - Reference #4: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Anderson, T., & Rivera-Vargas, P. (2020). A critical look at educational technology from a distance education perspective. Digital Education Review, (37), 208–229. https://doi.org/10.1344/der.2020.37.'
+  - Reference #5: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Ariati, J., Pham, T., & Vogler, J. S. (2025). Constructivist learning environments: Validating the community of inquiry survey for face-to-face contexts. Active Learning in Higher Education, 26(1), 41'
+  - Reference #6: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Avolio, B. J., & Kahai, S. S. (2003). Adding the "E" to E-leadership: How it may impact your leadership. Organizational Dynamics, 31(4), 325–338. https://doi.org/10.1016/s0090-2616(02)00133-x'
+  - Reference #7: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Badia, A., Garcia, C., & Meneses, J. (2017). Approaches to teaching online: Exploring factors influencing teachers in a fully online university. British Journal of Educational Technology, 48(6), 1193–'
+  - Reference #8: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Bailenson, J. N. (2021). Nonverbal overload: A theoretical argument for the causes of Zoom fatigue.\xa0Technology, Mind, and Behavior,\xa02(1).\xa0https://doi.org/10.1037/tmb0000030'
+  - Reference #9: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Bailey, D. R., Almusharraf, N., & Almusharraf, A. (2022). Video conferencing in the e-learning context: Explaining learning outcome with the technology acceptance model. Education and Information Tech'
+  - Reference #10: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Barberà, E., Zhang, J., Galván, C., & Fernández-Navarro, F. (2018). Learner support in MOOCs: Identifying variables linked to completion. Computers & Education, 122, 153–168. https://doi.org/10.1016/j'
+  - Reference #11: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Bass, B. M., & Avolio, B. J. (1995). Manual for the multifactor leadership questionnaire: Raterform (5X short). Mind Garden.'
+  - Reference #12: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Blanchard, K., Monzani, L., & M, W. (2022). Leadership communication competencies: A foundational building block for embodying executive presence. Ivey Publishing.'
+  - Reference #13: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Caro-Valverde, M. T. (2018). La comunicación argumentativa en la Sociedad del Conocimiento, clave del liderazgo distribuido para un cambio educativo desde el desarrollo profesional. RED. Revista de Ed'
+  - Reference #14: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Celikkan, U., Senuzun, F., Sari , D., & Sahin, Y. G. (2013). Interactive Videoconference Supported Teaching in Undergraduate Nursing: A Case Study for ECG. Educational Technology & Society, 16(1), 286'
+  - Reference #15: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Chiu, T. (2021): Applying the self-determination theory (SDT) to explain student engagement in online learning during the COVID-19 pandemic, Journal of Research on Technology in Education, https://doi'
+  - Reference #16: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Contreras, F., Baykal, E., & Abid, G. (2020). E-leadership and teleworking in times of COVID-19 and beyond: What we know and where do we go. Frontiers in Psychology, 11, 590271. https://doi.org/10.338'
+  - Reference #17: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Cowan, L. D. (2014). E-Leadership: Leading in a virtual environment-guiding principle for nurse leaders. Nursing Economics, 32(6), 312–322.'
+  - Reference #18: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Curran, P. J., West, S. G., & Finch, J. F. (1996). The robustness of test statistics to nonnormality and specification error in confirmatory factor analysis. Psychological Methods, 1(1), 16–29. https:'
+  - Reference #19: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Fiock, H. S. (2020). Designing a community of inquiry in online courses. The International Review of Research in Open and Distributed Learning, 21(1), 134–152. https://doi.org/10.19173/irrodl.v20i5.39'
+  - Reference #20: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Firmansyah, A., Chen, M.-H., Junaedi, I. W. R., Arwani, M., & Kistyanto, A. (2022). The role of transformational leadership and knowledge management and learning organization on vocational schools per'
+  - document: ... and 44 more hanging indent issues
+
+### [reference.doi_or_url] Reference DOI / URL presence  sev=warning  (2 details)
+  - Reference #11: Journal-article reference is missing both a DOI/URL and a complete Volume(Issue), pages — APA 7 / ET&S require one of the two so the work can be located
+      expected='DOI or URL, or full Volume(Issue), pages'  actual='neither present'
+      excerpt: 'Bass, B. M., & Avolio, B. J. (1995). Manual for the multifactor leadership questionnaire: Raterform (5X short). Mind Garden.'
+  - Reference #47: Journal-article reference is missing both a DOI/URL and a complete Volume(Issue), pages — APA 7 / ET&S require one of the two so the work can be located
+      expected='DOI or URL, or full Volume(Issue), pages'  actual='neither present'
+      excerpt: 'Sangrà, A. (2020). Decalogue for the improvement of online teaching. Proposals for educating in discontinuous face-to-face contexts. Editorial UOC.'
+
+### [citation.disambiguate] Reference suffix disambiguation (a, b, c)  sev=error  (3 details)
+  - Reference #37: Reference shares surname 'Li' and year 2024 with other entries (#37, #38, #39); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate
+      expected='2024a, 2024b, …'  actual='2024'
+      excerpt: 'Li, H., Chen, X., Chen, X., & Shan, C. (2024). Exploring relationship between teacher humor and online learning burnout.\xa0Educational Psychology,\xa044(9–10), 1073–1091.https://doi.org/10.1080/01443410.20'
+  - Reference #38: Reference shares surname 'Li' and year 2024 with other entries (#37, #38, #39); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate
+      expected='2024a, 2024b, …'  actual='2024'
+      excerpt: 'Li, B. J., & Yee, A. Z. H. (2024). Development and validation of the antecedents to videoconference fatigue scale in higher education (AVFS-HE). Education and Information Technologies, 29(18), 25511–2'
+  - Reference #39: Reference shares surname 'Li' and year 2024 with other entries (#37, #38, #39); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate
+      expected='2024a, 2024b, …'  actual='2024'
+      excerpt: 'Li, W., & Wang, W. (2024). The impact of teaching presence on students’ online learning experience: Evidence from 334 Chinese universities during the pandemic. Frontiers in Psychology, 15, 1291341. ht'
+
+### [reference.apa_format] Reference APA structural format  sev=warning  (2 details)
+  - Reference #15: APA format issue: missing '.' after year (APA: 'Author. (Year). Title.')
+      excerpt: 'Chiu, T. (2021): Applying the self-determination theory (SDT) to explain student engagement in online learning during the COVID-19 pandemic, Journal of Research on Technology in Education, https://doi'
+  - Reference #55: APA format issue: missing '.' after year (APA: 'Author. (Year). Title.')
+      excerpt: 'Sun L, Ma R, Du C, Zhao J, Yang Y and Zhang X (2025) A study on the impact of teacher emotional support on university students’ online learning engagement: the mediating role of academic burnout. Fron'
+
+### [reference.italics_journal_volume] Reference italics: journal name + volume  sev=warning  (21 details)
+  - Reference #45: APA italics: journal name 'Computers & Education' should be italic
+      expected='journal + volume italic; issue number roman'  actual="journal name 'Computers & Education' should be italic"
+      excerpt: 'se gains? Computers & Education, 191. https://'
+  - Reference #45: APA italics: volume number '191' should be italic
+      expected='journal + volume italic; issue number roman'  actual="volume number '191' should be italic"
+      excerpt: 'se gains? Computers & Education, 191. https://'
+  - Reference #49: APA italics: journal name 'Journal of Adult and Continuing Education' should be italic
+      expected='journal + volume italic; issue number roman'  actual="journal name 'Journal of Adult and Continuing Education' should be italic"
+      excerpt: 'learning.\xa0Journal of Adult and Continuing Education,\xa00(0).\xa0https://'
+  - Reference #49: APA italics: volume number '0' should be italic
+      expected='journal + volume italic; issue number roman'  actual="volume number '0' should be italic"
+      excerpt: 'learning.\xa0Journal of Adult and Continuing Education,\xa00(0).\xa0https://'
+  - Reference #52: APA italics: journal name 'Frontiers in Psychology' should be italic
+      expected='journal + volume italic; issue number roman'  actual="journal name 'Frontiers in Psychology' should be italic"
+      excerpt: 'ong Kong. Frontiers in Psychology, 10, 1070. ht'
+  - Reference #52: APA italics: volume number '10' should be italic
+      expected='journal + volume italic; issue number roman'  actual="volume number '10' should be italic"
+      excerpt: 'ong Kong. Frontiers in Psychology, 10, 1070. ht'
+  - Reference #54: APA italics: journal name 'Journal of Computers in Education' should be italic
+      expected='journal + volume italic; issue number roman'  actual="journal name 'Journal of Computers in Education' should be italic"
+      excerpt: 'teaching. Journal of Computers in Education, 11(2), 445–470.'
+  - Reference #54: APA italics: volume number '11' should be italic
+      expected='journal + volume italic; issue number roman'  actual="volume number '11' should be italic"
+      excerpt: 'teaching. Journal of Computers in Education, 11(2), 445–470.'
+  - Reference #56: APA italics: journal name 'Leadership & Organization Development Journal' should be italic
+      expected='journal + volume italic; issue number roman'  actual="journal name 'Leadership & Organization Development Journal' should be italic"
+      excerpt: 'pectives. Leadership & Organization Development Journal, 36(5), 527–544.'
+  - Reference #56: APA italics: volume number '36' should be italic
+      expected='journal + volume italic; issue number roman'  actual="volume number '36' should be italic"
+      excerpt: 'pectives. Leadership & Organization Development Journal, 36(5), 527–544.'
+  - Reference #57: APA italics: journal name 'International Review of Administrative Sciences' should be italic
+      expected='journal + volume italic; issue number roman'  actual="journal name 'International Review of Administrative Sciences' should be italic"
+      excerpt: 'adership. International Review of Administrative Sciences, 85(1), 80–97. h'
+  - Reference #57: APA italics: volume number '85' should be italic
+      expected='journal + volume italic; issue number roman'  actual="volume number '85' should be italic"
+      excerpt: 'adership. International Review of Administrative Sciences, 85(1), 80–97. h'
+  - Reference #58: APA italics: journal name 'Educational Psychology Review' should be italic
+      expected='journal + volume italic; issue number roman'  actual="journal name 'Educational Psychology Review' should be italic"
+      excerpt: 'forward. Educational Psychology Review, 29(2), 269–299.'
+  - Reference #58: APA italics: volume number '29' should be italic
+      expected='journal + volume italic; issue number roman'  actual="volume number '29' should be italic"
+      excerpt: 'forward. Educational Psychology Review, 29(2), 269–299.'
+  - Reference #59: APA italics: journal name 'Distance Education' should be italic
+      expected='journal + volume italic; issue number roman'  actual="journal name 'Distance Education' should be italic"
+      excerpt: 'gagement.\xa0Distance Education,\xa045(4), 515–534.'
+  - Reference #59: APA italics: volume number '45' should be italic
+      expected='journal + volume italic; issue number roman'  actual="volume number '45' should be italic"
+      excerpt: 'gagement.\xa0Distance Education,\xa045(4), 515–534.'
+  - Reference #60: APA italics: journal name 'Distance Education' should be italic
+      expected='journal + volume italic; issue number roman'  actual="journal name 'Distance Education' should be italic"
+      excerpt: 'courses. Distance Education, 43(1), 139–156.'
+  - Reference #60: APA italics: volume number '43' should be italic
+      expected='journal + volume italic; issue number roman'  actual="volume number '43' should be italic"
+      excerpt: 'courses. Distance Education, 43(1), 139–156.'
+  - Reference #61: APA italics: journal name 'The Internet and Higher Education' should be italic
+      expected='journal + volume italic; issue number roman'  actual="journal name 'The Internet and Higher Education' should be italic"
+      excerpt: 'olvement. The Internet and Higher Education, 55, 100871.'
+  - Reference #61: APA italics: volume number '55' should be italic
+      expected='journal + volume italic; issue number roman'  actual="volume number '55' should be italic"
+      excerpt: 'olvement. The Internet and Higher Education, 55, 100871.'
+  - document: ... and 6 more italics issues in references
+
+### [statistics.operator_spacing] Relational operator spacing  sev=warning  (1 details)
+  - paragraph 71: Missing space around relational operator in statistical expression 'n =' — APA 7 §6.45: write 'n = ...' with spaces
+      expected='n = ...'  actual='n ='
+      excerpt: 'e learning (n =265), and in'
+
+### [statistics.p_value_format] p-value formatting (APA 7 §6.44)  sev=warning  (21 details)
+  - paragraph 340: p value with leading zero ('0.000') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.000')
+      expected='.000'  actual='0.000'
+      excerpt: '²: 483,236 (p < 0.000); df: 176; '
+  - paragraph 342: p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')
+      expected='.001'  actual='0.001'
+      excerpt: '(β = 0.990, p < 0.001), transform'
+  - paragraph 342: p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')
+      expected='.001'  actual='0.001'
+      excerpt: '(β = 0.387, p < 0.001), and situa'
+  - paragraph 342: p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')
+      expected='.001'  actual='0.001'
+      excerpt: '(β = 0.828, p < 0.001). However, '
+  - paragraph 342: p value with leading zero ('0.627') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.627')
+      expected='.627'  actual='0.627'
+      excerpt: '(β = 0.091, p < 0.627). A signifi'
+  - paragraph 342: p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')
+      expected='.001'  actual='0.001'
+      excerpt: ' (β = 1.29, p < 0.001).'
+  - paragraph 357: p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')
+      expected='.001'  actual='0.001'
+      excerpt: ', df = 531, p < 0.001; GFI = 0.86'
+  - paragraph 357: p value with leading zero ('0.354') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.354')
+      expected='.354'  actual='0.354'
+      excerpt: 'invariance (p = 0.354).'
+  - paragraph 359: p value with leading zero ('0.047') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.047')
+      expected='.047'  actual='0.047'
+      excerpt: 'ignificant (p = 0.047), as was th'
+  - paragraph 359: p value with leading zero ('0.004') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.004')
+      expected='.004'  actual='0.004'
+      excerpt: 'ional-task (p = 0.004). No signif'
+  - paragraph 359: p value with leading zero ('0.474') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.474')
+      expected='.474'  actual='0.474'
+      excerpt: '-emotional (p = 0.474) or between'
+  - paragraph 359: p value with leading zero ('0.862') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.862')
+      expected='.862'  actual='0.862'
+      excerpt: 'ormational (p = 0.862).'
+  - paragraph 363: p value with leading zero ('0.05') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.05')
+      expected='.05'  actual='0.05'
+      excerpt: 'ed Models. *p\xa0< 0.05,\xa0**p\xa0< 0.01'
+  - paragraph 363: p value with leading zero ('0.01') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.01')
+      expected='.01'  actual='0.01'
+      excerpt: 'p\xa0< 0.05,\xa0**p\xa0< 0.01,\xa0***p\xa0< 0.0'
+  - paragraph 363: p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')
+      expected='.001'  actual='0.001'
+      excerpt: '\xa0< 0.01,\xa0***p\xa0< 0.001; β for the '
+  - paragraph 365: p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')
+      expected='.001'  actual='0.001'
+      excerpt: '(β = 0.905, p = 0.001), whereas n'
+  - paragraph 365: p value with leading zero ('0.826') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.826')
+      expected='.826'  actual='0.826'
+      excerpt: 'β = -0.128, p = 0.826).'
+  - paragraph 367: p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')
+      expected='.001'  actual='0.001'
+      excerpt: '(β = 0.691, p = 0.001) and situat'
+  - paragraph 367: p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')
+      expected='.001'  actual='0.001'
+      excerpt: '(β = 0.474, p = 0.001). Additiona'
+  - paragraph 367: p value with leading zero ('0.016') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.016')
+      expected='.016'  actual='0.016'
+      excerpt: '(β = 0.431, p = 0.016).'
+  - document: ... and 8 more p-value formatting issues
+
+### [structure.title_length] Paper title length (APA 7 ≤ 12 words)  sev=info  (1 details)
+  - paragraph 0 (title): Paper title runs 15 words — APA 7 §2.4 recommends ≤ 12 words for clarity and indexing
+      expected='≤ 12 words'  actual='15 words'
+      excerpt: 'Enhancing teaching presence in videoconferences: The impact of personalized webcam communication on effective pedagogical e-leadership'
+
+### [structure.no_introduction_heading] Do not label the first section 'Introduction' (APA 7)  sev=info  (1 details)
+  - paragraph 11: Section labelled '1. Introduction' — APA 7 §2.27: do not label the introduction with a heading; it is identified by its position immediately after the abstract
+      expected="no 'Introduction' heading"  actual='1. Introduction'
+
+### [reference.links] Reference link check  sev=warning  (4 details)
+  - Reference #4: DOI link unreachable: could not connect
+      expected='accessible link'  actual='https://doi.org/10.1344/der.2020.37.208-229'
+      excerpt: 'Anderson, T., & Rivera-Vargas, P. (2020). A critical look at educational technology from a distance education perspectiv'
+  - Reference #15: URL link unreachable: malformed URL
+      expected='accessible link'  actual='https://doi:10.1080/15391523.2021.1891998'
+      excerpt: 'Chiu, T. (2021): Applying the self-determination theory (SDT) to explain student engagement in online learning during th'
+  - Reference #31: DOI link unreachable: HTTP 404 - page not found
+      expected='accessible link'  actual='https://doi.org/10.31838/srp.2020.10.109'
+      excerpt: 'Kadiyono, A. L., Sulistiobudi, R. A., Haris, I., Wahab, M. K. A., Ramdani, I., Purwanto, A., Mufid, A., Muqtada, M. R., '
+  - Reference #36: DOI link unreachable: could not connect
+      expected='accessible link'  actual='https://doi.org/10.5565/rev/educar.1528'
+      excerpt: 'Lanzo, N. C., Ortiz, L. G., & Sangrà, A. (2022). Professional development of online university teachers: An analysis fro'

@@ -1,0 +1,1955 @@
+{
+  "file_name": "ETS-029-3-0069.R3.docx",
+  "timestamp": "2026-05-08T15:51:58.679811Z",
+  "summary": {
+    "total_checks": 47,
+    "passed": 28,
+    "errors": 3,
+    "warnings": 10,
+    "info": 6
+  },
+  "results": [
+    {
+      "rule_id": "citation.cross_reference",
+      "category": "Citation",
+      "name": "Citation–reference cross-check",
+      "status": "fail",
+      "severity": "error",
+      "details": [
+        {
+          "location": "paragraph 26",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 26,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Surname inconsistency: 'Uslu et al., 2023' cites 'uslu', but Reference #8 lists 'Atman Uslu' — verify the multi-word surname is used consistently in citation and reference",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Uslu et al., 2023"
+        },
+        {
+          "location": "paragraph 814",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 814,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Surname inconsistency: 'Uslu et al., 2023' cites 'uslu', but Reference #8 lists 'Atman Uslu' — verify the multi-word surname is used consistently in citation and reference",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Uslu et al., 2023"
+        },
+        {
+          "location": "paragraph 816",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 816,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Surname inconsistency: 'Uslu et al., 2023' cites 'uslu', but Reference #8 lists 'Atman Uslu' — verify the multi-word surname is used consistently in citation and reference",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Uslu et al., 2023"
+        },
+        {
+          "location": "paragraph 818",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 818,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Surname inconsistency: 'Uslu et al., 2023' cites 'uslu', but Reference #8 lists 'Atman Uslu' — verify the multi-word surname is used consistently in citation and reference",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Uslu et al., 2023"
+        },
+        {
+          "location": "paragraph 1423",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 1423,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Surname inconsistency: 'Gómez et al., 2023' cites 'gómez', but Reference #47 lists 'Orozco Gómez' — verify the multi-word surname is used consistently in citation and reference",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Gómez et al., 2023"
+        },
+        {
+          "location": "Reference #59",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 947,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is not cited in text",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Vygotsky, L. S. (1978). Mind in society: The development of higher psychological processes. In: Harvard university press."
+        }
+      ]
+    },
+    {
+      "rule_id": "citation.et_al_usage",
+      "category": "Citation",
+      "name": "Et al. usage check (APA 7th)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "citation.amp_vs_and",
+      "category": "Citation",
+      "name": "Use & in parens, 'and' in narrative (APA 7 §8.17)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "figures_tables.referenced_in_text",
+      "category": "Figures & Tables",
+      "name": "Figures/tables referenced in text",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "figures_tables.caption_position",
+      "category": "Figures & Tables",
+      "name": "Caption position check (ET&S requirement)",
+      "status": "pass",
+      "severity": "info",
+      "details": []
+    },
+    {
+      "rule_id": "figures_tables.table_format",
+      "category": "Figures & Tables",
+      "name": "Table format check",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "figures_tables.numbering_sequence",
+      "category": "Figures & Tables",
+      "name": "Figure / table numbering sequence",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "figures_tables.caption_format",
+      "category": "Figures & Tables",
+      "name": "Caption format: number bold, title italic",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "Figure 1",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 62,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure number 'Figure 1' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold",
+          "expected": "bold",
+          "actual": "not bold",
+          "excerpt": "Figure 1. Literature search and selection"
+        },
+        {
+          "location": "Figure 1",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 62,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure 1 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Figure 1. Literature search and selection"
+        },
+        {
+          "location": "Figure 2",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 131,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure number 'Figure 2' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold",
+          "expected": "bold",
+          "actual": "not bold",
+          "excerpt": "Figure 2. Procedure of BERTopic modeling for topic extraction"
+        },
+        {
+          "location": "Figure 2",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 131,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure 2 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Figure 2. Procedure of BERTopic modeling for topic extraction"
+        },
+        {
+          "location": "Figure 3",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 234,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure number 'Figure 3' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold",
+          "expected": "bold",
+          "actual": "not bold",
+          "excerpt": "Figure 3. Heat map of ERC topics"
+        },
+        {
+          "location": "Figure 3",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 234,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure 3 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Figure 3. Heat map of ERC topics"
+        },
+        {
+          "location": "Figure 4",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 239,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure number 'Figure 4' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold",
+          "expected": "bold",
+          "actual": "not bold",
+          "excerpt": "Figure 4. Hierarchical clustering of ERC topics"
+        },
+        {
+          "location": "Figure 4",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 239,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure 4 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Figure 4. Hierarchical clustering of ERC topics"
+        },
+        {
+          "location": "Figure 5",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 250,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure number 'Figure 5' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold",
+          "expected": "bold",
+          "actual": "not bold",
+          "excerpt": "Figure 5. Forest plot of effect sizes (CI=Conﬁdence Interval)."
+        },
+        {
+          "location": "Figure 5",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 250,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure 5 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Figure 5. Forest plot of effect sizes (CI=Conﬁdence Interval)."
+        },
+        {
+          "location": "Figure 6",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 694,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure number 'Figure 6' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold",
+          "expected": "bold",
+          "actual": "not bold",
+          "excerpt": "Figure 6. Funnel plot of effect sizes (95% CI)."
+        },
+        {
+          "location": "Figure 6",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 694,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure 6 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Figure 6. Funnel plot of effect sizes (95% CI)."
+        },
+        {
+          "location": "Figure 7",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 833,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure number 'Figure 7' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold",
+          "expected": "bold",
+          "actual": "not bold",
+          "excerpt": "Figure 7. ER-supported creativity development model."
+        },
+        {
+          "location": "Figure 7",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 833,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure 7 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Figure 7. ER-supported creativity development model."
+        },
+        {
+          "location": "Table 1",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 64,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Table number 'Table 1' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold",
+          "expected": "bold",
+          "actual": "not bold",
+          "excerpt": "Table 1. Search terms"
+        },
+        {
+          "location": "Table 1",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 64,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Table 1 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Table 1. Search terms"
+        },
+        {
+          "location": "Table 2",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 74,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Table number 'Table 2' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold",
+          "expected": "bold",
+          "actual": "not bold",
+          "excerpt": "Table 2. Screening criteria"
+        },
+        {
+          "location": "Table 2",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 74,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Table 2 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Table 2. Screening criteria"
+        },
+        {
+          "location": "Table 3",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 102,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Table number 'Table 3' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold",
+          "expected": "bold",
+          "actual": "not bold",
+          "excerpt": "Table 3. Inclusion criteria for meta-analysis and rule mining"
+        },
+        {
+          "location": "Table 3",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 102,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Table 3 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Table 3. Inclusion criteria for meta-analysis and rule mining"
+        },
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "... and 8 more caption-format issues",
+          "expected": null,
+          "actual": null,
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "font.body",
+      "category": "Fonts",
+      "name": "Body font check",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "font.stat_italic",
+      "category": "Fonts",
+      "name": "Statistical symbol italics",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "font.abstract",
+      "category": "Fonts",
+      "name": "Abstract font check (ET&S: italic)",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "paragraph 6",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 6,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Abstract text should be italic (ET&S requirement)",
+          "expected": "Times New Roman 10.0pt italic",
+          "actual": "not italic",
+          "excerpt": "With the increasing adoption of educational robots (ERs) to support creativity d"
+        }
+      ]
+    },
+    {
+      "rule_id": "font.heading",
+      "category": "Fonts",
+      "name": "Heading font check",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "font.reference",
+      "category": "Fonts",
+      "name": "Reference font check",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "paragraph 889",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 889,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman 10.0pt",
+          "excerpt": "Agrawal, R., Imieliński, T., & Swami, A. (1993, June). Mining association rules "
+        },
+        {
+          "location": "paragraph 889",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 889,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman 10.0pt",
+          "excerpt": "Proceedings of the 1993 ACM SIGMOD international conference on Management of dat"
+        },
+        {
+          "location": "paragraph 889",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 889,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman 10.0pt",
+          "excerpt": " (pp. 207"
+        },
+        {
+          "location": "paragraph 889",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 889,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman 10.0pt",
+          "excerpt": "216)."
+        },
+        {
+          "location": "paragraph 890",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 890,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman 10.0pt",
+          "excerpt": "Ali, S., Devasia, N., Park, H. W., & Breazeal, C. (2021a). Social robots as crea"
+        },
+        {
+          "location": "paragraph 890",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 890,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman 10.0pt",
+          "excerpt": "Frontiers in Robotics and AI"
+        },
+        {
+          "location": "paragraph 890",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 890,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman 10.0pt",
+          "excerpt": " 8"
+        },
+        {
+          "location": "paragraph 890",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 890,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman 10.0pt",
+          "excerpt": ", 673730."
+        },
+        {
+          "location": "paragraph 891",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 891,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman 10.0pt",
+          "excerpt": "Ali, S., Park, H. W., & Breazeal, C. (2021b). A social robot’s influence on chil"
+        },
+        {
+          "location": "paragraph 891",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 891,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman 10.0pt",
+          "excerpt": "International Journal of Child-Computer Interaction"
+        },
+        {
+          "location": "paragraph 891",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 891,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman 10.0pt",
+          "excerpt": " 28"
+        },
+        {
+          "location": "paragraph 891",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 891,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman 10.0pt",
+          "excerpt": ", 100234."
+        },
+        {
+          "location": "paragraph 892",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 892,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman 10.0pt",
+          "excerpt": "Ali, S. A. (2019). "
+        },
+        {
+          "location": "paragraph 892",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 892,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman 10.0pt",
+          "excerpt": "Designing child robot interaction for facilitating creative learning"
+        },
+        {
+          "location": "paragraph 892",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 892,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman 10.0pt",
+          "excerpt": " (Doctoral dissertation, Massachusetts Institute of Technology)."
+        },
+        {
+          "location": "paragraph 893",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 893,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman 10.0pt",
+          "excerpt": "Alves-Oliveira, P., Arriaga, P., Cronin, M. A., & Paiva, A. (2020, March). Creat"
+        },
+        {
+          "location": "paragraph 893",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 893,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman 10.0pt",
+          "excerpt": "Proceedings of the 2020 ACM/IEEE international conference on human-robot interac"
+        },
+        {
+          "location": "paragraph 893",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 893,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman 10.0pt",
+          "excerpt": " (pp. 379"
+        },
+        {
+          "location": "paragraph 893",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 893,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman 10.0pt",
+          "excerpt": "388)."
+        },
+        {
+          "location": "paragraph 894",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 894,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman 10.0pt",
+          "excerpt": "Alves-Oliveira, P., Arriaga, P., Hoffman, G., & Paiva, A. (2016, March). Boostin"
+        },
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "... and 362 more reference font mismatches",
+          "expected": null,
+          "actual": null,
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "font.title",
+      "category": "Fonts",
+      "name": "Title font check",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "headings.no_numbering",
+      "category": "Structure",
+      "name": "Headings must not be numbered (APA 7)",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "paragraph 11",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 11,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '1. Introduction' has a numeric prefix '1.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '1.'",
+          "excerpt": "1. Introduction"
+        },
+        {
+          "location": "paragraph 42",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 42,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '2. Methods' has a numeric prefix '2.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '2.'",
+          "excerpt": "2. Methods"
+        },
+        {
+          "location": "paragraph 183",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 183,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '3. Results' has a numeric prefix '3.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '3.'",
+          "excerpt": "3. Results"
+        },
+        {
+          "location": "paragraph 789",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 789,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '4. Discussion' has a numeric prefix '4.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '4.'",
+          "excerpt": "4. Discussion"
+        },
+        {
+          "location": "paragraph 881",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 881,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '5. Conclusion' has a numeric prefix '5.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '5.'",
+          "excerpt": "5. Conclusion"
+        }
+      ]
+    },
+    {
+      "rule_id": "headings.level_order",
+      "category": "Structure",
+      "name": "Heading levels must not skip",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "layout.paper_size",
+      "category": "Layout",
+      "name": "Paper size check",
+      "status": "fail",
+      "severity": "error",
+      "details": [
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Paper size should be A4",
+          "expected": "A4 (21.0×29.7 cm)",
+          "actual": "Letter (21.5935×27.9435 cm)",
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "layout.margins",
+      "category": "Layout",
+      "name": "Margin check",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "layout.line_spacing",
+      "category": "Layout",
+      "name": "Line spacing check",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "layout.page_numbers",
+      "category": "Layout",
+      "name": "Page number check",
+      "status": "pass",
+      "severity": "info",
+      "details": []
+    },
+    {
+      "rule_id": "layout.first_line_indent",
+      "category": "Layout",
+      "name": "Body first-line indent",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "No first-line indent detected on body paragraphs — APA 7 §2.24 / ET&S expect a first-line indent of 1.27 cm (0.5 inch); verify the Normal style",
+          "expected": "1.27 cm",
+          "actual": "0 cm / unset",
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "layout.body_alignment",
+      "category": "Layout",
+      "name": "Body paragraph alignment",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "paragraph 13",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 13,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "1.1. Creativity and educational robots"
+        },
+        {
+          "location": "paragraph 15",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 15,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Creativity, a process that results in novel and useful products (Green et al., 2024), spans cognitive, emotional, social"
+        },
+        {
+          "location": "paragraph 17",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 17,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "In K-12 and higher education, ER is applied to support interdisciplinary learning, especially in science, technology, en"
+        },
+        {
+          "location": "paragraph 20",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 20,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "1.2. Literature review and research gaps"
+        },
+        {
+          "location": "paragraph 22",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 22,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Literature reviews play an essential role in summarizing empirical evidence, identifying dominant research trends, and r"
+        },
+        {
+          "location": "paragraph 24",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 24,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Despite the growing interest in ER-powered creativity development (ERC), empirical findings remain mixed, as evidenced b"
+        },
+        {
+          "location": "paragraph 26",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 26,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Sapounidis et al.’s (2024) systematic review on ER-based STEM education in primary schools revealed that most studies we"
+        },
+        {
+          "location": "paragraph 28",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 28,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Currently, many ERC studies are non-experimental, short-term, or small-scale, with wide variation in measurements, age g"
+        },
+        {
+          "location": "paragraph 31",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 31,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "1.3. Research aims and questions"
+        },
+        {
+          "location": "paragraph 33",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 33,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Although ER holds promise for promoting creativity, there is a lack of a comprehensive, evidence-based synthesis identif"
+        },
+        {
+          "location": "paragraph 35",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 35,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "RQ1: What are the key research topics and their evolutions in the field of ERC?"
+        },
+        {
+          "location": "paragraph 36",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 36,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "RQ2: How effective are ERs in promoting learners’ creativity, and do characteristics (e.g., subjects, objectives, partic"
+        },
+        {
+          "location": "paragraph 37",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 37,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "RQ3: What are the main factors influencing creativity in ER-based interventions?"
+        },
+        {
+          "location": "paragraph 39",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 39,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "To address RQ1, this study adopts the BERTopic modeling method to identify key research topics and their evolutions, pro"
+        },
+        {
+          "location": "paragraph 44",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 44,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "2.1. Literature search and selection"
+        },
+        {
+          "location": "paragraph 46",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 46,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Figure 1 shows six steps of data search and selection, which are described below."
+        },
+        {
+          "location": "paragraph 48",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 48,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Step 1. Search term identification: To capture ER experimental studies in educational settings, this study adopted searc"
+        },
+        {
+          "location": "paragraph 50",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 50,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Step 2. Database search: Using the search terms, this study conducted systematic searches in Web of Science (WOS), Scopu"
+        },
+        {
+          "location": "paragraph 52",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 52,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Step 3. Initial screening for ER relevance: Title and abstracts of the 11,015 records were screened based on their relev"
+        },
+        {
+          "location": "paragraph 54",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 54,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Step 4. Selecting creativity-focused ER studies for BERTopic analysis: This study further screened the 1,495 ER-related "
+        },
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "... and 84 more body alignment issues",
+          "expected": null,
+          "actual": null,
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "quotation.pagination",
+      "category": "Quotation",
+      "name": "Direct quotations need a page locator",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "paragraph 54",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 54,
+            "char_start": 249,
+            "char_end": 269
+          },
+          "message": "Direct quotation without a page locator — APA 7 / AQF Item 4: cite the source with p./pp. (or Section/para.) for any quoted text",
+          "expected": "(Author, Year, p. N) or equivalent locator",
+          "actual": "citation present, no p./pp.",
+          "excerpt": "“divergent thinking”"
+        },
+        {
+          "location": "paragraph 885",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 885,
+            "char_start": 346,
+            "char_end": 462
+          },
+          "message": "Direct quotation without a page locator — APA 7 / AQF Item 4: cite the source with p./pp. (or Section/para.) for any quoted text",
+          "expected": "(Author, Year, p. N) or equivalent locator",
+          "actual": "citation present, no p./pp.",
+          "excerpt": "“Advancing Digital Competency for University Teachers and Students in the Era of Generative Artificial Intelligence”"
+        }
+      ]
+    },
+    {
+      "rule_id": "quotation.block_format",
+      "category": "Quotation",
+      "name": "Long quotations must be block-quoted (≥ 40 words)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "reference.no_et_al",
+      "category": "Reference",
+      "name": "No 'et al.' in reference list",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "reference.alphabetical_order",
+      "category": "Reference",
+      "name": "Reference list alphabetical order",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #12",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 900,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Out of alphabetical order: Reference #12 ('Badeleh', 2021) should come before Reference #11 ('Bandura', 2014)",
+          "expected": "badeleh (first author) before bandura",
+          "actual": "bandura before badeleh",
+          "excerpt": "Badeleh, A. (2021). The effects of robotics training on students’ creativity and learning in physics. Education and Information Technologies, 26(2), 1353–1365."
+        },
+        {
+          "location": "Reference #19",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 907,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Out of alphabetical order: Reference #19 ('Chen', 2023) should come before Reference #18 ('Chen', 2023)",
+          "expected": "initials 'ti' (first author, chen) before 'x'",
+          "actual": "initials 'x' before 'ti'",
+          "excerpt": "Chen, T.-I., Lin, S.-K., & Chung, H.-C. (2023c). Gamified educational robots lead an increase in motivation and creativity in STEM education. Journal of Baltic Science Education, 22(3), 427–438."
+        }
+      ]
+    },
+    {
+      "rule_id": "reference.hanging_indent",
+      "category": "Reference",
+      "name": "Reference hanging indent",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #1",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 889,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Agrawal, R., Imieliński, T., & Swami, A. (1993, June). Mining association rules between sets of items in large databases. In Proceedings of the 1993 ACM SIGMOD international conference on Management o"
+        },
+        {
+          "location": "Reference #2",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 890,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Ali, S., Devasia, N., Park, H. W., & Breazeal, C. (2021a). Social robots as creativity eliciting agents. Frontiers in Robotics and AI, 8, 673730."
+        },
+        {
+          "location": "Reference #3",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 891,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Ali, S., Park, H. W., & Breazeal, C. (2021b). A social robot’s influence on children’s figural creativity during gameplay. International Journal of Child-Computer Interaction, 28, 100234."
+        },
+        {
+          "location": "Reference #4",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 892,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Ali, S. A. (2019). Designing child robot interaction for facilitating creative learning (Doctoral dissertation, Massachusetts Institute of Technology)."
+        },
+        {
+          "location": "Reference #5",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 893,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Alves-Oliveira, P., Arriaga, P., Cronin, M. A., & Paiva, A. (2020, March). Creativity encounters between children and robots. In Proceedings of the 2020 ACM/IEEE international conference on human-robo"
+        },
+        {
+          "location": "Reference #6",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 894,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Alves-Oliveira, P., Arriaga, P., Hoffman, G., & Paiva, A. (2016, March). Boosting children's creativity through creative interactions with social robots. In 2016 11th ACM/IEEE International Conference"
+        },
+        {
+          "location": "Reference #7",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 895,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Alves-Oliveira, P., Arriaga, P., Nogueira, S. I., & Paiva, A. (2021, June). Robotics-based interventions for children’s creativity. In Proceedings of the 13th Conference on Creativity and Cognition (p"
+        },
+        {
+          "location": "Reference #8",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 896,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Atman Uslu, N., Yavuz, G. Ö., & Kocak Usluel, Y. (2023). A systematic review study on educational robotics and robots. Interactive Learning Environments, 31(9), 5874–5898."
+        },
+        {
+          "location": "Reference #9",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 897,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Baek, J., & Yoon, M. (2016). The influence of robot-based learning on elementary school students’ creativity. International Journal of Multimedia and Ubiquitous Engineering, 11(12), 45–56."
+        },
+        {
+          "location": "Reference #10",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 898,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Bai, S., Hew, K. F., & Huang, B. (2020). Does gamification improve student learning outcome? Evidence from a meta-analysis and synthesis of qualitative data in educational contexts. Educational Resear"
+        },
+        {
+          "location": "Reference #11",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 899,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Bandura, A. (2014). Social-cognitive theory. In An introduction to theories of personality (pp. 341–360). Psychology Press."
+        },
+        {
+          "location": "Reference #12",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 900,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Badeleh, A. (2021). The effects of robotics training on students’ creativity and learning in physics. Education and Information Technologies, 26(2), 1353–1365."
+        },
+        {
+          "location": "Reference #13",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 901,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Blake-West, J., Alrawashdeh, G., & Bers, M. (2024). Validating a creative coding rubric through expressive activities for elementary grades. Journal of Research on Technology in Education, 1–20."
+        },
+        {
+          "location": "Reference #14",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 902,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Çakır, R., Korkmaz, Ö., İdil, Ö., & Erdoğmuş, F. U. (2021). The effect of robotic coding education on preschoolers’ problem solving and creative thinking skills. Thinking Skills and Creativity, 40, 10"
+        },
+        {
+          "location": "Reference #15",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 903,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Canbeldek, M., & Isikoglu, N. (2023). Exploring the effects of “productive children: Coding and robotics education program” in early childhood education. Education and Information Technologies, 28(3),"
+        },
+        {
+          "location": "Reference #16",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 904,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Carson, K. P., Schriesheim, C. A., & Kinicki, A. J. (1990). The usefulness of the\" fail-safe\" statistic in meta-analysis. Educational and Psychological Measurement, 50(2), 233–243."
+        },
+        {
+          "location": "Reference #17",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 905,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Cavas, B., Kesercioglu, T., Holbrook, J., Rannikmae, M., Ozdogru, E., & Gokler, F. (2012, April). The effects of robotics club on the students’ performance on science process & scientific creativity s"
+        },
+        {
+          "location": "Reference #18",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 906,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Chen, X., Cheng, G., Zou, D., Zhong, B., & Xie, H. (2023a). Artificial intelligent robots for precision education: A topic modeling based bibliometric analysis. Educational Technology & Society, 26(1)"
+        },
+        {
+          "location": "Reference #19",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 907,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Chen, T.-I., Lin, S.-K., & Chung, H.-C. (2023c). Gamified educational robots lead an increase in motivation and creativity in STEM education. Journal of Baltic Science Education, 22(3), 427–438."
+        },
+        {
+          "location": "Reference #20",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 908,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Chen, X., Zou, D., Cheng, G., Xie, H., & Su, F. (2023b). Effects of flipped language classrooms on learning outcomes in higher education: A Bayesian meta-analysis. Australasian Journal of Educational "
+        },
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "... and 42 more hanging indent issues",
+          "expected": null,
+          "actual": null,
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "reference.page_number_complete",
+      "category": "Reference",
+      "name": "Reference page-number completeness",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "reference.doi_or_url",
+      "category": "Reference",
+      "name": "Reference DOI / URL presence",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #13",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 901,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Journal-article reference is missing both a DOI/URL and a complete Volume(Issue), pages — APA 7 / ET&S require one of the two so the work can be located",
+          "expected": "DOI or URL, or full Volume(Issue), pages",
+          "actual": "neither present",
+          "excerpt": "Blake-West, J., Alrawashdeh, G., & Bers, M. (2024). Validating a creative coding rubric through expressive activities for elementary grades. Journal of Research on Technology in Education, 1–20."
+        },
+        {
+          "location": "Reference #31",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 919,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Journal-article reference is missing both a DOI/URL and a complete Volume(Issue), pages — APA 7 / ET&S require one of the two so the work can be located",
+          "expected": "DOI or URL, or full Volume(Issue), pages",
+          "actual": "neither present",
+          "excerpt": "Grootendorst, M. (2022). BERTopic: Neural topic modeling with a class-based TF-IDF procedure. arXiv preprint arXiv:2203.05794."
+        },
+        {
+          "location": "Reference #33",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 921,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Journal-article reference is missing both a DOI/URL and a complete Volume(Issue), pages — APA 7 / ET&S require one of the two so the work can be located",
+          "expected": "DOI or URL, or full Volume(Issue), pages",
+          "actual": "neither present",
+          "excerpt": "Hendrik, B. (2020). Robotic technology for figural creativity enhancement: Case study on elementary school. (IJACSA) International Journal of Advanced Computer Science and Applications, 11(1)."
+        },
+        {
+          "location": "Reference #39",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 927,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Journal-article reference is missing both a DOI/URL and a complete Volume(Issue), pages — APA 7 / ET&S require one of the two so the work can be located",
+          "expected": "DOI or URL, or full Volume(Issue), pages",
+          "actual": "neither present",
+          "excerpt": "Jamali, U. A. (2024). Fostering Creativity via AI Robotics. In Exploring the World of Robot Manipulators. IntechOpen."
+        },
+        {
+          "location": "Reference #43",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 931,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Journal-article reference is missing both a DOI/URL and a complete Volume(Issue), pages — APA 7 / ET&S require one of the two so the work can be located",
+          "expected": "DOI or URL, or full Volume(Issue), pages",
+          "actual": "neither present",
+          "excerpt": "Lazhar, B. M., Amroune, S., Abdelhamid, M., & Hammi, S. (2024). The role of educational robot programming in developing creative thinking skills among kindergarten children aged (4-5) years “a compara"
+        },
+        {
+          "location": "Reference #52",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 940,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Journal-article reference is missing both a DOI/URL and a complete Volume(Issue), pages — APA 7 / ET&S require one of the two so the work can be located",
+          "expected": "DOI or URL, or full Volume(Issue), pages",
+          "actual": "neither present",
+          "excerpt": "Soliman, S. A. (2019). Efficiency of an educational robotic computer-mediated training program for developing students’ creative thinking skills: An experimental study. Arab World English Journal (AWE"
+        },
+        {
+          "location": "Reference #58",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 946,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Journal-article reference is missing both a DOI/URL and a complete Volume(Issue), pages — APA 7 / ET&S require one of the two so the work can be located",
+          "expected": "DOI or URL, or full Volume(Issue), pages",
+          "actual": "neither present",
+          "excerpt": "Tulli, S., Wilken, P., Merhej, R., Gandum, J., & Paiva, A. (2019). Sparking creativity with robots: A design perspective."
+        }
+      ]
+    },
+    {
+      "rule_id": "citation.disambiguate",
+      "category": "Citation",
+      "name": "Reference suffix disambiguation (a, b, c)",
+      "status": "fail",
+      "severity": "error",
+      "details": [
+        {
+          "location": "Reference #21",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 909,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference shares surname 'Chiu' and year 2024 with other entries (#21, #22); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate",
+          "expected": "2024a, 2024b, …",
+          "actual": "2024",
+          "excerpt": "Chiu, M.-C., & Hwang, G.-J. (2024). Enhancing students’ critical thinking and creative thinking: An integrated mind mapping and robot-based learning approach. Education and Information Technologies, 2"
+        },
+        {
+          "location": "Reference #22",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 910,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference shares surname 'Chiu' and year 2024 with other entries (#21, #22); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate",
+          "expected": "2024a, 2024b, …",
+          "actual": "2024",
+          "excerpt": "Chiu, M. C., Hwang, G. J., & Tu, Y. F. (2024). Roles, applications, and research designs of robots in science education: A systematic review and bibliometric analysis of journal publications from 1996"
+        }
+      ]
+    },
+    {
+      "rule_id": "reference.apa_format",
+      "category": "Reference",
+      "name": "Reference APA structural format",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "reference.italics_journal_volume",
+      "category": "Reference",
+      "name": "Reference italics: journal name + volume",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #13",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 901,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: volume number '1' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "volume number '1' should be italic",
+          "excerpt": "y grades. Journal of Research on Technology in Education, 1–20."
+        }
+      ]
+    },
+    {
+      "rule_id": "reference.url_terminal_punctuation",
+      "category": "Reference",
+      "name": "DOI/URL must not end with a period",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "reference.author_count_rule",
+      "category": "Reference",
+      "name": "Author-list APA 7 §9.8 (≤ 20 list all; 21+ uses ellipsis + last)",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #44",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 932,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Only 8 visible author(s) but the list uses '...' — APA 7 §9.8 reserves the ellipsis for ≥ 21-author papers (first 19 + ... + final author); for shorter lists, list every author",
+          "expected": "all 8 authors listed",
+          "actual": "author list contains '...'",
+          "excerpt": "Masril, M., Hendrik, B., Theozard Fikri, H., Hazidar, A. H., Priambodo, B., Naf’an, E., ... & Kudr Nseaf, A."
+        }
+      ]
+    },
+    {
+      "rule_id": "statistics.operator_spacing",
+      "category": "Statistics",
+      "name": "Relational operator spacing",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "statistics.p_value_format",
+      "category": "Statistics",
+      "name": "p-value formatting (APA 7 §6.44)",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "paragraph 189",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 189,
+            "char_start": 759,
+            "char_end": 768
+          },
+          "message": "p value with leading zero ('0.050') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.050')",
+          "expected": ".050",
+          "actual": "0.050",
+          "excerpt": "ends at the p = 0.050 and p = 0.0"
+        },
+        {
+          "location": "paragraph 189",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 189,
+            "char_start": 773,
+            "char_end": 782
+          },
+          "message": "p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')",
+          "expected": ".001",
+          "actual": "0.001",
+          "excerpt": "= 0.050 and p = 0.001 levels. In "
+        },
+        {
+          "location": "paragraph 693",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 693,
+            "char_start": 289,
+            "char_end": 298
+          },
+          "message": "p value with leading zero ('0.059') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.059')",
+          "expected": ".059",
+          "actual": "0.059",
+          "excerpt": "e of 0.187 (p = 0.059) and Egger’"
+        }
+      ]
+    },
+    {
+      "rule_id": "structure.abstract_length",
+      "category": "Structure",
+      "name": "Abstract length check",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "structure.keywords_count",
+      "category": "Structure",
+      "name": "Keywords count check",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "structure.required_sections",
+      "category": "Structure",
+      "name": "Required sections check",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "structure.placeholder",
+      "category": "Structure",
+      "name": "Placeholder detection (ET&S)",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "structure.abstract_single_paragraph",
+      "category": "Structure",
+      "name": "Abstract must be a single paragraph (APA 7)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "structure.abstract_no_indent",
+      "category": "Structure",
+      "name": "Abstract must not be first-line indented (APA 7)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "structure.title_length",
+      "category": "Structure",
+      "name": "Paper title length (APA 7 ≤ 12 words)",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "paragraph 0 (title)",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 0,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Paper title runs 17 words — APA 7 §2.4 recommends ≤ 12 words for clarity and indexing",
+          "expected": "≤ 12 words",
+          "actual": "17 words",
+          "excerpt": "Educational robots for student creativity development: research trends and evidence from topic modeling, meta-analysis, and rule mining"
+        }
+      ]
+    },
+    {
+      "rule_id": "structure.no_introduction_heading",
+      "category": "Structure",
+      "name": "Do not label the first section 'Introduction' (APA 7)",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "paragraph 11",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 11,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Section labelled '1. Introduction' — APA 7 §2.27: do not label the introduction with a heading; it is identified by its position immediately after the abstract",
+          "expected": "no 'Introduction' heading",
+          "actual": "1. Introduction",
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "structure.section_order",
+      "category": "Structure",
+      "name": "Document section order (Abstract → Body → References → Appendix)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "structure.no_footnotes",
+      "category": "Structure",
+      "name": "No footnotes or endnotes (ET&S)",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "reference.links",
+      "category": "Reference",
+      "name": "Reference link check",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #26",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 914,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "URL link unreachable: HTTP 404 - page not found",
+          "expected": "accessible link",
+          "actual": "http://www.niss.org/sites/default/files/pdfs/technicalreports/tr27",
+          "excerpt": "DuMouchel, W. (1994). Hierarchical Bayes linear models for meta-analysis. Technical Report 27, National Institute of Sta"
+        }
+      ]
+    }
+  ]
+}

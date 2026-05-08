@@ -1,0 +1,56 @@
+{
+  "paragraphs": 495,
+  "tables": 4,
+  "references": 64,
+  "citations": 81,
+  "figures": 3,
+  "sections": [
+    {
+      "title": "Abstract",
+      "level": 1,
+      "p": 6
+    },
+    {
+      "title": "1. Introduction",
+      "level": 1,
+      "p": 11
+    },
+    {
+      "title": "2. Method",
+      "level": 1,
+      "p": 60
+    },
+    {
+      "title": "3. Results",
+      "level": 1,
+      "p": 184
+    },
+    {
+      "title": "4. Discussion",
+      "level": 1,
+      "p": 376
+    },
+    {
+      "title": "4.2. Implications and Directions for Future Research",
+      "level": 2,
+      "p": 400
+    },
+    {
+      "title": "4.2.1. Limitations",
+      "level": 3,
+      "p": 411
+    },
+    {
+      "title": "5. Conclusion",
+      "level": 1,
+      "p": 422
+    },
+    {
+      "title": "References",
+      "level": 1,
+      "p": 426
+    }
+  ],
+  "footnotes_count": 0,
+  "footnote_kinds": {}
+}

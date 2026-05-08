@@ -1,0 +1,3378 @@
+{
+  "file_name": "09_CR.docx",
+  "timestamp": "2026-05-08T15:51:32.187487Z",
+  "summary": {
+    "total_checks": 47,
+    "passed": 22,
+    "errors": 3,
+    "warnings": 17,
+    "info": 5
+  },
+  "results": [
+    {
+      "rule_id": "citation.cross_reference",
+      "category": "Citation",
+      "name": "Citation–reference cross-check",
+      "status": "fail",
+      "severity": "error",
+      "details": [
+        {
+          "location": "paragraph 16",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 16,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation year mismatch: 'Demirel & Aydin, 2019' cites 2019, but Reference #40 (Demirel) has n.d.",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Demirel & Aydin, 2019"
+        },
+        {
+          "location": "paragraph 16",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 16,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation year mismatch: 'Sakitri, 2020' cites 2020, but Reference #118 (Sakitri) has 2019",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Sakitri, 2020"
+        },
+        {
+          "location": "paragraph 20",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 20,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation year mismatch: 'Susnjak, 2023' cites 2023, but Reference #129 (Susnjak) has 2024",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Susnjak, 2023"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation 'State Council, 2017' has no matching reference",
+          "expected": null,
+          "actual": null,
+          "excerpt": "State Council, 2017"
+        },
+        {
+          "location": "paragraph 161",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 161,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation year mismatch: 'Jacob et al., 2023' cites 2023, but Reference #76 (Jacob) has 2025",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Jacob et al., 2023"
+        },
+        {
+          "location": "paragraph 169",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 169,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation year mismatch: 'Cotton et al., 2023' cites 2023, but Reference #35 (Cotton) has 2024",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Cotton et al., 2023"
+        },
+        {
+          "location": "paragraph 176",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 176,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Possible spelling error: Citation 'Bringuga (2024)' may refer to Reference #21 ('Bringula', 2024) — check the author surname spelling",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Bringuga (2024)"
+        },
+        {
+          "location": "paragraph 180",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 180,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Possible spelling error: Citation 'AI-Sofi, 2024' may refer to Reference #10 ('Al-Sofi', 2024) — check the author surname spelling",
+          "expected": null,
+          "actual": null,
+          "excerpt": "AI-Sofi, 2024"
+        },
+        {
+          "location": "paragraph 196",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 196,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation year mismatch: 'Kohnke et al., 2023' cites 2023, but Reference #84 (Kohnke) has 2024",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Kohnke et al., 2023"
+        },
+        {
+          "location": "paragraph 204",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 204,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation year mismatch: 'Cai et al., 2024' cites 2024, but Reference #23 (Cai) has 2025",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Cai et al., 2024"
+        },
+        {
+          "location": "paragraph 464",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 464,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation year mismatch: 'Jacob et al., 2023' cites 2023, but Reference #76 (Jacob) has 2025",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Jacob et al., 2023"
+        },
+        {
+          "location": "paragraph 476",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 476,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation year mismatch: 'Jacob et al., 2023' cites 2023, but Reference #76 (Jacob) has 2025",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Jacob et al., 2023"
+        },
+        {
+          "location": "paragraph 530",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 530,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation year mismatch: 'Chen (2024)' cites 2024, but Reference #30 (Chen) has 2025",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Chen (2024)"
+        },
+        {
+          "location": "paragraph 536",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 536,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation year mismatch: 'Bucol and Sangkawong, 2024' cites 2024, but Reference #22 (Bucol) has 2025",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Bucol and Sangkawong, 2024"
+        },
+        {
+          "location": "paragraph 610",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 610,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation year mismatch: 'Austria et al., 2022' cites 2022, but Reference #15 (Austria) has 2023",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Austria et al., 2022"
+        },
+        {
+          "location": "paragraph 610",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 610,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation year mismatch: 'Chen (2024)' cites 2024, but Reference #30 (Chen) has 2025",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Chen (2024)"
+        },
+        {
+          "location": "paragraph 618",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 618,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation year mismatch: 'Austria et al., 2022' cites 2022, but Reference #15 (Austria) has 2023",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Austria et al., 2022"
+        },
+        {
+          "location": "paragraph 632",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 632,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation year mismatch: 'Austria et al., 2022' cites 2022, but Reference #15 (Austria) has 2023",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Austria et al., 2022"
+        },
+        {
+          "location": "paragraph 638",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 638,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation year mismatch: 'Austria et al., 2022' cites 2022, but Reference #15 (Austria) has 2023",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Austria et al., 2022"
+        },
+        {
+          "location": "paragraph 638",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 638,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation 'Ou et al., 2024' has no matching reference",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Ou et al., 2024"
+        },
+        {
+          "location": "Reference #5",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 220,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is not cited in text",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Ali, S. (2024). Locating the intersection of generative artificial intelligence and human English writing skills: A comparative study. Arab World English Journal, 1(1), 112–123. https://doi.org/10.240"
+        },
+        {
+          "location": "Reference #7",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 222,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is not cited in text",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Allen, T. J., & Mizumoto, A. (2024). ChatGPT over my friends: Japanese English-as-a-foreign-language learners’ preferences for editing and proofreading strategies. RELC Journal, 0(0), 1-18. https://do"
+        },
+        {
+          "location": "Reference #12",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 227,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is not cited in text",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Amirjalili, F., Neysani, M., & Nikbakht, A. (2024). Exploring the boundaries of authorship: A comparative analysis of AI-generated text and human academic writing in English literature. Frontiers in E"
+        },
+        {
+          "location": "Reference #42",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 257,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is not cited in text",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Desaire, H., Chua, A. E., Isom, M., Jarošová, R., & Hua, D. (2023). Distinguishing academic science writing from humans or ChatGPT with over 99% accuracy using off-the-shelf machine learning tools. Ce"
+        },
+        {
+          "location": "Reference #58",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 273,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is not cited in text",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Gilar-Corbi, R., Pozo-Rico, T., Castejón, J., Sánchez, T., Sandoval-Palis, I., & Vidal, J. (2020). Academic achievement and failure in university studies: Motivational and emotional factors. Sustainab"
+        },
+        {
+          "location": "Reference #85",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 300,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is not cited in text",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Kolesnikov, D., Kozlova, A., Alexsandrov, A., Kalmykov, N., Treshkov, P., LeBaron, T. W., & Medvedev, O. (2024). Applying ChatGPT to writing scientific articles on the use of telemedicine: Opportuniti"
+        },
+        {
+          "location": "Reference #96",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 311,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is not cited in text",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Lo, C. K. (2023). What is the impact of ChatGPT on education? A rapid review of the literature. Education Sciences, 13(4), 410. https://doi.org/10.3390/educsci13040410"
+        },
+        {
+          "location": "Reference #101",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 316,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is not cited in text",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Melliti, M. (2024). AI in MA thesis writing: The use of lexical patterns to study the ChatGPT influence. International Journal of TESOL Studies, 6(3), 58-76. https://doi.org/10.58304/ijts.20240305"
+        },
+        {
+          "location": "Reference #104",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 319,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is not cited in text",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Moussa, A., & Belhiah, H. (2024). Beyond syntax: Exploring Moroccan undergraduate EFL learners’ engagement with AI-assisted writing. Arab World English Journal: Special Issue on ChatGPT, 138–155. http"
+        },
+        {
+          "location": "Reference #107",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 323,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is not cited in text",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Olszak, I., & Krajka, J. (2024). Developing academic students’ writing competence in the generative AI environment. Annales Universitatis Mariae Curie-Sklodowska Sectio N Educatio Nova, 9, 87–105. htt"
+        },
+        {
+          "location": "Reference #122",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 338,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is not cited in text",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Semrl, N., Feigl, S., Taumberger, N., Bracic, T., Fluhr, H., Blockeel, C., & Kollmann, M. (2023). AI language models in human reproduction research: Exploring ChatGPT’s potential to assist academic wr"
+        },
+        {
+          "location": "Reference #125",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 341,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is not cited in text",
+          "expected": null,
+          "actual": null,
+          "excerpt": "State Council of the People’s Republic of China. (2017). Artificial intelligence development plan in the new generation. The Central People’s Government of the People’s Republic of China. https://www."
+        },
+        {
+          "location": "Reference #133",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 349,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is not cited in text",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Tarchi, C., Zappoli, A., Ledesma, L. C., & Brante, E. W. (2024). The use of ChatGPT in source-based writing tasks. International Journal of Artificial Intelligence in Education, 35, 858-878. https://d"
+        },
+        {
+          "location": "Reference #136",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 352,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is not cited in text",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Thủy, D. T., Da, C., & Van Hanh, N. (2024). The use of ChatGPT in teaching and learning: A systematic review through SWOT analysis approach. Frontiers in Education, 9, 1328769. https://doi.org/10.3389"
+        },
+        {
+          "location": "Reference #164",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 380,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is not cited in text",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Zhou, T., Cao, S., Zhou, S., Zhang, Y., & He, A. (2023). Chinese intermediate English learners outdid ChatGPT in deep cohesion: Evidence from English narrative writing. System, 118, 103141. https://do"
+        }
+      ]
+    },
+    {
+      "rule_id": "citation.et_al_usage",
+      "category": "Citation",
+      "name": "Et al. usage check (APA 7th)",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "paragraph 14",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 14,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation 'Li, 2024' should use 'et al.' — Reference #93 (Li, 2024) has 3 authors (APA 7th: use et al. for 3+ authors)",
+          "expected": "Li et al.",
+          "actual": "Li, 2024",
+          "excerpt": "Li, 2024"
+        },
+        {
+          "location": "paragraph 500",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 500,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation 'Wahyuddin et al., 2023' uses 'et al.' but Reference #143 (Wahyuddin, 2023) has only 2 author(s); list all authors when there are fewer than 3",
+          "expected": "all 2 author(s) listed",
+          "actual": "et al.",
+          "excerpt": "Wahyuddin et al., 2023"
+        }
+      ]
+    },
+    {
+      "rule_id": "citation.amp_vs_and",
+      "category": "Citation",
+      "name": "Use & in parens, 'and' in narrative (APA 7 §8.17)",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "paragraph 165",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 165,
+            "char_start": 255,
+            "char_end": 279
+          },
+          "message": "Parenthetical citation uses 'and' between authors — APA 7 §8.17: use '&' inside parentheses, 'and' in narrative text",
+          "expected": "Coetzer & Aardt",
+          "actual": "Coetzer and Aardt",
+          "excerpt": "rated texts (Coetzer and Aardt, 2024), the synth"
+        },
+        {
+          "location": "paragraph 165",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 165,
+            "char_start": 605,
+            "char_end": 625
+          },
+          "message": "Parenthetical citation uses 'and' between authors — APA 7 §8.17: use '&' inside parentheses, 'and' in narrative text",
+          "expected": "Tseng & Lin",
+          "actual": "Tseng and Lin",
+          "excerpt": "dual writer (Tseng and Lin, 2024). Besides, "
+        },
+        {
+          "location": "paragraph 204",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 204,
+            "char_start": 1256,
+            "char_end": 1279
+          },
+          "message": "Parenthetical citation uses 'and' between authors — APA 7 §8.17: use '&' inside parentheses, 'and' in narrative text",
+          "expected": "Barrett & Pack",
+          "actual": "Barrett and Pack",
+          "excerpt": "nt AI abuse (Barrett and Pack, 2023). On a micr"
+        }
+      ]
+    },
+    {
+      "rule_id": "figures_tables.referenced_in_text",
+      "category": "Figures & Tables",
+      "name": "Figures/tables referenced in text",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "figures_tables.caption_position",
+      "category": "Figures & Tables",
+      "name": "Caption position check (ET&S requirement)",
+      "status": "pass",
+      "severity": "info",
+      "details": []
+    },
+    {
+      "rule_id": "figures_tables.table_format",
+      "category": "Figures & Tables",
+      "name": "Table format check",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Table 4",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 123,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Table 4 appears to be an image rather than a Word table; ET&S requires tables in editable table format, not as images",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Table 4. The numbers of articles conducted in each continent"
+        },
+        {
+          "location": "Table 5",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 136,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Table 5 appears to be an image rather than a Word table; ET&S requires tables in editable table format, not as images",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Table 5. The number of articles by years"
+        },
+        {
+          "location": "Table 1",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 46,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Table 1 has vertical borders; APA 7th requires tables to use horizontal rules only",
+          "expected": "no vertical borders",
+          "actual": "vertical borders detected",
+          "excerpt": "Table 1. Search strings for the identification stage of the review"
+        },
+        {
+          "location": "Table 2",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 62,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Table 2 has vertical borders; APA 7th requires tables to use horizontal rules only",
+          "expected": "no vertical borders",
+          "actual": "vertical borders detected",
+          "excerpt": "Table 2. Inclusion and exclusion criteria for the study"
+        },
+        {
+          "location": "Table 3",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 87,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Table 3 has vertical borders; APA 7th requires tables to use horizontal rules only",
+          "expected": "no vertical borders",
+          "actual": "vertical borders detected",
+          "excerpt": "Table 3. The screening process for the eligible articles for this review"
+        }
+      ]
+    },
+    {
+      "rule_id": "figures_tables.numbering_sequence",
+      "category": "Figures & Tables",
+      "name": "Figure / table numbering sequence",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "figures_tables.caption_format",
+      "category": "Figures & Tables",
+      "name": "Caption format: number bold, title italic",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "Figure 1",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 111,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure 1 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Figure 1. The methodology of the study"
+        },
+        {
+          "location": "Table 1",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 46,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Table 1 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Table 1. Search strings for the identification stage of the review"
+        },
+        {
+          "location": "Table 2",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 62,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Table 2 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Table 2. Inclusion and exclusion criteria for the study"
+        },
+        {
+          "location": "Table 3",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 87,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Table 3 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Table 3. The screening process for the eligible articles for this review"
+        }
+      ]
+    },
+    {
+      "rule_id": "font.body",
+      "category": "Fonts",
+      "name": "Body font check",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "paragraph 24",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 24,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body text font mismatch",
+          "expected": "Times New Roman 10.0pt",
+          "actual": "Times New Roman Regular 10.0pt",
+          "excerpt": "Hence, this study attempts to answer the following research questions:"
+        },
+        {
+          "location": "paragraph 25",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 25,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body text font mismatch",
+          "expected": "Times New Roman 10.0pt",
+          "actual": "Times New Roman Regular 10.0pt",
+          "excerpt": "RQ1: How does ChatGPT influence the learning and teaching of academic writing?"
+        },
+        {
+          "location": "paragraph 26",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 26,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body text font mismatch",
+          "expected": "Times New Roman 10.0pt",
+          "actual": "Times New Roman Regular 10.0pt",
+          "excerpt": "RQ2: How does ChatGPT influence academic writing performance?"
+        },
+        {
+          "location": "paragraph 27",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 27,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body text font mismatch",
+          "expected": "Times New Roman 10.0pt",
+          "actual": "Times New Roman Regular 10.0pt",
+          "excerpt": "RQ3: What are the suggestions for using ChatGPT in academic writing teaching and"
+        },
+        {
+          "location": "paragraph 46",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 46,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body text font mismatch",
+          "expected": "Times New Roman 10.0pt",
+          "actual": "Times New Roman Italic 10.0pt",
+          "excerpt": "Table 1."
+        },
+        {
+          "location": "paragraph 62",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 62,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body text font mismatch",
+          "expected": "Times New Roman 10.0pt",
+          "actual": "Times New Roman Italic 10.0pt",
+          "excerpt": "Table 2."
+        },
+        {
+          "location": "paragraph 87",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 87,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body text font mismatch",
+          "expected": "Times New Roman 10.0pt",
+          "actual": "Times New Roman Italic 10.0pt",
+          "excerpt": "Table 3."
+        },
+        {
+          "location": "paragraph 111",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 111,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body text font mismatch",
+          "expected": "Times New Roman 10.0pt",
+          "actual": "Times New Roman Italic 10.0pt",
+          "excerpt": "Fig"
+        },
+        {
+          "location": "paragraph 111",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 111,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body text font mismatch",
+          "expected": "Times New Roman 10.0pt",
+          "actual": "Times New Roman Italic 10.0pt",
+          "excerpt": "ure"
+        },
+        {
+          "location": "paragraph 111",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 111,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body text font mismatch",
+          "expected": "Times New Roman 10.0pt",
+          "actual": "Times New Roman Italic 10.0pt",
+          "excerpt": " 1"
+        },
+        {
+          "location": "paragraph 123",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 123,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body text font mismatch",
+          "expected": "Times New Roman 10.0pt",
+          "actual": "Times New Roman Italic 10.0pt",
+          "excerpt": "Table 4."
+        },
+        {
+          "location": "paragraph 136",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 136,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body text font mismatch",
+          "expected": "Times New Roman 10.0pt",
+          "actual": "Times New Roman Italic 10.0pt",
+          "excerpt": "Table 5."
+        },
+        {
+          "location": "paragraph 144",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 144,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body text font mismatch",
+          "expected": "Times New Roman 10.0pt",
+          "actual": "Times New Roman Regular 10.0pt",
+          "excerpt": "The first question focused on the influence of using ChatGPT on the learning and"
+        },
+        {
+          "location": "paragraph 146",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 146,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body text font mismatch",
+          "expected": "Times New Roman 10.0pt",
+          "actual": "Times New Roman Regular 10.0pt",
+          "excerpt": "As shown in Appendix C, the second question concentrated on the effects of the i"
+        },
+        {
+          "location": "paragraph 165",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 165,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body text font mismatch",
+          "expected": "Times New Roman 10.0pt",
+          "actual": "Times New Roman Regular 10.0pt",
+          "excerpt": "This review challenges the prevalent idea that AI tools inherently lessen cognit"
+        },
+        {
+          "location": "paragraph 169",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 169,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body text font mismatch",
+          "expected": "Times New Roman 10.0pt",
+          "actual": "Times New Roman Regular 10.0pt",
+          "excerpt": "Another significant concern is that excessive dependence on AI tool"
+        },
+        {
+          "location": "paragraph 169",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 169,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body text font mismatch",
+          "expected": "Times New Roman 10.0pt",
+          "actual": "Times New Roman Regular 10.0pt",
+          "excerpt": "t may also pose challenges to academic integrity, as students might find it diff"
+        },
+        {
+          "location": "paragraph 196",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 196,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body text font mismatch",
+          "expected": "Times New Roman 10.0pt",
+          "actual": "Times New Roman Regular 10.0pt",
+          "excerpt": "After analyzing the opportunities and challenges of using ChatGPT for improving "
+        },
+        {
+          "location": "paragraph 196",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 196,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body text font mismatch",
+          "expected": "Times New Roman 10.0pt",
+          "actual": "Times New Roman Regular 10.0pt",
+          "excerpt": "Many studies have suggested that the training should cover its functions, limita"
+        },
+        {
+          "location": "paragraph 196",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 196,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body text font mismatch",
+          "expected": "Times New Roman 10.0pt",
+          "actual": "Times New Roman Regular 10.0pt",
+          "excerpt": ", which aims to equip teachers with the necessary knowledge and skills to integr"
+        },
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "... and 10 more font mismatches",
+          "expected": null,
+          "actual": null,
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "font.stat_italic",
+      "category": "Fonts",
+      "name": "Statistical symbol italics",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…ucted in Asia (n = 40), including…"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…cluding China (n = 13), Hong Kong…"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…3), Hong Kong (n = 2), Taiwan (n…"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…= 2), Taiwan (n = 2), Macao (n =…"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…n = 2), Macao (n = 1), Korea (n =…"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…n = 1), Korea (n = 2), India (n =…"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…n = 2), India (n = 2), the Philip…"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…e Philippines (n = 2), Indonesia…"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…2), Indonesia (n = 7), Malaysia (…"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…7), Malaysia (n = 2), Japan (n =…"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…n = 2), Japan (n = 2), Saudi Arab…"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…Saudi Arabia (n = 1), Turkey (n…"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…= 1), Turkey (n = 1), Thailand (…"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…1), Thailand (n = 1), Iran (n =…"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…(n = 1), Iran (n = 1), and Yemen…"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…1), and Yemen (n = 1). The studie…"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…nited Kingdom (n=2), Croatia (n=…"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…n=2), Croatia (n=1), Ukraine (n=…"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…n=1), Ukraine (n=1), Poland (n=1…"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Statistical symbol \"n\" should be italic",
+          "expected": "italic",
+          "actual": "not italic",
+          "excerpt": "…(n=1), Poland (n=1), Italy (n=1)…"
+        },
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "... and 16 more missing italics on statistical symbols",
+          "expected": null,
+          "actual": null,
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "font.abstract",
+      "category": "Fonts",
+      "name": "Abstract font check (ET&S: italic)",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "paragraph 7",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 7,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Abstract text should be italic (ET&S requirement)",
+          "expected": "Times New Roman 10.0pt italic",
+          "actual": "not italic",
+          "excerpt": "Academic writing is important "
+        }
+      ]
+    },
+    {
+      "rule_id": "font.heading",
+      "category": "Fonts",
+      "name": "Heading font check",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "paragraph 42 (Heading 3)",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 42,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading 3 font mismatch",
+          "expected": "Times New Roman 10.0pt bold, not italic",
+          "actual": "Times New Roman Bold Italic",
+          "excerpt": "2.2.1. Identification"
+        },
+        {
+          "location": "paragraph 58 (Heading 3)",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 58,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading 3 font mismatch",
+          "expected": "Times New Roman 10.0pt bold, not italic",
+          "actual": "Times New Roman Bold Italic",
+          "excerpt": "2.2.2. Screening (inclusion and exclusion criteria)"
+        },
+        {
+          "location": "paragraph 83 (Heading 3)",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 83,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading 3 font mismatch",
+          "expected": "Times New Roman 10.0pt bold, not italic",
+          "actual": "Times New Roman Bold Italic",
+          "excerpt": "2.2.3. Eligibility"
+        },
+        {
+          "location": "paragraph 119 (Heading 3)",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 119,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading 3 font mismatch",
+          "expected": "Times New Roman 10.0pt bold, not italic",
+          "actual": "italic (should not be)",
+          "excerpt": "Countries/regions"
+        },
+        {
+          "location": "paragraph 127 (Heading 3)",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 127,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading 3 font mismatch",
+          "expected": "Times New Roman 10.0pt bold, not italic",
+          "actual": "Times New Roman Bold Italic",
+          "excerpt": "3.1.2. Research "
+        },
+        {
+          "location": "paragraph 127 (Heading 3)",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 127,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading 3 font mismatch",
+          "expected": "Times New Roman 10.0pt bold, not italic",
+          "actual": "Times New Roman Bold Italic",
+          "excerpt": "designs"
+        },
+        {
+          "location": "paragraph 132 (Heading 3)",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 132,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading 3 font mismatch",
+          "expected": "Times New Roman 10.0pt bold, not italic",
+          "actual": "Times New Roman Bold Italic",
+          "excerpt": "3.1.3. Distribution of the studies by years"
+        },
+        {
+          "location": "paragraph 140 (Heading 2)",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 140,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading 2 font mismatch",
+          "expected": "Times New Roman 10.0pt bold, not italic",
+          "actual": "Times New Roman Bold",
+          "excerpt": "3.2. Qualitative findings"
+        },
+        {
+          "location": "paragraph 159 (Heading 3)",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 159,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading 3 font mismatch",
+          "expected": "Times New Roman 10.0pt bold, not italic",
+          "actual": "Times New Roman Bold Italic",
+          "excerpt": "4.1.1 The benefits and drawbacks of using ChatGPT in the learning process"
+        },
+        {
+          "location": "paragraph 172 (Heading 3)",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 172,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading 3 font mismatch",
+          "expected": "Times New Roman 10.0pt bold, not italic",
+          "actual": "Times New Roman Bold Italic",
+          "excerpt": "4.1.2 The benefits and drawbacks of using ChatGPT in the teaching process"
+        },
+        {
+          "location": "paragraph 385 (Heading 1)",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 385,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading 1 font mismatch",
+          "expected": "Times New Roman 12.0pt bold, not italic",
+          "actual": "Times New Roman Bold",
+          "excerpt": "Appendix A "
+        },
+        {
+          "location": "paragraph 385 (Heading 1)",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 385,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading 1 font mismatch",
+          "expected": "Times New Roman 12.0pt bold, not italic",
+          "actual": "Times New Roman Bold",
+          "excerpt": "Research designs used in the reviewed articles"
+        },
+        {
+          "location": "paragraph 451 (Heading 1)",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 451,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading 1 font mismatch",
+          "expected": "Times New Roman 12.0pt bold, not italic",
+          "actual": "Times New Roman Bold",
+          "excerpt": "Appendix B Benefits and drawbacks of using ChatGPT in the teaching and learning "
+        },
+        {
+          "location": "paragraph 576 (Heading 1)",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 576,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading 1 font mismatch",
+          "expected": "Times New Roman 12.0pt bold, not italic",
+          "actual": "Times New Roman Bold",
+          "excerpt": "Appendix C The effects of using ChatGPT on writing performance"
+        },
+        {
+          "location": "paragraph 625 (Heading 1)",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 625,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading 1 font mismatch",
+          "expected": "Times New Roman 12.0pt bold, not italic",
+          "actual": "Times New Roman Regular",
+          "excerpt": "Appendix D The suggestions on using ChatGPT in academic writing class"
+        }
+      ]
+    },
+    {
+      "rule_id": "font.reference",
+      "category": "Fonts",
+      "name": "Reference font check",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "paragraph 219",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 219,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman Regular 9.0pt",
+          "excerpt": "Al-Garaady, J., & Albuhairy, M. M. (2023). "
+        },
+        {
+          "location": "paragraph 219",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 219,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman Regular 9.0pt",
+          "excerpt": "ChatGPT’s capabilities in spotting and analyzing writing errors experienced by E"
+        },
+        {
+          "location": "paragraph 219",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 219,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman Italic 9.0pt",
+          "excerpt": "Arab World English Journal, 9"
+        },
+        {
+          "location": "paragraph 219",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 219,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman Regular 9.0pt",
+          "excerpt": "(CALL)"
+        },
+        {
+          "location": "paragraph 219",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 219,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman Regular 9.0pt",
+          "excerpt": ", 3-17"
+        },
+        {
+          "location": "paragraph 219",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 219,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman Regular 9.0pt",
+          "excerpt": "https://ssrn.com/abstract=4519092"
+        },
+        {
+          "location": "paragraph 222",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 222,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman Italic 9.0pt",
+          "excerpt": "0"
+        },
+        {
+          "location": "paragraph 229",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 229,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman Italic 9.0pt",
+          "excerpt": "56"
+        },
+        {
+          "location": "paragraph 230",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 230,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman Regular 9.0pt",
+          "excerpt": "Austria, F. Z., Camagay, E. B. A., Domasing, M., Gelido, A., Libatique, C. V., &"
+        },
+        {
+          "location": "paragraph 230",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 230,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman Regular 9.0pt",
+          "excerpt": "Southeast Asian Journal of Science and Technology, 7"
+        },
+        {
+          "location": "paragraph 230",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 230,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman Regular 9.0pt",
+          "excerpt": "(1), 39-47. Retrieved from https://www.sajst.org/online/index.php/sajst/article/"
+        },
+        {
+          "location": "paragraph 237",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 237,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman Italic 9.0pt",
+          "excerpt": "Innovations in Education and Teaching International, 62"
+        },
+        {
+          "location": "paragraph 245",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 245,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman Italic 9.0pt",
+          "excerpt": "Computers and Education Artificial Intelligence, 9"
+        },
+        {
+          "location": "paragraph 249",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 249,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman Italic 9.0pt",
+          "excerpt": "Teaching English with Technology, 24"
+        },
+        {
+          "location": "paragraph 250",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 250,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman Italic 9.0pt",
+          "excerpt": "Innovations in Education and Teaching International, 61"
+        },
+        {
+          "location": "paragraph 264",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 264,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman Italic 9.0pt",
+          "excerpt": "Jurnal Kependidikan Islam, 13"
+        },
+        {
+          "location": "paragraph 274",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 274,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman Italic 9.0pt",
+          "excerpt": "128"
+        },
+        {
+          "location": "paragraph 291",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 291,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman Italic 9.0pt",
+          "excerpt": "Journal of China Computer-Assisted Language Learning, 5"
+        },
+        {
+          "location": "paragraph 319",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 319,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman Regular 9.0pt",
+          "excerpt": "Moussa, A., & Belhiah, H. (2024). Beyond syntax: Exploring Moroccan undergraduat"
+        },
+        {
+          "location": "paragraph 319",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 319,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference font mismatch",
+          "expected": "Times New Roman 9.0pt",
+          "actual": "Times New Roman Italic 9.0pt",
+          "excerpt": "Arab World English Journal: Special Issue on ChatGPT"
+        },
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "... and 12 more reference font mismatches",
+          "expected": null,
+          "actual": null,
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "font.title",
+      "category": "Fonts",
+      "name": "Title font check",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "headings.no_numbering",
+      "category": "Structure",
+      "name": "Headings must not be numbered (APA 7)",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "paragraph 12",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 12,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '1. Introduction' has a numeric prefix '1.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '1.'",
+          "excerpt": "1. Introduction"
+        },
+        {
+          "location": "paragraph 30",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 30,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '2. Methodology' has a numeric prefix '2.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '2.'",
+          "excerpt": "2. Methodology"
+        },
+        {
+          "location": "paragraph 35",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 35,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '2.1. Database search' has a numeric prefix '2.1.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '2.1.'",
+          "excerpt": "2.1. Database search"
+        },
+        {
+          "location": "paragraph 40",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 40,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '2.2. Systematic review process' has a numeric prefix '2.2.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '2.2.'",
+          "excerpt": "2.2. Systematic review process"
+        },
+        {
+          "location": "paragraph 42",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 42,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '2.2.1. Identification' has a numeric prefix '2.2.1.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '2.2.1.'",
+          "excerpt": "2.2.1. Identification"
+        },
+        {
+          "location": "paragraph 58",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 58,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '2.2.2. Screening (inclusion and exclusion criteria)' has a numeric prefix '2.2.2.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '2.2.2.'",
+          "excerpt": "2.2.2. Screening (inclusion and exclusion criteria)"
+        },
+        {
+          "location": "paragraph 83",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 83,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '2.2.3. Eligibility' has a numeric prefix '2.2.3.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '2.2.3.'",
+          "excerpt": "2.2.3. Eligibility"
+        },
+        {
+          "location": "paragraph 117",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 117,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '3.1. Quantitative findings' has a numeric prefix '3.1.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '3.1.'",
+          "excerpt": "3.1. Quantitative findings"
+        },
+        {
+          "location": "paragraph 119",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 119,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '3.1.1. Countries/regions' has a numeric prefix '3.1.1.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '3.1.1.'",
+          "excerpt": "3.1.1. Countries/regions"
+        },
+        {
+          "location": "paragraph 127",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 127,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '3.1.2. Research designs' has a numeric prefix '3.1.2.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '3.1.2.'",
+          "excerpt": "3.1.2. Research designs"
+        },
+        {
+          "location": "paragraph 132",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 132,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '3.1.3. Distribution of the studies by years' has a numeric prefix '3.1.3.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '3.1.3.'",
+          "excerpt": "3.1.3. Distribution of the studies by years"
+        },
+        {
+          "location": "paragraph 140",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 140,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '3.2. Qualitative findings' has a numeric prefix '3.2.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '3.2.'",
+          "excerpt": "3.2. Qualitative findings"
+        },
+        {
+          "location": "paragraph 157",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 157,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '4.1. Question 1: The effects of using ChatGPT in the learning and teaching process' has a numeric prefix '4.1.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '4.1.'",
+          "excerpt": "4.1. Question 1: The effects of using ChatGPT in the learning and teaching process"
+        },
+        {
+          "location": "paragraph 159",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 159,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '4.1.1 The benefits and drawbacks of using ChatGPT in the learning process' has a numeric prefix '4.1.1' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '4.1.1'",
+          "excerpt": "4.1.1 The benefits and drawbacks of using ChatGPT in the learning process"
+        },
+        {
+          "location": "paragraph 172",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 172,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '4.1.2 The benefits and drawbacks of using ChatGPT in the teaching process' has a numeric prefix '4.1.2' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '4.1.2'",
+          "excerpt": "4.1.2 The benefits and drawbacks of using ChatGPT in the teaching process"
+        },
+        {
+          "location": "paragraph 183",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 183,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '4.2. Question 2: The effects of ChatGPT on students’ academic writing performance' has a numeric prefix '4.2.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '4.2.'",
+          "excerpt": "4.2. Question 2: The effects of ChatGPT on students’ academic writing performance"
+        },
+        {
+          "location": "paragraph 194",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 194,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '4.3. Question 3: The suggestions of using academic writing in teaching and learning' has a numeric prefix '4.3.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '4.3.'",
+          "excerpt": "4.3. Question 3: The suggestions of using academic writing in teaching and learning"
+        }
+      ]
+    },
+    {
+      "rule_id": "headings.level_order",
+      "category": "Structure",
+      "name": "Heading levels must not skip",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "layout.paper_size",
+      "category": "Layout",
+      "name": "Paper size check",
+      "status": "fail",
+      "severity": "error",
+      "details": [
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Paper size should be A4",
+          "expected": "A4 (21.0×29.7 cm)",
+          "actual": "Letter (21.5935×27.9435 cm)",
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "layout.margins",
+      "category": "Layout",
+      "name": "Margin check",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "layout.line_spacing",
+      "category": "Layout",
+      "name": "Line spacing check",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "layout.page_numbers",
+      "category": "Layout",
+      "name": "Page number check",
+      "status": "pass",
+      "severity": "info",
+      "details": []
+    },
+    {
+      "rule_id": "layout.first_line_indent",
+      "category": "Layout",
+      "name": "Body first-line indent",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body first-line indent averages 0.0 cm — APA 7 §2.24 / ET&S expect 1.27 cm (0.5 inch)",
+          "expected": "1.27 cm",
+          "actual": "0.0 cm",
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "layout.body_alignment",
+      "category": "Layout",
+      "name": "Body paragraph alignment",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "paragraph 14",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 14,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Academic writing is of great importance in higher education, as it serves as a primary skill for students to understand "
+        },
+        {
+          "location": "paragraph 16",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 16,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Despite the crucial role of academic writing for students in higher education, it is not an effortless task to teach and"
+        },
+        {
+          "location": "paragraph 18",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 18,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Recently, the advancement of artificial intelligence (AI) technologies has revolutionized the sphere of education, speci"
+        },
+        {
+          "location": "paragraph 20",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 20,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "As the use of ChatGPT becomes increasingly prevalent in educational settings, there arises a discussion about critically"
+        },
+        {
+          "location": "paragraph 22",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 22,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Since ChatGPT was unveiled in November 2022, there have been many systematic reviews of the discussion of ChatGPT in edu"
+        },
+        {
+          "location": "paragraph 24",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 24,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Hence, this study attempts to answer the following research questions:"
+        },
+        {
+          "location": "paragraph 25",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 25,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "RQ1: How does ChatGPT influence the learning and teaching of academic writing?"
+        },
+        {
+          "location": "paragraph 26",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 26,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "RQ2: How does ChatGPT influence academic writing performance?"
+        },
+        {
+          "location": "paragraph 27",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 27,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "RQ3: What are the suggestions for using ChatGPT in academic writing teaching and learning?"
+        },
+        {
+          "location": "paragraph 32",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 32,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Authors This study plans to employ a systematic review to investigate the opportunities, threats, and suggestions of usi"
+        },
+        {
+          "location": "paragraph 37",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 37,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "This review selects three databases: Web of Science, Scopus, and Google Scholar. These databases encompass an extensive "
+        },
+        {
+          "location": "paragraph 44",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 44,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "In the first step, the key words and the search strings are used to identify the related studies. The search terms are p"
+        },
+        {
+          "location": "paragraph 46",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 46,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'CENTER ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "CENTER ",
+          "excerpt": "Table 1. Search strings for the identification stage of the review"
+        },
+        {
+          "location": "paragraph 60",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 60,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "The next step was the screening procedure, which is about the inclusion and exclusion criteria for the literature select"
+        },
+        {
+          "location": "paragraph 62",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 62,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'CENTER ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "CENTER ",
+          "excerpt": "Table 2. Inclusion and exclusion criteria for the study"
+        },
+        {
+          "location": "paragraph 85",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 85,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Based on the search string in Table 1, the initial 474 articles were collected from the three databases: Web of Science "
+        },
+        {
+          "location": "paragraph 87",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 87,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'CENTER ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "CENTER ",
+          "excerpt": "Table 3. The screening process for the eligible articles for this review"
+        },
+        {
+          "location": "paragraph 109",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 109,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Figure 1 below presents a summary of the methodology of the study and the selection of articles, which included four sta"
+        },
+        {
+          "location": "paragraph 111",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 111,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'CENTER ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "CENTER ",
+          "excerpt": "Figure 1. The methodology of the study"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Table 4 shows the majority of the studies investigating the issue of ChatGPT in academic writing were conducted in Asia "
+        },
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "... and 30 more body alignment issues",
+          "expected": null,
+          "actual": null,
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "quotation.pagination",
+      "category": "Quotation",
+      "name": "Direct quotations need a page locator",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": 967,
+            "char_end": 1031
+          },
+          "message": "Direct quotation without a page locator — APA 7 / AQF Item 4: cite the source with p./pp. (or Section/para.) for any quoted text",
+          "expected": "(Author, Year, p. N) or equivalent locator",
+          "actual": "citation present, no p./pp.",
+          "excerpt": "“Artificial Intelligence Development Plan in the New Generation”"
+        }
+      ]
+    },
+    {
+      "rule_id": "quotation.block_format",
+      "category": "Quotation",
+      "name": "Long quotations must be block-quoted (≥ 40 words)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "reference.no_et_al",
+      "category": "Reference",
+      "name": "No 'et al.' in reference list",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "reference.alphabetical_order",
+      "category": "Reference",
+      "name": "Reference list alphabetical order",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #40",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 255,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Out of alphabetical order: Reference #40 ('Demirel', n.d.) should come before Reference #39 ('De Wilde', 2024)",
+          "expected": "demirel (first author) before dewilde",
+          "actual": "dewilde before demirel",
+          "excerpt": "Demirel, M. V., & Aydin, I. S. (n.d.). Examining high school students’ writing self-efficacy perceptions. International Journal of Education and Literacy Studies, 7(4), 106-114.  https://eric.ed.gov/?"
+        }
+      ]
+    },
+    {
+      "rule_id": "reference.hanging_indent",
+      "category": "Reference",
+      "name": "Reference hanging indent",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #1",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 216,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Abdelhalim, S. M. (2024). Using ChatGPT to promote research competency: English as a foreign language undergraduates’ perceptions and practices across varied metacognitive awareness levels. Journal of"
+        },
+        {
+          "location": "Reference #2",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 217,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Acosta-Enriquez, B. G., Ballesteros, M. A. A., Vargas, C. G. P., Ulloa, M. N. O., Ulloa, C. R. G., Romero, J. M. P., Jaramillo, N. D. G., Orellana, H. U. C., Anzoátegui, D. X. A., & Roca, C. L. (2024)"
+        },
+        {
+          "location": "Reference #3",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 218,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Alexander, K., Savvidou, C., & Alexander, C. (2023). Who wrote this essay? Detecting AI-generated writing in second language education in higher education. Teaching English with Technology, 23(2), 25-"
+        },
+        {
+          "location": "Reference #4",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 219,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Al-Garaady, J., & Albuhairy, M. M. (2023). ChatGPT’s capabilities in spotting and analyzing writing errors experienced by EFL learners. Arab World English Journal, 9(CALL), 3-17. https://ssrn.com/abst"
+        },
+        {
+          "location": "Reference #5",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 220,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Ali, S. (2024). Locating the intersection of generative artificial intelligence and human English writing skills: A comparative study. Arab World English Journal, 1(1), 112–123. https://doi.org/10.240"
+        },
+        {
+          "location": "Reference #6",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 221,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Alkamel, M. A. A., & Alwagieh, N. A. S. (2024). Utilizing an adaptable artificial intelligence writing tool (ChatGPT) to enhance academic writing skills among Yemeni university EFL students. Social Sc"
+        },
+        {
+          "location": "Reference #7",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 222,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Allen, T. J., & Mizumoto, A. (2024). ChatGPT over my friends: Japanese English-as-a-foreign-language learners’ preferences for editing and proofreading strategies. RELC Journal, 0(0), 1-18. https://do"
+        },
+        {
+          "location": "Reference #8",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 223,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "first-line indent of 0.0 cm",
+          "excerpt": "Allison, J., Hwang, G., Mayer, R. E., Pellas, N., Karnalim, O., De Freitas, S., Ng, O., Huang, Y., Hooshyar, D., Seidman, R. H., Al-Emran, M., Mikropoulos, T. A., Schroeder, N. L., Roscoe, R. D., & Sa"
+        },
+        {
+          "location": "Reference #9",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 224,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "first-line indent of 0.0 cm",
+          "excerpt": "Alsaedi, N. (2024). ChatGPT and EFL/ESL writing: A systematic review of advantages and challenges. English Language Teaching, 17(5), 41-50. https://doi.org/10.5539/elt.v17n5p41"
+        },
+        {
+          "location": "Reference #10",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 225,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "first-line indent of 0.0 cm",
+          "excerpt": "Al-Sofi, B. B. M. A. (2024). Artificial intelligence-powered tools and academic writing: To use or not to use ChatGPT. Saudi Journal of Language Studies, 4(3), 145–161. https://doi.org/10.1108/sjls-06"
+        },
+        {
+          "location": "Reference #11",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 226,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "first-line indent of 0.0 cm",
+          "excerpt": "Altınmakas, D., & Bayyurt, Y. (2019). An exploratory study on factors influencing undergraduate students’ academic writing practices in Turkey. Journal of English for Academic Purposes, 37, 88–103. ht"
+        },
+        {
+          "location": "Reference #12",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 227,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "first-line indent of 0.0 cm",
+          "excerpt": "Amirjalili, F., Neysani, M., & Nikbakht, A. (2024). Exploring the boundaries of authorship: A comparative analysis of AI-generated text and human academic writing in English literature. Frontiers in E"
+        },
+        {
+          "location": "Reference #13",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 228,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "first-line indent of 0.0 cm",
+          "excerpt": "Apridayani, A., Han, W., & Sakkanayok, K. (2024). Enhancing English writing competence in higher education: A comparative study of teacher-only assessment versus teacher and student self-assessment ap"
+        },
+        {
+          "location": "Reference #14",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 229,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "first-line indent of 0.0 cm",
+          "excerpt": "Asadi, M., Ebadi, S., & Mohammadi, L. (2025). The impact of integrating ChatGPT with teachers’ feedback on EFL writing skills. Thinking Skills and Creativity, 56, 101766. https://doi.org/10.1016/j.tsc"
+        },
+        {
+          "location": "Reference #15",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 230,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "first-line indent of 0.0 cm",
+          "excerpt": "Austria, F. Z., Camagay, E. B. A., Domasing, M., Gelido, A., Libatique, C. V., & Cabutotan, V. M. (2023). Extent of influence of using AI Chatbots in the writing skills of BSE students of Pangasinan S"
+        },
+        {
+          "location": "Reference #16",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 231,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "first-line indent of 0.0 cm",
+          "excerpt": "Bai, L., Liu, X., & Su, J. (2023). ChatGPT: The cognitive effects on learning and memory. Brain-X, 1(3), 1-9. https://doi.org/10.1002/brx2.30"
+        },
+        {
+          "location": "Reference #17",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 232,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "first-line indent of 0.0 cm",
+          "excerpt": "Barrett, A., & Pack, A. (2023). Not quite eye to A.I.: Student and teacher perspectives on the use of generative artificial intelligence in the writing process. International Journal of Educational Te"
+        },
+        {
+          "location": "Reference #18",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 233,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "first-line indent of 0.0 cm",
+          "excerpt": "Bašić, Ž., Banovac, A., Kružić, I., & Jerković, I. (2023). ChatGPT-3.5 as writing assistance in students’ essays. Humanities & Social Sciences Communications, 10, 750. https://doi.org/10.1057/s41599-0"
+        },
+        {
+          "location": "Reference #19",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 234,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "first-line indent of 0.0 cm",
+          "excerpt": "Bouzar, A., Idrissi, K. E., & Ghourdou, T. (2024). ChatGPT and academic writing self-efficacy: Unveiling correlations and technological dependency among postgraduate students. Arab World English Journ"
+        },
+        {
+          "location": "Reference #20",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 235,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "first-line indent of 0.0 cm",
+          "excerpt": "Bouziane, K., & Bouziane, A. (2024). AI versus human effectiveness in essay evaluation. Discover Education, 3, 201. https://doi.org/10.1007/s44217-024-00320-6"
+        },
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "... and 148 more hanging indent issues",
+          "expected": null,
+          "actual": null,
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "reference.page_number_complete",
+      "category": "Reference",
+      "name": "Reference page-number completeness",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #81",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 296,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Abbreviated page range '1265–300' — APA 7 requires the full end page (likely '1265–1300')",
+          "expected": "1265–1300",
+          "actual": "1265–300",
+          "excerpt": "n Technologies, 20, 1265-300. https://doi.org/10"
+        }
+      ]
+    },
+    {
+      "rule_id": "reference.doi_or_url",
+      "category": "Reference",
+      "name": "Reference DOI / URL presence",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #73",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 288,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Journal-article reference is missing both a DOI/URL and a complete Volume(Issue), pages — APA 7 / ET&S require one of the two so the work can be located",
+          "expected": "DOI or URL, or full Volume(Issue), pages",
+          "actual": "neither present",
+          "excerpt": "Ismail, A. A. (2024). Over-reliance of AI tools in academic writing tasks: The Malaysian tertiary level context. E-Prosiding Persidangan Antarabangsa Sains Sosial & Kemanusiaan Kali Ke-9 (PASAK9 2024)"
+        }
+      ]
+    },
+    {
+      "rule_id": "citation.disambiguate",
+      "category": "Citation",
+      "name": "Reference suffix disambiguation (a, b, c)",
+      "status": "fail",
+      "severity": "error",
+      "details": [
+        {
+          "location": "Reference #81",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 296,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference shares surname 'Kim' and year 2024 with other entries (#81, #82); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate",
+          "expected": "2024a, 2024b, …",
+          "actual": "2024",
+          "excerpt": "Kim, J., Yu, S., Detrick, R., & Li, N. (2024). Exploring students’ perspectives on generative AI-assisted academic writing. Education and Information Technologies, 20, 1265-300. https://doi.org/10.100"
+        },
+        {
+          "location": "Reference #82",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 297,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference shares surname 'Kim' and year 2024 with other entries (#81, #82); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate",
+          "expected": "2024a, 2024b, …",
+          "actual": "2024",
+          "excerpt": "Kim, M., Kim, S., Lee, S., Yoon, Y., Myung, J., Yoo, H., Lim, H., Han, J., Kim, Y., Ahn, S., Kim, J., Oh, A., Hong, H., & Lee, T. Y. (2024). Designing prompt analytics dashboards to analyze student-Ch"
+        },
+        {
+          "location": "Reference #91",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 306,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference shares surname 'Li' and year 2024 with other entries (#91, #92, #93); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate",
+          "expected": "2024a, 2024b, …",
+          "actual": "2024",
+          "excerpt": "Li, J., Huang, J., Wu, W., & Whipple, P. B. (2024). Evaluating the role of ChatGPT in enhancing EFL writing assessments in classroom settings: A preliminary investigation. Humanities and Social Scienc"
+        },
+        {
+          "location": "Reference #92",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 307,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference shares surname 'Li' and year 2024 with other entries (#91, #92, #93); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate",
+          "expected": "2024a, 2024b, …",
+          "actual": "2024",
+          "excerpt": "Li, J., Zong, H., Wu, E., Wu, R., Peng, Z., Zhao, J., Yang, L., Xie, H., & Shen, B. (2024). Exploring the potential of artificial intelligence to enhance the writing of English academic papers by non-"
+        },
+        {
+          "location": "Reference #93",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 308,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference shares surname 'Li' and year 2024 with other entries (#91, #92, #93); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate",
+          "expected": "2024a, 2024b, …",
+          "actual": "2024",
+          "excerpt": "Li, Q., Zhang, J., & Cai, W. (2024). Utilizing ChatGPT to implement differentiated instruction. International Journal of Chinese Language Teaching, 5(1), 74-89. https://doi.org/10.46451/ijclt.20240106"
+        },
+        {
+          "location": "Reference #146",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 362,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference shares surname 'Werdiningsih' and year 2024 with other entries (#146, #147); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate",
+          "expected": "2024a, 2024b, …",
+          "actual": "2024",
+          "excerpt": "Werdiningsih, I., Marzuki, N., Indrawati, I., Rusdin, D., Ivone, F. M., Basthomi, Y., & Zulfahreza, N. (2024). Revolutionizing EFL writing: Unveiling the strategic use of ChatGPT by Indonesian master’"
+        },
+        {
+          "location": "Reference #147",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 363,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference shares surname 'Werdiningsih' and year 2024 with other entries (#146, #147); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate",
+          "expected": "2024a, 2024b, …",
+          "actual": "2024",
+          "excerpt": "Werdiningsih, I., Marzuki, N., & Rusdin, D. (2024). Balancing AI and authenticity: EFL students’ experiences with ChatGPT in academic writing. Cogent Arts & Humanities, 11(1), 2392388. https://doi.org"
+        }
+      ]
+    },
+    {
+      "rule_id": "reference.apa_format",
+      "category": "Reference",
+      "name": "Reference APA structural format",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #55",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 270,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA format issue: entry does not end with a period",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Fujiwara, T. (2024). A study on differences between GPT-generated and ENS-written essays on doing a part-time job and smoking in a restaurant: Utilizing corpus linguistics methodologies. Learner Corpu"
+        },
+        {
+          "location": "Reference #73",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 288,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA format issue: entry does not end with a period",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Ismail, A. A. (2024). Over-reliance of AI tools in academic writing tasks: The Malaysian tertiary level context. E-Prosiding Persidangan Antarabangsa Sains Sosial & Kemanusiaan Kali Ke-9 (PASAK9 2024)"
+        },
+        {
+          "location": "Reference #131",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 347,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA format issue: entry does not end with a period",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Swales, J. M. (1990). Genre analysis: English in academic and research settings. Cambridge University Press"
+        }
+      ]
+    },
+    {
+      "rule_id": "reference.italics_journal_volume",
+      "category": "Reference",
+      "name": "Reference italics: journal name + volume",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #32",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 247,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: volume number '1' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "volume number '1' should be italic",
+          "excerpt": "approach. Interactive Learning Environments, 1–22. https"
+        },
+        {
+          "location": "Reference #48",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 263,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: volume number '1' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "volume number '1' should be italic",
+          "excerpt": "ve study. Computer Assisted Language Learning, 1–40. https"
+        },
+        {
+          "location": "Reference #93",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 308,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: issue number '(1)' must not be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "issue number '(1)' must not be italic",
+          "excerpt": "truction. International Journal of Chinese Language Teaching, 5(1), 74-89. h"
+        }
+      ]
+    },
+    {
+      "rule_id": "reference.url_terminal_punctuation",
+      "category": "Reference",
+      "name": "DOI/URL must not end with a period",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "reference.author_count_rule",
+      "category": "Reference",
+      "name": "Author-list APA 7 §9.8 (≤ 20 list all; 21+ uses ellipsis + last)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "statistics.operator_spacing",
+      "category": "Statistics",
+      "name": "Relational operator spacing",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": 463,
+            "char_end": 465
+          },
+          "message": "Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces",
+          "expected": "n = ...",
+          "actual": "n=",
+          "excerpt": "ed Kingdom (n=2), Croatia "
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": 478,
+            "char_end": 480
+          },
+          "message": "Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces",
+          "expected": "n = ...",
+          "actual": "n=",
+          "excerpt": "), Croatia (n=1), Ukraine "
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": 493,
+            "char_end": 495
+          },
+          "message": "Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces",
+          "expected": "n = ...",
+          "actual": "n=",
+          "excerpt": "), Ukraine (n=1), Poland ("
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": 507,
+            "char_end": 509
+          },
+          "message": "Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces",
+          "expected": "n = ...",
+          "actual": "n=",
+          "excerpt": "1), Poland (n=1), Italy (n"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": 520,
+            "char_end": 522
+          },
+          "message": "Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces",
+          "expected": "n = ...",
+          "actual": "n=",
+          "excerpt": "=1), Italy (n=1), Belgium "
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": 535,
+            "char_end": 537
+          },
+          "message": "Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces",
+          "expected": "n = ...",
+          "actual": "n=",
+          "excerpt": "), Belgium (n=1), and Cypr"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": 553,
+            "char_end": 555
+          },
+          "message": "Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces",
+          "expected": "n = ...",
+          "actual": "n=",
+          "excerpt": "and Cyprus (n=1). Then in "
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": 611,
+            "char_end": 613
+          },
+          "message": "Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces",
+          "expected": "n = ...",
+          "actual": "n=",
+          "excerpt": "h as Macao (n=2), Tunisia "
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": 626,
+            "char_end": 628
+          },
+          "message": "Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces",
+          "expected": "n = ...",
+          "actual": "n=",
+          "excerpt": "), Tunisia (n=1), Egypt (n"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": 639,
+            "char_end": 641
+          },
+          "message": "Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces",
+          "expected": "n = ...",
+          "actual": "n=",
+          "excerpt": "=1), Egypt (n=1), and Sout"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": 663,
+            "char_end": 665
+          },
+          "message": "Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces",
+          "expected": "n = ...",
+          "actual": "n=",
+          "excerpt": "uth Africa (n=1). The two "
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": 714,
+            "char_end": 716
+          },
+          "message": "Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces",
+          "expected": "n = ...",
+          "actual": "n=",
+          "excerpt": "a, the USA (n=4) and Canad"
+        },
+        {
+          "location": "paragraph 121",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 121,
+            "char_start": 731,
+            "char_end": 733
+          },
+          "message": "Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces",
+          "expected": "n = ...",
+          "actual": "n=",
+          "excerpt": "and Canada (n=1), investig"
+        }
+      ]
+    },
+    {
+      "rule_id": "statistics.p_value_format",
+      "category": "Statistics",
+      "name": "p-value formatting (APA 7 §6.44)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "structure.abstract_length",
+      "category": "Structure",
+      "name": "Abstract length check",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "structure.keywords_count",
+      "category": "Structure",
+      "name": "Keywords count check",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "structure.required_sections",
+      "category": "Structure",
+      "name": "Required sections check",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "structure.placeholder",
+      "category": "Structure",
+      "name": "Placeholder detection (ET&S)",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "structure.abstract_single_paragraph",
+      "category": "Structure",
+      "name": "Abstract must be a single paragraph (APA 7)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "structure.abstract_no_indent",
+      "category": "Structure",
+      "name": "Abstract must not be first-line indented (APA 7)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "structure.title_length",
+      "category": "Structure",
+      "name": "Paper title length (APA 7 ≤ 12 words)",
+      "status": "pass",
+      "severity": "info",
+      "details": []
+    },
+    {
+      "rule_id": "structure.no_introduction_heading",
+      "category": "Structure",
+      "name": "Do not label the first section 'Introduction' (APA 7)",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "paragraph 12",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 12,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Section labelled '1. Introduction' — APA 7 §2.27: do not label the introduction with a heading; it is identified by its position immediately after the abstract",
+          "expected": "no 'Introduction' heading",
+          "actual": "1. Introduction",
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "structure.section_order",
+      "category": "Structure",
+      "name": "Document section order (Abstract → Body → References → Appendix)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "structure.no_footnotes",
+      "category": "Structure",
+      "name": "No footnotes or endnotes (ET&S)",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "reference.links",
+      "category": "Reference",
+      "name": "Reference link check",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #15",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 230,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "URL link unreachable: could not connect",
+          "expected": "accessible link",
+          "actual": "https://www.sajst.org/online/index.php/sajst/article/view/273",
+          "excerpt": "Austria, F. Z., Camagay, E. B. A., Domasing, M., Gelido, A., Libatique, C. V., & Cabutotan, V. M. (2023). Extent of infl"
+        },
+        {
+          "location": "Reference #71",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 286,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "DOI link unreachable: HTTP 503 - server error",
+          "expected": "accessible link",
+          "actual": "https://doi.org/10.4324/9781315717203",
+          "excerpt": "Hyland, K. (2015). Teaching and researching writing. https://doi.org/10.4324/9781315717203"
+        },
+        {
+          "location": "Reference #74",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 289,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "DOI link unreachable: could not connect",
+          "expected": "accessible link",
+          "actual": "https://doi.org/10.21608/opde.2023.325331",
+          "excerpt": "Ismail, H. Y. S. I. (2023). Cohesion and coherence in essays generated by ChatGPT: A comparative analysis of university "
+        },
+        {
+          "location": "Reference #119",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 335,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "DOI link unreachable: HTTP 404 - page not found",
+          "expected": "accessible link",
+          "actual": "https://doi.org/10.24191/aclim.v1i2.13",
+          "excerpt": "Samsuddin, S. F., Masenwat, N. Z., & Llah, L. A. (2021). Systematic literature review on cultivating reading culture in "
+        },
+        {
+          "location": "Reference #123",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 339,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "DOI link unreachable: HTTP 404 - page not found",
+          "expected": "accessible link",
+          "actual": "https://doi.org/10.33365/jeltl.v3i2.2106",
+          "excerpt": "Seyoum, W. M., Yigzaw, A., & Bewuketu, H. K. (2022). Students’ attitudes and problems on question-based argumentative es"
+        },
+        {
+          "location": "Reference #128",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 344,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "DOI link unreachable: HTTP 404 - page not found",
+          "expected": "accessible link",
+          "actual": "https://doi.org/10.59165/educatum.v2i2.65",
+          "excerpt": "Sudrajad, W., Fikri, M. H., & Putra, R. P. B. (2024). Help me ChatGPT! What ways does ChatGPT influence students’ produc"
+        },
+        {
+          "location": "Reference #130",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 346,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "DOI link unreachable: HTTP 404 - page not found",
+          "expected": "accessible link",
+          "actual": "https://doi.org/10.52046/edu.j.v3i2.1803",
+          "excerpt": "Sutrisno, D. B. (2023). Practicing IELTS writing for L2 writers with ChatGPT: An exploratory self-study. English Departm"
+        },
+        {
+          "location": "Reference #143",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 359,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "DOI link unreachable: HTTP 404 - page not found",
+          "expected": "accessible link",
+          "actual": "https://doi.org/10.34050/elsjish.v6i4.31424",
+          "excerpt": "Wahyuddin, Hasman, H., & Ramadhani Idris, A. (2023). Implementation of ChatGPT on English class essay writing skills in "
+        }
+      ]
+    }
+  ]
+}

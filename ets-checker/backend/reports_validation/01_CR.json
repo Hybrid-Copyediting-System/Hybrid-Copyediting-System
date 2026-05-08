@@ -1,0 +1,1601 @@
+{
+  "file_name": "01_CR.docx",
+  "timestamp": "2026-05-08T15:50:32.591121Z",
+  "summary": {
+    "total_checks": 47,
+    "passed": 31,
+    "errors": 2,
+    "warnings": 8,
+    "info": 6
+  },
+  "results": [
+    {
+      "rule_id": "citation.cross_reference",
+      "category": "Citation",
+      "name": "Citation–reference cross-check",
+      "status": "fail",
+      "severity": "error",
+      "details": [
+        {
+          "location": "paragraph 13",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 13,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Possible spelling error: Citation 'Ney et al., 2014' may refer to Reference #40 ('Nye', 2014) — check the author surname spelling",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Ney et al., 2014"
+        },
+        {
+          "location": "paragraph 24",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 24,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Citation 'D’Mello & Graesser, 2021b' has no matching reference (references with surname 'D'Mello' exist for year(s) 2012a, 2012b, but none match the cited 2021 — likely a year typo or a different work)",
+          "expected": null,
+          "actual": null,
+          "excerpt": "D’Mello & Graesser, 2021b"
+        },
+        {
+          "location": "paragraph 44",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 44,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Possible spelling error: Citation 'Kalelioglu & Gülbahar, 2014' may refer to Reference #32 ('Kaleliglu', 2014) — check the author surname spelling",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Kalelioglu & Gülbahar, 2014"
+        },
+        {
+          "location": "Reference #16",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 259,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is not cited in text",
+          "expected": null,
+          "actual": null,
+          "excerpt": "D’Mello, S., & Graesser, A. (2012b). Dynamics of affective states during complex learning. Learning and Instruction, 22(2), 145-157. https://doi.org/10.1016/j.learninstruc.2011.10.001"
+        },
+        {
+          "location": "Reference #47",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 290,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is not cited in text",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Taub, M., Azevedo, R., Rajendran, R., Cloude, E., Gautam, B., & Price, M. (2021). How are students’ emotions related to the accuracy of cognitive and metacognitive processes during learning with an in"
+        },
+        {
+          "location": "Reference #53",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 296,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is not cited in text",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Zhang, L., Lin, J., Kuang, Z., Xu, S., Yeasin, M., & Hu, X. (2024). SPL: A Socratic Playground for Learning Powered by Large Language Mode. https://doi.org/10.48550/arXiv.2406.13919"
+        },
+        {
+          "location": "Reference #44",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 287,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference could not be parsed (missing author or year)",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Schmucker, R., Xia, M., Azaria, A., & Mitchell, T. Ruffle & Riley: Towards the automated induction of conversational tutoring systems. https://doi.org/10.48550/arXiv.2310.01420"
+        }
+      ]
+    },
+    {
+      "rule_id": "citation.et_al_usage",
+      "category": "Citation",
+      "name": "Et al. usage check (APA 7th)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "citation.amp_vs_and",
+      "category": "Citation",
+      "name": "Use & in parens, 'and' in narrative (APA 7 §8.17)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "figures_tables.referenced_in_text",
+      "category": "Figures & Tables",
+      "name": "Figures/tables referenced in text",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "figures_tables.caption_position",
+      "category": "Figures & Tables",
+      "name": "Caption position check (ET&S requirement)",
+      "status": "pass",
+      "severity": "info",
+      "details": []
+    },
+    {
+      "rule_id": "figures_tables.table_format",
+      "category": "Figures & Tables",
+      "name": "Table format check",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "figures_tables.numbering_sequence",
+      "category": "Figures & Tables",
+      "name": "Figure / table numbering sequence",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "figures_tables.caption_format",
+      "category": "Figures & Tables",
+      "name": "Caption format: number bold, title italic",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "Figure 1",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 69,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure number 'Figure 1' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold",
+          "expected": "bold",
+          "actual": "not bold",
+          "excerpt": "Figure 1. The system architecture of SPL"
+        },
+        {
+          "location": "Figure 1",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 69,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure 1 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Figure 1. The system architecture of SPL"
+        },
+        {
+          "location": "Figure 2",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 75,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure number 'Figure 2' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold",
+          "expected": "bold",
+          "actual": "not bold",
+          "excerpt": "Figure 2. An example learning interface of SPL: (a) menu of the key content; (b) learning entrance; (c) six phases of LLM-ST corresponding to Bloom's taxonomy; (d) learners' input area; (e) dialogue h"
+        },
+        {
+          "location": "Figure 2",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 75,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure 2 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Figure 2. An example learning interface of SPL: (a) menu of the key content; (b) learning entrance; (c) six phases of LLM-ST corresponding to Bloom's taxonomy; (d) learners' input area; (e) dialogue h"
+        },
+        {
+          "location": "Figure 3",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 142,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure number 'Figure 3' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold",
+          "expected": "bold",
+          "actual": "not bold",
+          "excerpt": "Figure 3. Detailed procedure of the study"
+        },
+        {
+          "location": "Figure 3",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 142,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure 3 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Figure 3. Detailed procedure of the study"
+        },
+        {
+          "location": "Figure 4",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 210,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure number 'Figure 4' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold",
+          "expected": "bold",
+          "actual": "not bold",
+          "excerpt": "Figure 4. Daily trend of emotions"
+        },
+        {
+          "location": "Figure 4",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 210,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Figure 4 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Figure 4. Daily trend of emotions"
+        },
+        {
+          "location": "Table 1",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 157,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Table number 'Table 1' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold",
+          "expected": "bold",
+          "actual": "not bold",
+          "excerpt": "Table 1. Descriptive statistics"
+        },
+        {
+          "location": "Table 1",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 157,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Table 1 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title",
+          "expected": "italic title",
+          "actual": "title not italic",
+          "excerpt": "Table 1. Descriptive statistics"
+        }
+      ]
+    },
+    {
+      "rule_id": "font.body",
+      "category": "Fonts",
+      "name": "Body font check",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "font.stat_italic",
+      "category": "Fonts",
+      "name": "Statistical symbol italics",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "font.abstract",
+      "category": "Fonts",
+      "name": "Abstract font check (ET&S: italic)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "font.heading",
+      "category": "Fonts",
+      "name": "Heading font check",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "font.reference",
+      "category": "Fonts",
+      "name": "Reference font check",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "font.title",
+      "category": "Fonts",
+      "name": "Title font check",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "headings.no_numbering",
+      "category": "Structure",
+      "name": "Headings must not be numbered (APA 7)",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "paragraph 11",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 11,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '1. Introduction' has a numeric prefix '1.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '1.'",
+          "excerpt": "1. Introduction"
+        },
+        {
+          "location": "paragraph 18",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 18,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '2. Related Work' has a numeric prefix '2.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '2.'",
+          "excerpt": "2. Related Work"
+        },
+        {
+          "location": "paragraph 61",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 61,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '3. Socratic Playground for Learning: A Socratic Tutoring System Powered by LLM' has a numeric prefix '3.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '3.'",
+          "excerpt": "3. Socratic Playground for Learning: A Socratic Tutoring System Powered by LLM"
+        },
+        {
+          "location": "paragraph 79",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 79,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '4. Aims and Questions of the Current Study' has a numeric prefix '4.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '4.'",
+          "excerpt": "4. Aims and Questions of the Current Study"
+        },
+        {
+          "location": "paragraph 92",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 92,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '5. Method' has a numeric prefix '5.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '5.'",
+          "excerpt": "5. Method"
+        },
+        {
+          "location": "paragraph 146",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 146,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '6. Results and Discussion' has a numeric prefix '6.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '6.'",
+          "excerpt": "6. Results and Discussion"
+        },
+        {
+          "location": "paragraph 226",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 226,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '7. Implications, Limitations, and Future Directions' has a numeric prefix '7.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '7.'",
+          "excerpt": "7. Implications, Limitations, and Future Directions"
+        },
+        {
+          "location": "paragraph 237",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 237,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Heading '8. Conclusions' has a numeric prefix '8.' — APA 7 §2.27 forbids numbered section headings",
+          "expected": "heading without numeric prefix",
+          "actual": "prefix: '8.'",
+          "excerpt": "8. Conclusions"
+        }
+      ]
+    },
+    {
+      "rule_id": "headings.level_order",
+      "category": "Structure",
+      "name": "Heading levels must not skip",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "layout.paper_size",
+      "category": "Layout",
+      "name": "Paper size check",
+      "status": "fail",
+      "severity": "error",
+      "details": [
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Paper size should be A4",
+          "expected": "A4 (21.0×29.7 cm)",
+          "actual": "Letter (21.5935×27.9435 cm)",
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "layout.margins",
+      "category": "Layout",
+      "name": "Margin check",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "layout.line_spacing",
+      "category": "Layout",
+      "name": "Line spacing check",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "layout.page_numbers",
+      "category": "Layout",
+      "name": "Page number check",
+      "status": "pass",
+      "severity": "info",
+      "details": []
+    },
+    {
+      "rule_id": "layout.first_line_indent",
+      "category": "Layout",
+      "name": "Body first-line indent",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "No first-line indent detected on body paragraphs — APA 7 §2.24 / ET&S expect a first-line indent of 1.27 cm (0.5 inch); verify the Normal style",
+          "expected": "1.27 cm",
+          "actual": "0 cm / unset",
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "layout.body_alignment",
+      "category": "Layout",
+      "name": "Body paragraph alignment",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "paragraph 13",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 13,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Conversational intelligent tutoring systems (CITSs) aim to provide learners with adaptive and personalized experiences t"
+        },
+        {
+          "location": "paragraph 15",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 15,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "One pedagogical approach that can hedge risks is Socratic tutoring. Socratic tutoring has been praised for its effective"
+        },
+        {
+          "location": "paragraph 20",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 20,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "2.1. Conversational Intelligent Tutoring Systems"
+        },
+        {
+          "location": "paragraph 22",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 22,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Intelligent tutoring systems (ITSs) are computer-assisted learning environments that simulate human tutoring and offer p"
+        },
+        {
+          "location": "paragraph 24",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 24,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Vygotsky's Zone of Proximal Development emphasizes the importance of social interaction and scaffolding in cognitive dev"
+        },
+        {
+          "location": "paragraph 26",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 26,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Despite these advantages, the widespread adoption of CITSs in education has encountered several challenges. One barrier "
+        },
+        {
+          "location": "paragraph 29",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 29,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "2.2. Opportunities and Risks of LLMs in Education"
+        },
+        {
+          "location": "paragraph 42",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 42,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "2.3. The Impact of Socratic Tutoring on Learning"
+        },
+        {
+          "location": "paragraph 63",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 63,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Socratic Playground for Learning (SPL) is a CITS powered by an LLM to facilitate online learning through Socratic tutori"
+        },
+        {
+          "location": "paragraph 65",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 65,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Similar to most CITSs, the functionality of SPL can be characterized by an outer loop and an inner loop. For the outer l"
+        },
+        {
+          "location": "paragraph 67",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 67,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "To support scalability and adaptability, SPL allows for easy customization across domains and learner profiles. The scen"
+        },
+        {
+          "location": "paragraph 73",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 73,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Figure 2 shows an example of a learning interface with some key elements of SPL. Before interacting with SPL, learners c"
+        },
+        {
+          "location": "paragraph 96",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 96,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "This study used a single-group pretest-posttest design to investigate the effects of SPL on learning performance and lea"
+        },
+        {
+          "location": "paragraph 101",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 101,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "A total of 42 Chinese college students were recruited online, and 30 of them who completed the entire study and provided"
+        },
+        {
+          "location": "paragraph 104",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 104,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "5.3. Learning topic and content"
+        },
+        {
+          "location": "paragraph 106",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 106,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "The ARIES (Acquiring Research Investigative and Evaluative Skills) program provided the learning topic about identifying"
+        },
+        {
+          "location": "paragraph 108",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 108,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "In this study, the preliminary knowledge in learning entrance was generated by the LLM GPT-4. Each participant received "
+        },
+        {
+          "location": "paragraph 113",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 113,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "5.4.1. The rubric to evaluate the content quality. The rubric to evaluate the content quality: This study used the asses"
+        },
+        {
+          "location": "paragraph 116",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 116,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "5.4.2. Prior knowledge and posttest knowledge tests. The knowledge pretest and posttest were homogeneous transfer tests "
+        },
+        {
+          "location": "paragraph 118",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 118,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment",
+          "expected": "LEFT or JUSTIFY",
+          "actual": "JUSTIFY ",
+          "excerpt": "Before this study, we recruited 35 college students to participate in the knowledge pretest and posttest, and we confirm"
+        },
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "... and 23 more body alignment issues",
+          "expected": null,
+          "actual": null,
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "quotation.pagination",
+      "category": "Quotation",
+      "name": "Direct quotations need a page locator",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "paragraph 128",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 128,
+            "char_start": 271,
+            "char_end": 327
+          },
+          "message": "Direct quotation without a page locator — APA 7 / AQF Item 4: cite the source with p./pp. (or Section/para.) for any quoted text",
+          "expected": "(Author, Year, p. N) or equivalent locator",
+          "actual": "citation present, no p./pp.",
+          "excerpt": "\"the emotions described do not match the context at all\""
+        },
+        {
+          "location": "paragraph 128",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 128,
+            "char_start": 334,
+            "char_end": 384
+          },
+          "message": "Direct quotation without a page locator — APA 7 / AQF Item 4: cite the source with p./pp. (or Section/para.) for any quoted text",
+          "expected": "(Author, Year, p. N) or equivalent locator",
+          "actual": "citation present, no p./pp.",
+          "excerpt": "\"the emotions described fit the context perfectly\""
+        }
+      ]
+    },
+    {
+      "rule_id": "quotation.block_format",
+      "category": "Quotation",
+      "name": "Long quotations must be block-quoted (≥ 40 words)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "reference.no_et_al",
+      "category": "Reference",
+      "name": "No 'et al.' in reference list",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "reference.alphabetical_order",
+      "category": "Reference",
+      "name": "Reference list alphabetical order",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #15",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 258,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Out of alphabetical order: Reference #15 ('D'Mello', 2012) should come before Reference #14 ('Dwivedi', 2023)",
+          "expected": "dmello (first author) before dwivedi",
+          "actual": "dwivedi before dmello",
+          "excerpt": "D’Mello, S., & Graesser, A. (2012a). Autotutor and affective autotutor: Learning by talking with cognitively and emotionally intelligent computers that talk back. The ACM Transactions on Interactive I"
+        },
+        {
+          "location": "Reference #31",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 274,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Out of alphabetical order: Reference #31 ('Hsu', 2022) should come before Reference #30 ('Hung', 2024)",
+          "expected": "hsu (first author) before hung",
+          "actual": "hung before hsu",
+          "excerpt": "Hsu, F., Lin, I., Yeh, H., & Chen, N. (2022). Effect of Socratic Reflection Prompts via video-based learning system on elementary school students’ critical thinking skills. Computers & Education, 183,"
+        }
+      ]
+    },
+    {
+      "rule_id": "reference.hanging_indent",
+      "category": "Reference",
+      "name": "Reference hanging indent",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #1",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 244,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Aleven, V., McLaren, B. M., Sewall, J., Van Velsen, M., Popescu, O., Demi, S., Ringenberg, M., & Koedinger, K. R. (2016). Example-tracing tutors: Intelligent tutor development for nonprogrammers. Inte"
+        },
+        {
+          "location": "Reference #2",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 245,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Aleven, V., Stahl, E., Schworm, S., Fischer, F., & Wallace, R. (2003). Help seeking and help design in interactive learning environments. Review of educational research, 73(3), 277-320. https://doi.or"
+        },
+        {
+          "location": "Reference #3",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 246,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Anderson, L. W., Krathwohl, D. R., Airasian, P. W., Cruikshank, K. A., Mayer, R. E., Pintrich, P. R., Raths, J., & Wittrock, M. C. (2001). A taxonomy for learning, teaching, and assessing: A revision "
+        },
+        {
+          "location": "Reference #4",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 247,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Azevedo, R., Bouchet, F., Duffy, M., Harley, J., Taub, M., Trevors, G.,...,& Cerezo, R. (2022). Lessons learned and future directions of MetaTutor: Leveraging multichannel data to scaffold self-regula"
+        },
+        {
+          "location": "Reference #5",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 248,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Carlini, N., Tramer, F., Wallace, E., Jagielski, M., Herbert-Voss, A., Lee, K., Roberts, A., Brown, T. B., Song, D., & Erlingsson, U. (2021). Extracting training data from large language models. USENI"
+        },
+        {
+          "location": "Reference #6",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 249,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Chang, J., Hung, H., & Yang, Y. C. (2024). Effects of an annotation-supported Socratic questioning approach on students' argumentative writing performance and critical thinking skills in flipped langu"
+        },
+        {
+          "location": "Reference #7",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 250,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Chen, Y., Jensen, S., Albert, L. J., Gupta, S., & Lee, T. (2023). Artificial intelligence (AI) student assistants in the classroom: Designing chatbots to support student success. Information Systems F"
+        },
+        {
+          "location": "Reference #8",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 251,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Chi, M. T., Adams, J., Bogusch, E. B., Bruchok, C., Kang, S., Lancaster, M., Levy, R., Li N., McEldoon, K. L., Stump, G. S., Wylie, R., Xu, D., Yaghmourian, D. L. (2018). Translating the ICAP theory o"
+        },
+        {
+          "location": "Reference #9",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 252,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Chi, M. T., & Wylie, R. (2014). The ICAP framework: Linking cognitive engagement to active learning outcomes. Educational psychologist, 49(4), 219-243. https://doi.org/10.1080/00461520.2014.965823"
+        },
+        {
+          "location": "Reference #10",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 253,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Cohen, L., Manion, L., & Morrison, K. (2013). Research methods in education. Routledge"
+        },
+        {
+          "location": "Reference #11",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 254,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Dalim, S. F., Ishak, A. S., & Hamzah, L. M. (2022). Promoting students’ critical thinking through Socratic method: Views and challenges. Asian Journal of University Education, 18(4), 1034-1047. https:"
+        },
+        {
+          "location": "Reference #12",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 255,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Ding, Y., Hu, H., Zhou, J., Chen, Q., Jiang, B., & He, L. (2024, October). Boosting Large Language Models with Socratic Method for Conversational Mathematics Teaching. In E. Serra, & F. Spezzano (Eds."
+        },
+        {
+          "location": "Reference #13",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 256,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Dinkins, C. S., & Cangelosi, P. R. (2019). Putting Socrates back in Socratic method: Theory-based debriefing in the nursing classroom. Nursing Philosophy, 20(2), Article e12240. https://doi.org/10.111"
+        },
+        {
+          "location": "Reference #14",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 257,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Dwivedi, Y. K., Kshetri, N., Hughes, L., Slade, E. L., Jeyaraj, A., Kar, A. K., ... & Wright, R. (2023). So what if ChatGPT wrote it? Multidisciplinary perspectives on opportunities, challenges and im"
+        },
+        {
+          "location": "Reference #15",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 258,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "D’Mello, S., & Graesser, A. (2012a). Autotutor and affective autotutor: Learning by talking with cognitively and emotionally intelligent computers that talk back. The ACM Transactions on Interactive I"
+        },
+        {
+          "location": "Reference #16",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 259,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "D’Mello, S., & Graesser, A. (2012b). Dynamics of affective states during complex learning. Learning and Instruction, 22(2), 145-157. https://doi.org/10.1016/j.learninstruc.2011.10.001"
+        },
+        {
+          "location": "Reference #17",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 260,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Elder, L, & Paul, R. (1998). The role of Socratic questioning in thinking, teaching and learning. Clearing House, 71(5), 297-301. https://doi.org/10.1080/00098659809602729"
+        },
+        {
+          "location": "Reference #18",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 261,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Elkowitz, D. E. (2021). Socratic questioning to engage learners. In A. For- nari & A. Poznanski (Eds.), How-to guide for active learning (pp. 107-119). Springer."
+        },
+        {
+          "location": "Reference #19",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 262,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Elyoseph, Z., Hadar-Shoval, D., Asraf, K., & Lvovsky, M. (2023). ChatGPT outperforms humans in emotional awareness evaluations. Frontiers in Psychology, 14, Article 1199058. https://doi.org/10.3389/fp"
+        },
+        {
+          "location": "Reference #20",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 263,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Reference is missing hanging indent",
+          "expected": "hanging indent of 1.27 cm",
+          "actual": "no indent set",
+          "excerpt": "Exintaris, B., Karunaratne, N., & Yuriev, E. (2023). Metacognition and critical thinking: Using ChatGPT-generated responses as prompts for critique in a problem-solving workshop (SMARTCHEMPer). Journa"
+        },
+        {
+          "location": "document",
+          "locator": {
+            "kind": "document",
+            "paragraph_index": null,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "... and 33 more hanging indent issues",
+          "expected": null,
+          "actual": null,
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "reference.page_number_complete",
+      "category": "Reference",
+      "name": "Reference page-number completeness",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "reference.doi_or_url",
+      "category": "Reference",
+      "name": "Reference DOI / URL presence",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "citation.disambiguate",
+      "category": "Citation",
+      "name": "Reference suffix disambiguation (a, b, c)",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "reference.apa_format",
+      "category": "Reference",
+      "name": "Reference APA structural format",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #10",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 253,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA format issue: entry does not end with a period",
+          "expected": null,
+          "actual": null,
+          "excerpt": "Cohen, L., Manion, L., & Morrison, K. (2013). Research methods in education. Routledge"
+        }
+      ]
+    },
+    {
+      "rule_id": "reference.italics_journal_volume",
+      "category": "Reference",
+      "name": "Reference italics: journal name + volume",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #50",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 293,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "APA italics: volume number '76' should be italic",
+          "expected": "journal + volume italic; issue number roman",
+          "actual": "volume number '76' should be italic",
+          "excerpt": "evidence. Journal of Personality and Social Psychology, 76(5), 820-838."
+        }
+      ]
+    },
+    {
+      "rule_id": "reference.url_terminal_punctuation",
+      "category": "Reference",
+      "name": "DOI/URL must not end with a period",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "reference.author_count_rule",
+      "category": "Reference",
+      "name": "Author-list APA 7 §9.8 (≤ 20 list all; 21+ uses ellipsis + last)",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #4",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 247,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Only 8 visible author(s) but the list uses '...' — APA 7 §9.8 reserves the ellipsis for ≥ 21-author papers (first 19 + ... + final author); for shorter lists, list every author",
+          "expected": "all 8 authors listed",
+          "actual": "author list contains '...'",
+          "excerpt": "Azevedo, R., Bouchet, F., Duffy, M., Harley, J., Taub, M., Trevors, G.,...,& Cerezo, R."
+        },
+        {
+          "location": "Reference #14",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 257,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Only 8 visible author(s) but the list uses '...' — APA 7 §9.8 reserves the ellipsis for ≥ 21-author papers (first 19 + ... + final author); for shorter lists, list every author",
+          "expected": "all 8 authors listed",
+          "actual": "author list contains '...'",
+          "excerpt": "Dwivedi, Y. K., Kshetri, N., Hughes, L., Slade, E. L., Jeyaraj, A., Kar, A. K., ... & Wright, R."
+        },
+        {
+          "location": "Reference #34",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 277,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Only 8 visible author(s) but the list uses '...' — APA 7 §9.8 reserves the ellipsis for ≥ 21-author papers (first 19 + ... + final author); for shorter lists, list every author",
+          "expected": "all 8 authors listed",
+          "actual": "author list contains '...'",
+          "excerpt": "Kasneci, E., Sessler, K., Küchemann, S., Bannert, M., Dementieva, D., Fischer, F., ... & Kasneci, G."
+        }
+      ]
+    },
+    {
+      "rule_id": "statistics.operator_spacing",
+      "category": "Statistics",
+      "name": "Relational operator spacing",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "statistics.p_value_format",
+      "category": "Statistics",
+      "name": "p-value formatting (APA 7 §6.44)",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "paragraph 155",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 155,
+            "char_start": 303,
+            "char_end": 312
+          },
+          "message": "p value with leading zero ('0.005') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.005')",
+          "expected": ".005",
+          "actual": "0.005",
+          "excerpt": " (r = 0.50， p = 0.005). Furthermo"
+        },
+        {
+          "location": "paragraph 155",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 155,
+            "char_start": 462,
+            "char_end": 471
+          },
+          "message": "p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')",
+          "expected": ".001",
+          "actual": "0.001",
+          "excerpt": "e (t = 7.57，p < 0.001, d = 1.41),"
+        },
+        {
+          "location": "paragraph 206",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 206,
+            "char_start": 166,
+            "char_end": 175
+          },
+          "message": "p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')",
+          "expected": ".001",
+          "actual": "0.001",
+          "excerpt": " (r = 0.89, p < 0.001). Important"
+        },
+        {
+          "location": "paragraph 206",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 206,
+            "char_start": 285,
+            "char_end": 293
+          },
+          "message": "p value with leading zero ('0.13') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.13')",
+          "expected": ".13",
+          "actual": "0.13",
+          "excerpt": "(t = -1.58, p = 0.13) implies th"
+        },
+        {
+          "location": "paragraph 206",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 206,
+            "char_start": 601,
+            "char_end": 610
+          },
+          "message": "p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')",
+          "expected": ".001",
+          "actual": "0.001",
+          "excerpt": " (r = 0.95, p < 0.001), and there"
+        },
+        {
+          "location": "paragraph 206",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 206,
+            "char_start": 677,
+            "char_end": 686
+          },
+          "message": "p value with leading zero ('0.046') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.046')",
+          "expected": ".046",
+          "actual": "0.046",
+          "excerpt": "(t = -2.09, p = 0.046, d = -0.13)"
+        },
+        {
+          "location": "paragraph 208",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 208,
+            "char_start": 653,
+            "char_end": 662
+          },
+          "message": "p value with leading zero ('0.003') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.003')",
+          "expected": ".003",
+          "actual": "0.003",
+          "excerpt": "(t = -3.21, p = 0.003, d = -0.52;"
+        },
+        {
+          "location": "paragraph 208",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 208,
+            "char_start": 867,
+            "char_end": 876
+          },
+          "message": "p value with leading zero ('0.046') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.046')",
+          "expected": ".046",
+          "actual": "0.046",
+          "excerpt": "(t = -2.09, p = 0.046,  d = -0.18"
+        },
+        {
+          "location": "paragraph 213",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 213,
+            "char_start": 1288,
+            "char_end": 1296
+          },
+          "message": "p value with leading zero ('0.00') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.00')",
+          "expected": ".00",
+          "actual": "0.00",
+          "excerpt": " (r = 0.65, p < 0.00; α = 0.78)."
+        }
+      ]
+    },
+    {
+      "rule_id": "structure.abstract_length",
+      "category": "Structure",
+      "name": "Abstract length check",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "structure.keywords_count",
+      "category": "Structure",
+      "name": "Keywords count check",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "structure.required_sections",
+      "category": "Structure",
+      "name": "Required sections check",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "structure.placeholder",
+      "category": "Structure",
+      "name": "Placeholder detection (ET&S)",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "structure.abstract_single_paragraph",
+      "category": "Structure",
+      "name": "Abstract must be a single paragraph (APA 7)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "structure.abstract_no_indent",
+      "category": "Structure",
+      "name": "Abstract must not be first-line indented (APA 7)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "structure.title_length",
+      "category": "Structure",
+      "name": "Paper title length (APA 7 ≤ 12 words)",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "paragraph 0 (title)",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 0,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Paper title runs 14 words — APA 7 §2.4 recommends ≤ 12 words for clarity and indexing",
+          "expected": "≤ 12 words",
+          "actual": "14 words",
+          "excerpt": "Unlocking the Potential of Socratic Tutoring Powered by Large Language Model: A Pilot Study"
+        }
+      ]
+    },
+    {
+      "rule_id": "structure.no_introduction_heading",
+      "category": "Structure",
+      "name": "Do not label the first section 'Introduction' (APA 7)",
+      "status": "fail",
+      "severity": "info",
+      "details": [
+        {
+          "location": "paragraph 11",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 11,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "Section labelled '1. Introduction' — APA 7 §2.27: do not label the introduction with a heading; it is identified by its position immediately after the abstract",
+          "expected": "no 'Introduction' heading",
+          "actual": "1. Introduction",
+          "excerpt": null
+        }
+      ]
+    },
+    {
+      "rule_id": "structure.section_order",
+      "category": "Structure",
+      "name": "Document section order (Abstract → Body → References → Appendix)",
+      "status": "pass",
+      "severity": "warning",
+      "details": []
+    },
+    {
+      "rule_id": "structure.no_footnotes",
+      "category": "Structure",
+      "name": "No footnotes or endnotes (ET&S)",
+      "status": "pass",
+      "severity": "error",
+      "details": []
+    },
+    {
+      "rule_id": "reference.links",
+      "category": "Reference",
+      "name": "Reference link check",
+      "status": "fail",
+      "severity": "warning",
+      "details": [
+        {
+          "location": "Reference #11",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 254,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "DOI link unreachable: request timed out",
+          "expected": "accessible link",
+          "actual": "https://doi.org/10.24191/ajue.v18i4.20012",
+          "excerpt": "Dalim, S. F., Ishak, A. S., & Hamzah, L. M. (2022). Promoting students’ critical thinking through Socratic method: Views"
+        },
+        {
+          "location": "Reference #21",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 264,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "DOI link unreachable: network error checking URL",
+          "expected": "accessible link",
+          "actual": "https://doi.org/10.37074/jalt.2023.6.1.22",
+          "excerpt": "Firat, M. (2023). What ChatGPT means for universities: Perceptions of scholars and students. Journal of Applied Learning"
+        },
+        {
+          "location": "Reference #43",
+          "locator": {
+            "kind": "paragraph",
+            "paragraph_index": 286,
+            "char_start": null,
+            "char_end": null
+          },
+          "message": "DOI link unreachable: network error checking URL",
+          "expected": "accessible link",
+          "actual": "https://doi.org/10.37074/jalt.2023.6.1.9",
+          "excerpt": "Rudolph, J., Tan, S., & Tan, S. (2023). ChatGPT: Bullshit spewer or the end of traditional assessments in higher educati"
+        }
+      ]
+    }
+  ]
+}

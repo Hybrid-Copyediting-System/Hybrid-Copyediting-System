@@ -1,0 +1,141 @@
+{
+  "paragraphs": 646,
+  "tables": 7,
+  "references": 168,
+  "citations": 318,
+  "figures": 3,
+  "sections": [
+    {
+      "title": "Abstract",
+      "level": 1,
+      "p": 7
+    },
+    {
+      "title": "1. Introduction",
+      "level": 1,
+      "p": 12
+    },
+    {
+      "title": "2. Methodology",
+      "level": 1,
+      "p": 30
+    },
+    {
+      "title": "2.1. Database search",
+      "level": 2,
+      "p": 35
+    },
+    {
+      "title": "2.2. Systematic review process",
+      "level": 2,
+      "p": 40
+    },
+    {
+      "title": "2.2.1. Identification",
+      "level": 3,
+      "p": 42
+    },
+    {
+      "title": "2.2.2. Screening (inclusion and exclusion criteria)",
+      "level": 3,
+      "p": 58
+    },
+    {
+      "title": "2.2.3. Eligibility",
+      "level": 3,
+      "p": 83
+    },
+    {
+      "title": "Results",
+      "level": 1,
+      "p": 115
+    },
+    {
+      "title": "3.1. Quantitative findings",
+      "level": 2,
+      "p": 117
+    },
+    {
+      "title": "3.1.1. Countries/regions",
+      "level": 3,
+      "p": 119
+    },
+    {
+      "title": "3.1.2. Research designs",
+      "level": 3,
+      "p": 127
+    },
+    {
+      "title": "3.1.3. Distribution of the studies by years",
+      "level": 3,
+      "p": 132
+    },
+    {
+      "title": "3.2. Qualitative findings",
+      "level": 2,
+      "p": 140
+    },
+    {
+      "title": "Discussion",
+      "level": 1,
+      "p": 155
+    },
+    {
+      "title": "4.1. Question 1: The effects of using ChatGPT in the learning and teaching process",
+      "level": 2,
+      "p": 157
+    },
+    {
+      "title": "4.1.1 The benefits and drawbacks of using ChatGPT in the learning process",
+      "level": 3,
+      "p": 159
+    },
+    {
+      "title": "4.1.2 The benefits and drawbacks of using ChatGPT in the teaching process",
+      "level": 3,
+      "p": 172
+    },
+    {
+      "title": "4.2. Question 2: The effects of ChatGPT on students’ academic writing performance",
+      "level": 2,
+      "p": 183
+    },
+    {
+      "title": "4.3. Question 3: The suggestions of using academic writing in teaching and learning",
+      "level": 2,
+      "p": 194
+    },
+    {
+      "title": "Conclusion",
+      "level": 1,
+      "p": 207
+    },
+    {
+      "title": "References",
+      "level": 1,
+      "p": 214
+    },
+    {
+      "title": "Appendix A Research designs used in the reviewed articles",
+      "level": 1,
+      "p": 385
+    },
+    {
+      "title": "Appendix B Benefits and drawbacks of using ChatGPT in the teaching and learning process",
+      "level": 1,
+      "p": 451
+    },
+    {
+      "title": "Appendix C The effects of using ChatGPT on writing performance",
+      "level": 1,
+      "p": 576
+    },
+    {
+      "title": "Appendix D The suggestions on using ChatGPT in academic writing class",
+      "level": 1,
+      "p": 625
+    }
+  ],
+  "footnotes_count": 0,
+  "footnote_kinds": {}
+}

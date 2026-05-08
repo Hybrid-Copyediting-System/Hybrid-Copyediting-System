@@ -1,0 +1,405 @@
+====================================================================================================
+FILE: ../../local To be Tested/ETS-029-3-0069.R3.docx
+====================================================================================================
+paragraphs=1769 tables=9 references=62 citations=101 figures=7 sections=8 footnotes=0
+SUMMARY: total=47 passed=28 errors=3 warnings=10 info=6
+----------------------------------------------------------------------------------------------------
+FAILED rules (19):
+  [error  ] citation.cross_reference                   (6 details)  Citation–reference cross-check
+  [info   ] figures_tables.caption_format              (21 details)  Caption format: number bold, title italic
+  [warning] font.abstract                              (1 details)  Abstract font check (ET&S: italic)
+  [warning] font.reference                             (21 details)  Reference font check
+  [info   ] headings.no_numbering                      (5 details)  Headings must not be numbered (APA 7)
+  [error  ] layout.paper_size                          (1 details)  Paper size check
+  [info   ] layout.first_line_indent                   (1 details)  Body first-line indent
+  [info   ] layout.body_alignment                      (21 details)  Body paragraph alignment
+  [warning] quotation.pagination                       (2 details)  Direct quotations need a page locator
+  [warning] reference.alphabetical_order               (2 details)  Reference list alphabetical order
+  [warning] reference.hanging_indent                   (21 details)  Reference hanging indent
+  [warning] reference.doi_or_url                       (7 details)  Reference DOI / URL presence
+  [error  ] citation.disambiguate                      (2 details)  Reference suffix disambiguation (a, b, c)
+  [warning] reference.italics_journal_volume           (1 details)  Reference italics: journal name + volume
+  [warning] reference.author_count_rule                (1 details)  Author-list APA 7 §9.8 (≤ 20 list all; 21+ uses ellipsis + last)
+  [warning] statistics.p_value_format                  (3 details)  p-value formatting (APA 7 §6.44)
+  [info   ] structure.title_length                     (1 details)  Paper title length (APA 7 ≤ 12 words)
+  [info   ] structure.no_introduction_heading          (1 details)  Do not label the first section 'Introduction' (APA 7)
+  [warning] reference.links                            (1 details)  Reference link check
+----------------------------------------------------------------------------------------------------
+
+### [citation.cross_reference] Citation–reference cross-check  sev=error  (6 details)
+  - paragraph 26: Surname inconsistency: 'Uslu et al., 2023' cites 'uslu', but Reference #8 lists 'Atman Uslu' — verify the multi-word surname is used consistently in citation and reference
+      excerpt: 'Uslu et al., 2023'
+  - paragraph 814: Surname inconsistency: 'Uslu et al., 2023' cites 'uslu', but Reference #8 lists 'Atman Uslu' — verify the multi-word surname is used consistently in citation and reference
+      excerpt: 'Uslu et al., 2023'
+  - paragraph 816: Surname inconsistency: 'Uslu et al., 2023' cites 'uslu', but Reference #8 lists 'Atman Uslu' — verify the multi-word surname is used consistently in citation and reference
+      excerpt: 'Uslu et al., 2023'
+  - paragraph 818: Surname inconsistency: 'Uslu et al., 2023' cites 'uslu', but Reference #8 lists 'Atman Uslu' — verify the multi-word surname is used consistently in citation and reference
+      excerpt: 'Uslu et al., 2023'
+  - paragraph 1423: Surname inconsistency: 'Gómez et al., 2023' cites 'gómez', but Reference #47 lists 'Orozco Gómez' — verify the multi-word surname is used consistently in citation and reference
+      excerpt: 'Gómez et al., 2023'
+  - Reference #59: Reference is not cited in text
+      excerpt: 'Vygotsky, L. S. (1978). Mind in society: The development of higher psychological processes. In: Harvard university press.'
+
+### [figures_tables.caption_format] Caption format: number bold, title italic  sev=info  (21 details)
+  - Figure 1: Figure number 'Figure 1' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold
+      expected='bold'  actual='not bold'
+      excerpt: 'Figure 1. Literature search and selection'
+  - Figure 1: Figure 1 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Figure 1. Literature search and selection'
+  - Figure 2: Figure number 'Figure 2' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold
+      expected='bold'  actual='not bold'
+      excerpt: 'Figure 2. Procedure of BERTopic modeling for topic extraction'
+  - Figure 2: Figure 2 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Figure 2. Procedure of BERTopic modeling for topic extraction'
+  - Figure 3: Figure number 'Figure 3' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold
+      expected='bold'  actual='not bold'
+      excerpt: 'Figure 3. Heat map of ERC topics'
+  - Figure 3: Figure 3 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Figure 3. Heat map of ERC topics'
+  - Figure 4: Figure number 'Figure 4' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold
+      expected='bold'  actual='not bold'
+      excerpt: 'Figure 4. Hierarchical clustering of ERC topics'
+  - Figure 4: Figure 4 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Figure 4. Hierarchical clustering of ERC topics'
+  - Figure 5: Figure number 'Figure 5' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold
+      expected='bold'  actual='not bold'
+      excerpt: 'Figure 5. Forest plot of effect sizes (CI=Conﬁdence Interval).'
+  - Figure 5: Figure 5 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Figure 5. Forest plot of effect sizes (CI=Conﬁdence Interval).'
+  - Figure 6: Figure number 'Figure 6' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold
+      expected='bold'  actual='not bold'
+      excerpt: 'Figure 6. Funnel plot of effect sizes (95% CI).'
+  - Figure 6: Figure 6 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Figure 6. Funnel plot of effect sizes (95% CI).'
+  - Figure 7: Figure number 'Figure 7' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold
+      expected='bold'  actual='not bold'
+      excerpt: 'Figure 7. ER-supported creativity development model.'
+  - Figure 7: Figure 7 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Figure 7. ER-supported creativity development model.'
+  - Table 1: Table number 'Table 1' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold
+      expected='bold'  actual='not bold'
+      excerpt: 'Table 1. Search terms'
+  - Table 1: Table 1 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Table 1. Search terms'
+  - Table 2: Table number 'Table 2' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold
+      expected='bold'  actual='not bold'
+      excerpt: 'Table 2. Screening criteria'
+  - Table 2: Table 2 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Table 2. Screening criteria'
+  - Table 3: Table number 'Table 3' is not bold — APA 7 §7.10 / §7.24 sets the caption number in bold
+      expected='bold'  actual='not bold'
+      excerpt: 'Table 3. Inclusion criteria for meta-analysis and rule mining'
+  - Table 3: Table 3 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Table 3. Inclusion criteria for meta-analysis and rule mining'
+  - document: ... and 8 more caption-format issues
+
+### [font.abstract] Abstract font check (ET&S: italic)  sev=warning  (1 details)
+  - paragraph 6: Abstract text should be italic (ET&S requirement)
+      expected='Times New Roman 10.0pt italic'  actual='not italic'
+      excerpt: 'With the increasing adoption of educational robots (ERs) to support creativity d'
+
+### [font.reference] Reference font check  sev=warning  (21 details)
+  - paragraph 889: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman 10.0pt'
+      excerpt: 'Agrawal, R., Imieliński, T., & Swami, A. (1993, June). Mining association rules '
+  - paragraph 889: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman 10.0pt'
+      excerpt: 'Proceedings of the 1993 ACM SIGMOD international conference on Management of dat'
+  - paragraph 889: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman 10.0pt'
+      excerpt: '\xa0(pp. 207'
+  - paragraph 889: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman 10.0pt'
+      excerpt: '216).'
+  - paragraph 890: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman 10.0pt'
+      excerpt: 'Ali, S., Devasia, N., Park, H. W., & Breazeal, C. (2021a). Social robots as crea'
+  - paragraph 890: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman 10.0pt'
+      excerpt: 'Frontiers in Robotics and AI'
+  - paragraph 890: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman 10.0pt'
+      excerpt: ' 8'
+  - paragraph 890: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman 10.0pt'
+      excerpt: ', 673730.'
+  - paragraph 891: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman 10.0pt'
+      excerpt: 'Ali, S., Park, H. W., & Breazeal, C. (2021b). A social robot’s influence on chil'
+  - paragraph 891: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman 10.0pt'
+      excerpt: 'International Journal of Child-Computer Interaction'
+  - paragraph 891: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman 10.0pt'
+      excerpt: ' 28'
+  - paragraph 891: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman 10.0pt'
+      excerpt: ', 100234.'
+  - paragraph 892: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman 10.0pt'
+      excerpt: 'Ali, S. A. (2019).\xa0'
+  - paragraph 892: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman 10.0pt'
+      excerpt: 'Designing child robot interaction for facilitating creative learning'
+  - paragraph 892: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman 10.0pt'
+      excerpt: '\xa0(Doctoral dissertation, Massachusetts Institute of Technology).'
+  - paragraph 893: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman 10.0pt'
+      excerpt: 'Alves-Oliveira, P., Arriaga, P., Cronin, M. A., & Paiva, A. (2020, March). Creat'
+  - paragraph 893: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman 10.0pt'
+      excerpt: 'Proceedings of the 2020 ACM/IEEE international conference on human-robot interac'
+  - paragraph 893: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman 10.0pt'
+      excerpt: '\xa0(pp. 379'
+  - paragraph 893: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman 10.0pt'
+      excerpt: '388).'
+  - paragraph 894: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman 10.0pt'
+      excerpt: 'Alves-Oliveira, P., Arriaga, P., Hoffman, G., & Paiva, A. (2016, March). Boostin'
+  - document: ... and 362 more reference font mismatches
+
+### [headings.no_numbering] Headings must not be numbered (APA 7)  sev=info  (5 details)
+  - paragraph 11: Heading '1. Introduction' has a numeric prefix '1.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '1.'"
+      excerpt: '1. Introduction'
+  - paragraph 42: Heading '2. Methods' has a numeric prefix '2.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '2.'"
+      excerpt: '2. Methods'
+  - paragraph 183: Heading '3. Results' has a numeric prefix '3.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '3.'"
+      excerpt: '3. Results'
+  - paragraph 789: Heading '4. Discussion' has a numeric prefix '4.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '4.'"
+      excerpt: '4. Discussion'
+  - paragraph 881: Heading '5. Conclusion' has a numeric prefix '5.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '5.'"
+      excerpt: '5. Conclusion'
+
+### [layout.paper_size] Paper size check  sev=error  (1 details)
+  - document: Paper size should be A4
+      expected='A4 (21.0×29.7 cm)'  actual='Letter (21.5935×27.9435 cm)'
+
+### [layout.first_line_indent] Body first-line indent  sev=info  (1 details)
+  - document: No first-line indent detected on body paragraphs — APA 7 §2.24 / ET&S expect a first-line indent of 1.27 cm (0.5 inch); verify the Normal style
+      expected='1.27 cm'  actual='0 cm / unset'
+
+### [layout.body_alignment] Body paragraph alignment  sev=info  (21 details)
+  - paragraph 13: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: '1.1. Creativity and educational robots'
+  - paragraph 15: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Creativity, a process that results in novel and useful products (Green et al., 2024), spans cognitive, emotional, social'
+  - paragraph 17: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'In K-12 and higher education, ER is applied to support interdisciplinary learning, especially in science, technology, en'
+  - paragraph 20: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: '1.2. Literature review and research gaps'
+  - paragraph 22: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Literature reviews play an essential role in summarizing empirical evidence, identifying dominant research trends, and r'
+  - paragraph 24: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Despite the growing interest in ER-powered creativity development (ERC), empirical findings remain mixed, as evidenced b'
+  - paragraph 26: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Sapounidis et al.’s (2024) systematic review on ER-based STEM education in primary schools revealed that most studies we'
+  - paragraph 28: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Currently, many ERC studies are non-experimental, short-term, or small-scale, with wide variation in measurements, age g'
+  - paragraph 31: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: '1.3. Research aims and questions'
+  - paragraph 33: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Although ER holds promise for promoting creativity, there is a lack of a comprehensive, evidence-based synthesis identif'
+  - paragraph 35: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'RQ1: What are the key research topics and their evolutions in the field of ERC?'
+  - paragraph 36: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'RQ2: How effective are ERs in promoting learners’ creativity, and do characteristics (e.g., subjects, objectives, partic'
+  - paragraph 37: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'RQ3: What are the main factors influencing creativity in ER-based interventions?'
+  - paragraph 39: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'To address RQ1, this study adopts the BERTopic modeling method to identify key research topics and their evolutions, pro'
+  - paragraph 44: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: '2.1. Literature search and selection'
+  - paragraph 46: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Figure 1 shows six steps of data search and selection, which are described below.'
+  - paragraph 48: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Step 1. Search term identification: To capture ER experimental studies in educational settings, this study adopted searc'
+  - paragraph 50: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Step 2. Database search: Using the search terms, this study conducted systematic searches in Web of Science (WOS), Scopu'
+  - paragraph 52: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Step 3. Initial screening for ER relevance: Title and abstracts of the 11,015 records were screened based on their relev'
+  - paragraph 54: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Step 4. Selecting creativity-focused ER studies for BERTopic analysis: This study further screened the 1,495 ER-related '
+  - document: ... and 84 more body alignment issues
+
+### [quotation.pagination] Direct quotations need a page locator  sev=warning  (2 details)
+  - paragraph 54: Direct quotation without a page locator — APA 7 / AQF Item 4: cite the source with p./pp. (or Section/para.) for any quoted text
+      expected='(Author, Year, p. N) or equivalent locator'  actual='citation present, no p./pp.'
+      excerpt: '“divergent thinking”'
+  - paragraph 885: Direct quotation without a page locator — APA 7 / AQF Item 4: cite the source with p./pp. (or Section/para.) for any quoted text
+      expected='(Author, Year, p. N) or equivalent locator'  actual='citation present, no p./pp.'
+      excerpt: '“Advancing Digital Competency for University Teachers and Students in the Era of Generative Artificial Intelligence”'
+
+### [reference.alphabetical_order] Reference list alphabetical order  sev=warning  (2 details)
+  - Reference #12: Out of alphabetical order: Reference #12 ('Badeleh', 2021) should come before Reference #11 ('Bandura', 2014)
+      expected='badeleh (first author) before bandura'  actual='bandura before badeleh'
+      excerpt: 'Badeleh, A. (2021). The effects of robotics training on students’ creativity and learning in physics. Education and Information Technologies, 26(2), 1353–1365.'
+  - Reference #19: Out of alphabetical order: Reference #19 ('Chen', 2023) should come before Reference #18 ('Chen', 2023)
+      expected="initials 'ti' (first author, chen) before 'x'"  actual="initials 'x' before 'ti'"
+      excerpt: 'Chen, T.-I., Lin, S.-K., & Chung, H.-C. (2023c). Gamified educational robots lead an increase in motivation and creativity in STEM education. Journal of Baltic Science Education, 22(3), 427–438.'
+
+### [reference.hanging_indent] Reference hanging indent  sev=warning  (21 details)
+  - Reference #1: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Agrawal, R., Imieliński, T., & Swami, A. (1993, June). Mining association rules between sets of items in large databases. In\xa0Proceedings of the 1993 ACM SIGMOD international conference on Management o'
+  - Reference #2: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Ali, S., Devasia, N., Park, H. W., & Breazeal, C. (2021a). Social robots as creativity eliciting agents. Frontiers in Robotics and AI, 8, 673730.'
+  - Reference #3: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Ali, S., Park, H. W., & Breazeal, C. (2021b). A social robot’s influence on children’s figural creativity during gameplay. International Journal of Child-Computer Interaction, 28, 100234.'
+  - Reference #4: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Ali, S. A. (2019).\xa0Designing child robot interaction for facilitating creative learning\xa0(Doctoral dissertation, Massachusetts Institute of Technology).'
+  - Reference #5: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Alves-Oliveira, P., Arriaga, P., Cronin, M. A., & Paiva, A. (2020, March). Creativity encounters between children and robots. In\xa0Proceedings of the 2020 ACM/IEEE international conference on human-robo'
+  - Reference #6: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: "Alves-Oliveira, P., Arriaga, P., Hoffman, G., & Paiva, A. (2016, March). Boosting children's creativity through creative interactions with social robots. In\xa02016 11th ACM/IEEE International Conference"
+  - Reference #7: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Alves-Oliveira, P., Arriaga, P., Nogueira, S. I., & Paiva, A. (2021, June). Robotics-based interventions for children’s creativity. In\xa0Proceedings of the 13th Conference on Creativity and Cognition\xa0(p'
+  - Reference #8: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Atman Uslu, N., Yavuz, G. Ö., & Kocak Usluel, Y. (2023). A systematic review study on educational robotics and robots.\xa0Interactive Learning Environments,\xa031(9), 5874–5898.'
+  - Reference #9: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Baek, J., & Yoon, M. (2016). The influence of robot-based learning on elementary school students’ creativity. International Journal of Multimedia and Ubiquitous Engineering, 11(12), 45–56.'
+  - Reference #10: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Bai, S., Hew, K. F., & Huang, B. (2020). Does gamification improve student learning outcome? Evidence from a meta-analysis and synthesis of qualitative data in educational contexts. Educational Resear'
+  - Reference #11: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Bandura, A. (2014). Social-cognitive theory. In\xa0An introduction to theories of personality\xa0(pp. 341–360). Psychology Press.'
+  - Reference #12: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Badeleh, A. (2021). The effects of robotics training on students’ creativity and learning in physics. Education and Information Technologies, 26(2), 1353–1365.'
+  - Reference #13: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Blake-West, J., Alrawashdeh, G., & Bers, M. (2024). Validating a creative coding rubric through expressive activities for elementary grades. Journal of Research on Technology in Education, 1–20.'
+  - Reference #14: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Çakır, R., Korkmaz, Ö., İdil, Ö., & Erdoğmuş, F. U. (2021). The effect of robotic coding education on preschoolers’ problem solving and creative thinking skills. Thinking Skills and Creativity, 40, 10'
+  - Reference #15: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Canbeldek, M., & Isikoglu, N. (2023). Exploring the effects of “productive children: Coding and robotics education program” in early childhood education. Education and Information Technologies, 28(3),'
+  - Reference #16: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Carson, K. P., Schriesheim, C. A., & Kinicki, A. J. (1990). The usefulness of the" fail-safe" statistic in meta-analysis. Educational and Psychological Measurement, 50(2), 233–243.'
+  - Reference #17: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Cavas, B., Kesercioglu, T., Holbrook, J., Rannikmae, M., Ozdogru, E., & Gokler, F. (2012, April). The effects of robotics club on the students’ performance on science process & scientific creativity s'
+  - Reference #18: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Chen, X., Cheng, G., Zou, D., Zhong, B., & Xie, H. (2023a). Artificial intelligent robots for precision education: A topic modeling based bibliometric analysis.\xa0Educational Technology & Society,\xa026(1)'
+  - Reference #19: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Chen, T.-I., Lin, S.-K., & Chung, H.-C. (2023c). Gamified educational robots lead an increase in motivation and creativity in STEM education. Journal of Baltic Science Education, 22(3), 427–438.'
+  - Reference #20: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Chen, X., Zou, D., Cheng, G., Xie, H., & Su, F. (2023b). Effects of flipped language classrooms on learning outcomes in higher education: A Bayesian meta-analysis.\xa0Australasian Journal of Educational '
+  - document: ... and 42 more hanging indent issues
+
+### [reference.doi_or_url] Reference DOI / URL presence  sev=warning  (7 details)
+  - Reference #13: Journal-article reference is missing both a DOI/URL and a complete Volume(Issue), pages — APA 7 / ET&S require one of the two so the work can be located
+      expected='DOI or URL, or full Volume(Issue), pages'  actual='neither present'
+      excerpt: 'Blake-West, J., Alrawashdeh, G., & Bers, M. (2024). Validating a creative coding rubric through expressive activities for elementary grades. Journal of Research on Technology in Education, 1–20.'
+  - Reference #31: Journal-article reference is missing both a DOI/URL and a complete Volume(Issue), pages — APA 7 / ET&S require one of the two so the work can be located
+      expected='DOI or URL, or full Volume(Issue), pages'  actual='neither present'
+      excerpt: 'Grootendorst, M. (2022). BERTopic: Neural topic modeling with a class-based TF-IDF procedure. arXiv preprint arXiv:2203.05794.'
+  - Reference #33: Journal-article reference is missing both a DOI/URL and a complete Volume(Issue), pages — APA 7 / ET&S require one of the two so the work can be located
+      expected='DOI or URL, or full Volume(Issue), pages'  actual='neither present'
+      excerpt: 'Hendrik, B. (2020). Robotic technology for figural creativity enhancement: Case study on elementary school. (IJACSA) International Journal of Advanced Computer Science and Applications, 11(1).'
+  - Reference #39: Journal-article reference is missing both a DOI/URL and a complete Volume(Issue), pages — APA 7 / ET&S require one of the two so the work can be located
+      expected='DOI or URL, or full Volume(Issue), pages'  actual='neither present'
+      excerpt: 'Jamali, U. A. (2024). Fostering Creativity via AI Robotics. In Exploring the World of Robot Manipulators. IntechOpen.'
+  - Reference #43: Journal-article reference is missing both a DOI/URL and a complete Volume(Issue), pages — APA 7 / ET&S require one of the two so the work can be located
+      expected='DOI or URL, or full Volume(Issue), pages'  actual='neither present'
+      excerpt: 'Lazhar, B. M., Amroune, S., Abdelhamid, M., & Hammi, S. (2024). The role of educational robot programming in developing creative thinking skills among kindergarten children aged (4-5) years “a compara'
+  - Reference #52: Journal-article reference is missing both a DOI/URL and a complete Volume(Issue), pages — APA 7 / ET&S require one of the two so the work can be located
+      expected='DOI or URL, or full Volume(Issue), pages'  actual='neither present'
+      excerpt: 'Soliman, S. A. (2019). Efficiency of an educational robotic computer-mediated training program for developing students’ creative thinking skills: An experimental study. Arab World English Journal (AWE'
+  - Reference #58: Journal-article reference is missing both a DOI/URL and a complete Volume(Issue), pages — APA 7 / ET&S require one of the two so the work can be located
+      expected='DOI or URL, or full Volume(Issue), pages'  actual='neither present'
+      excerpt: 'Tulli, S., Wilken, P., Merhej, R., Gandum, J., & Paiva, A. (2019). Sparking creativity with robots: A design perspective.'
+
+### [citation.disambiguate] Reference suffix disambiguation (a, b, c)  sev=error  (2 details)
+  - Reference #21: Reference shares surname 'Chiu' and year 2024 with other entries (#21, #22); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate
+      expected='2024a, 2024b, …'  actual='2024'
+      excerpt: 'Chiu, M.-C., & Hwang, G.-J. (2024). Enhancing students’ critical thinking and creative thinking: An integrated mind mapping and robot-based learning approach. Education and Information Technologies, 2'
+  - Reference #22: Reference shares surname 'Chiu' and year 2024 with other entries (#21, #22); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate
+      expected='2024a, 2024b, …'  actual='2024'
+      excerpt: 'Chiu, M. C., Hwang, G. J., & Tu, Y. F. (2024). Roles, applications, and research designs of robots in science education: A systematic review and bibliometric analysis of journal publications from 1996'
+
+### [reference.italics_journal_volume] Reference italics: journal name + volume  sev=warning  (1 details)
+  - Reference #13: APA italics: volume number '1' should be italic
+      expected='journal + volume italic; issue number roman'  actual="volume number '1' should be italic"
+      excerpt: 'y grades. Journal of Research on Technology in Education, 1–20.'
+
+### [reference.author_count_rule] Author-list APA 7 §9.8 (≤ 20 list all; 21+ uses ellipsis + last)  sev=warning  (1 details)
+  - Reference #44: Only 8 visible author(s) but the list uses '...' — APA 7 §9.8 reserves the ellipsis for ≥ 21-author papers (first 19 + ... + final author); for shorter lists, list every author
+      expected='all 8 authors listed'  actual="author list contains '...'"
+      excerpt: 'Masril, M., Hendrik, B., Theozard Fikri, H., Hazidar, A. H., Priambodo, B., Naf’an, E., ... & Kudr Nseaf, A.'
+
+### [statistics.p_value_format] p-value formatting (APA 7 §6.44)  sev=warning  (3 details)
+  - paragraph 189: p value with leading zero ('0.050') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.050')
+      expected='.050'  actual='0.050'
+      excerpt: 'ends at the p = 0.050 and p = 0.0'
+  - paragraph 189: p value with leading zero ('0.001') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.001')
+      expected='.001'  actual='0.001'
+      excerpt: '= 0.050 and p = 0.001 levels. In '
+  - paragraph 693: p value with leading zero ('0.059') — APA 7 §6.44: omit the leading zero for statistics that cannot exceed 1.0 (write '.059')
+      expected='.059'  actual='0.059'
+      excerpt: 'e of 0.187 (p = 0.059) and Egger’'
+
+### [structure.title_length] Paper title length (APA 7 ≤ 12 words)  sev=info  (1 details)
+  - paragraph 0 (title): Paper title runs 17 words — APA 7 §2.4 recommends ≤ 12 words for clarity and indexing
+      expected='≤ 12 words'  actual='17 words'
+      excerpt: 'Educational robots for student creativity development: research trends and evidence from topic modeling, meta-analysis, and rule mining'
+
+### [structure.no_introduction_heading] Do not label the first section 'Introduction' (APA 7)  sev=info  (1 details)
+  - paragraph 11: Section labelled '1. Introduction' — APA 7 §2.27: do not label the introduction with a heading; it is identified by its position immediately after the abstract
+      expected="no 'Introduction' heading"  actual='1. Introduction'
+
+### [reference.links] Reference link check  sev=warning  (1 details)
+  - Reference #26: URL link unreachable: HTTP 404 - page not found
+      expected='accessible link'  actual='http://www.niss.org/sites/default/files/pdfs/technicalreports/tr27'
+      excerpt: 'DuMouchel, W. (1994).\xa0Hierarchical Bayes linear models for meta-analysis. Technical Report 27, National Institute of Sta'

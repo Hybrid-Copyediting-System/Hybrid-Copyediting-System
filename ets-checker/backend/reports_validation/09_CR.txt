@@ -1,0 +1,714 @@
+====================================================================================================
+FILE: ../../local To be Tested/09_CR.docx
+====================================================================================================
+paragraphs=646 tables=7 references=168 citations=318 figures=3 sections=26 footnotes=0
+SUMMARY: total=47 passed=22 errors=3 warnings=17 info=5
+----------------------------------------------------------------------------------------------------
+FAILED rules (25):
+  [error  ] citation.cross_reference                   (35 details)  Citation–reference cross-check
+  [warning] citation.et_al_usage                       (2 details)  Et al. usage check (APA 7th)
+  [warning] citation.amp_vs_and                        (3 details)  Use & in parens, 'and' in narrative (APA 7 §8.17)
+  [warning] figures_tables.table_format                (5 details)  Table format check
+  [info   ] figures_tables.caption_format              (4 details)  Caption format: number bold, title italic
+  [warning] font.body                                  (21 details)  Body font check
+  [warning] font.stat_italic                           (21 details)  Statistical symbol italics
+  [warning] font.abstract                              (1 details)  Abstract font check (ET&S: italic)
+  [warning] font.heading                               (15 details)  Heading font check
+  [warning] font.reference                             (21 details)  Reference font check
+  [info   ] headings.no_numbering                      (17 details)  Headings must not be numbered (APA 7)
+  [error  ] layout.paper_size                          (1 details)  Paper size check
+  [info   ] layout.first_line_indent                   (1 details)  Body first-line indent
+  [info   ] layout.body_alignment                      (21 details)  Body paragraph alignment
+  [warning] quotation.pagination                       (1 details)  Direct quotations need a page locator
+  [warning] reference.alphabetical_order               (1 details)  Reference list alphabetical order
+  [warning] reference.hanging_indent                   (21 details)  Reference hanging indent
+  [warning] reference.page_number_complete             (1 details)  Reference page-number completeness
+  [warning] reference.doi_or_url                       (1 details)  Reference DOI / URL presence
+  [error  ] citation.disambiguate                      (7 details)  Reference suffix disambiguation (a, b, c)
+  [warning] reference.apa_format                       (3 details)  Reference APA structural format
+  [warning] reference.italics_journal_volume           (3 details)  Reference italics: journal name + volume
+  [warning] statistics.operator_spacing                (13 details)  Relational operator spacing
+  [info   ] structure.no_introduction_heading          (1 details)  Do not label the first section 'Introduction' (APA 7)
+  [warning] reference.links                            (8 details)  Reference link check
+----------------------------------------------------------------------------------------------------
+
+### [citation.cross_reference] Citation–reference cross-check  sev=error  (35 details)
+  - paragraph 16: Citation year mismatch: 'Demirel & Aydin, 2019' cites 2019, but Reference #40 (Demirel) has n.d.
+      excerpt: 'Demirel & Aydin, 2019'
+  - paragraph 16: Citation year mismatch: 'Sakitri, 2020' cites 2020, but Reference #118 (Sakitri) has 2019
+      excerpt: 'Sakitri, 2020'
+  - paragraph 20: Citation year mismatch: 'Susnjak, 2023' cites 2023, but Reference #129 (Susnjak) has 2024
+      excerpt: 'Susnjak, 2023'
+  - paragraph 121: Citation 'State Council, 2017' has no matching reference
+      excerpt: 'State Council, 2017'
+  - paragraph 161: Citation year mismatch: 'Jacob et al., 2023' cites 2023, but Reference #76 (Jacob) has 2025
+      excerpt: 'Jacob et al., 2023'
+  - paragraph 169: Citation year mismatch: 'Cotton et al., 2023' cites 2023, but Reference #35 (Cotton) has 2024
+      excerpt: 'Cotton et al., 2023'
+  - paragraph 176: Possible spelling error: Citation 'Bringuga (2024)' may refer to Reference #21 ('Bringula', 2024) — check the author surname spelling
+      excerpt: 'Bringuga (2024)'
+  - paragraph 180: Possible spelling error: Citation 'AI-Sofi, 2024' may refer to Reference #10 ('Al-Sofi', 2024) — check the author surname spelling
+      excerpt: 'AI-Sofi, 2024'
+  - paragraph 196: Citation year mismatch: 'Kohnke et al., 2023' cites 2023, but Reference #84 (Kohnke) has 2024
+      excerpt: 'Kohnke et al., 2023'
+  - paragraph 204: Citation year mismatch: 'Cai et al., 2024' cites 2024, but Reference #23 (Cai) has 2025
+      excerpt: 'Cai et al., 2024'
+  - paragraph 464: Citation year mismatch: 'Jacob et al., 2023' cites 2023, but Reference #76 (Jacob) has 2025
+      excerpt: 'Jacob et al., 2023'
+  - paragraph 476: Citation year mismatch: 'Jacob et al., 2023' cites 2023, but Reference #76 (Jacob) has 2025
+      excerpt: 'Jacob et al., 2023'
+  - paragraph 530: Citation year mismatch: 'Chen (2024)' cites 2024, but Reference #30 (Chen) has 2025
+      excerpt: 'Chen (2024)'
+  - paragraph 536: Citation year mismatch: 'Bucol and Sangkawong, 2024' cites 2024, but Reference #22 (Bucol) has 2025
+      excerpt: 'Bucol and Sangkawong, 2024'
+  - paragraph 610: Citation year mismatch: 'Austria et al., 2022' cites 2022, but Reference #15 (Austria) has 2023
+      excerpt: 'Austria et al., 2022'
+  - paragraph 610: Citation year mismatch: 'Chen (2024)' cites 2024, but Reference #30 (Chen) has 2025
+      excerpt: 'Chen (2024)'
+  - paragraph 618: Citation year mismatch: 'Austria et al., 2022' cites 2022, but Reference #15 (Austria) has 2023
+      excerpt: 'Austria et al., 2022'
+  - paragraph 632: Citation year mismatch: 'Austria et al., 2022' cites 2022, but Reference #15 (Austria) has 2023
+      excerpt: 'Austria et al., 2022'
+  - paragraph 638: Citation year mismatch: 'Austria et al., 2022' cites 2022, but Reference #15 (Austria) has 2023
+      excerpt: 'Austria et al., 2022'
+  - paragraph 638: Citation 'Ou et al., 2024' has no matching reference
+      excerpt: 'Ou et al., 2024'
+  - Reference #5: Reference is not cited in text
+      excerpt: 'Ali, S. (2024). Locating the intersection of generative artificial intelligence and human English writing skills: A comparative study. Arab World English Journal, 1(1), 112–123. https://doi.org/10.240'
+  - Reference #7: Reference is not cited in text
+      excerpt: 'Allen, T. J., & Mizumoto, A. (2024). ChatGPT over my friends: Japanese English-as-a-foreign-language learners’ preferences for editing and proofreading strategies. RELC Journal, 0(0), 1-18. https://do'
+  - Reference #12: Reference is not cited in text
+      excerpt: 'Amirjalili, F., Neysani, M., & Nikbakht, A. (2024). Exploring the boundaries of authorship: A comparative analysis of AI-generated text and human academic writing in English literature. Frontiers in E'
+  - Reference #42: Reference is not cited in text
+      excerpt: 'Desaire, H., Chua, A. E., Isom, M., Jarošová, R., & Hua, D. (2023). Distinguishing academic science writing from humans or ChatGPT with over 99% accuracy using off-the-shelf machine learning tools. Ce'
+  - Reference #58: Reference is not cited in text
+      excerpt: 'Gilar-Corbi, R., Pozo-Rico, T., Castejón, J., Sánchez, T., Sandoval-Palis, I., & Vidal, J. (2020). Academic achievement and failure in university studies: Motivational and emotional factors. Sustainab'
+  - Reference #85: Reference is not cited in text
+      excerpt: 'Kolesnikov, D., Kozlova, A., Alexsandrov, A., Kalmykov, N., Treshkov, P., LeBaron, T. W., & Medvedev, O. (2024). Applying ChatGPT to writing scientific articles on the use of telemedicine: Opportuniti'
+  - Reference #96: Reference is not cited in text
+      excerpt: 'Lo, C. K. (2023). What is the impact of ChatGPT on education? A rapid review of the literature. Education Sciences, 13(4), 410. https://doi.org/10.3390/educsci13040410'
+  - Reference #101: Reference is not cited in text
+      excerpt: 'Melliti, M. (2024). AI in MA thesis writing: The use of lexical patterns to study the ChatGPT influence. International Journal of TESOL Studies, 6(3), 58-76. https://doi.org/10.58304/ijts.20240305'
+  - Reference #104: Reference is not cited in text
+      excerpt: 'Moussa, A., & Belhiah, H. (2024). Beyond syntax: Exploring Moroccan undergraduate EFL learners’ engagement with AI-assisted writing. Arab World English Journal: Special Issue on ChatGPT, 138–155. http'
+  - Reference #107: Reference is not cited in text
+      excerpt: 'Olszak, I., & Krajka, J. (2024). Developing academic students’ writing competence in the generative AI environment. Annales Universitatis Mariae Curie-Sklodowska Sectio N Educatio Nova, 9, 87–105. htt'
+  - Reference #122: Reference is not cited in text
+      excerpt: 'Semrl, N., Feigl, S., Taumberger, N., Bracic, T., Fluhr, H., Blockeel, C., & Kollmann, M. (2023). AI language models in human reproduction research: Exploring ChatGPT’s potential to assist academic wr'
+  - Reference #125: Reference is not cited in text
+      excerpt: 'State Council of the People’s Republic of China. (2017). Artificial intelligence development plan in the new generation. The Central People’s Government of the People’s Republic of China. https://www.'
+  - Reference #133: Reference is not cited in text
+      excerpt: 'Tarchi, C., Zappoli, A., Ledesma, L. C., & Brante, E. W. (2024). The use of ChatGPT in source-based writing tasks. International Journal of Artificial Intelligence in Education, 35, 858-878. https://d'
+  - Reference #136: Reference is not cited in text
+      excerpt: 'Thủy, D. T., Da, C., & Van Hanh, N. (2024). The use of ChatGPT in teaching and learning: A systematic review through SWOT analysis approach. Frontiers in Education, 9, 1328769. https://doi.org/10.3389'
+  - Reference #164: Reference is not cited in text
+      excerpt: 'Zhou, T., Cao, S., Zhou, S., Zhang, Y., & He, A. (2023). Chinese intermediate English learners outdid ChatGPT in deep cohesion: Evidence from English narrative writing. System, 118, 103141. https://do'
+
+### [citation.et_al_usage] Et al. usage check (APA 7th)  sev=warning  (2 details)
+  - paragraph 14: Citation 'Li, 2024' should use 'et al.' — Reference #93 (Li, 2024) has 3 authors (APA 7th: use et al. for 3+ authors)
+      expected='Li et al.'  actual='Li, 2024'
+      excerpt: 'Li, 2024'
+  - paragraph 500: Citation 'Wahyuddin et al., 2023' uses 'et al.' but Reference #143 (Wahyuddin, 2023) has only 2 author(s); list all authors when there are fewer than 3
+      expected='all 2 author(s) listed'  actual='et al.'
+      excerpt: 'Wahyuddin et al., 2023'
+
+### [citation.amp_vs_and] Use & in parens, 'and' in narrative (APA 7 §8.17)  sev=warning  (3 details)
+  - paragraph 165: Parenthetical citation uses 'and' between authors — APA 7 §8.17: use '&' inside parentheses, 'and' in narrative text
+      expected='Coetzer & Aardt'  actual='Coetzer and Aardt'
+      excerpt: 'rated texts (Coetzer and Aardt, 2024), the synth'
+  - paragraph 165: Parenthetical citation uses 'and' between authors — APA 7 §8.17: use '&' inside parentheses, 'and' in narrative text
+      expected='Tseng & Lin'  actual='Tseng and Lin'
+      excerpt: 'dual writer (Tseng and Lin, 2024). Besides, '
+  - paragraph 204: Parenthetical citation uses 'and' between authors — APA 7 §8.17: use '&' inside parentheses, 'and' in narrative text
+      expected='Barrett & Pack'  actual='Barrett and Pack'
+      excerpt: 'nt AI abuse (Barrett and Pack, 2023). On a micr'
+
+### [figures_tables.table_format] Table format check  sev=warning  (5 details)
+  - Table 4: Table 4 appears to be an image rather than a Word table; ET&S requires tables in editable table format, not as images
+      excerpt: 'Table 4. The numbers of articles conducted in each continent'
+  - Table 5: Table 5 appears to be an image rather than a Word table; ET&S requires tables in editable table format, not as images
+      excerpt: 'Table 5. The number of articles by years'
+  - Table 1: Table 1 has vertical borders; APA 7th requires tables to use horizontal rules only
+      expected='no vertical borders'  actual='vertical borders detected'
+      excerpt: 'Table 1. Search strings for the identification stage of the review'
+  - Table 2: Table 2 has vertical borders; APA 7th requires tables to use horizontal rules only
+      expected='no vertical borders'  actual='vertical borders detected'
+      excerpt: 'Table 2. Inclusion and exclusion criteria for the study'
+  - Table 3: Table 3 has vertical borders; APA 7th requires tables to use horizontal rules only
+      expected='no vertical borders'  actual='vertical borders detected'
+      excerpt: 'Table 3. The screening process for the eligible articles for this review'
+
+### [figures_tables.caption_format] Caption format: number bold, title italic  sev=info  (4 details)
+  - Figure 1: Figure 1 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Figure 1. The methodology of the study'
+  - Table 1: Table 1 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Table 1. Search strings for the identification stage of the review'
+  - Table 2: Table 2 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Table 2. Inclusion and exclusion criteria for the study'
+  - Table 3: Table 3 caption title is not italic — APA 7 §7.10 / §7.24 italicises the descriptive title
+      expected='italic title'  actual='title not italic'
+      excerpt: 'Table 3. The screening process for the eligible articles for this review'
+
+### [font.body] Body font check  sev=warning  (21 details)
+  - paragraph 24: Body text font mismatch
+      expected='Times New Roman 10.0pt'  actual='Times New Roman Regular 10.0pt'
+      excerpt: 'Hence, this study attempts to answer the following research questions:'
+  - paragraph 25: Body text font mismatch
+      expected='Times New Roman 10.0pt'  actual='Times New Roman Regular 10.0pt'
+      excerpt: 'RQ1: How does ChatGPT influence the learning and teaching of academic writing?'
+  - paragraph 26: Body text font mismatch
+      expected='Times New Roman 10.0pt'  actual='Times New Roman Regular 10.0pt'
+      excerpt: 'RQ2: How does ChatGPT influence academic writing performance?'
+  - paragraph 27: Body text font mismatch
+      expected='Times New Roman 10.0pt'  actual='Times New Roman Regular 10.0pt'
+      excerpt: 'RQ3: What are the suggestions for using ChatGPT in academic writing teaching and'
+  - paragraph 46: Body text font mismatch
+      expected='Times New Roman 10.0pt'  actual='Times New Roman Italic 10.0pt'
+      excerpt: 'Table 1.'
+  - paragraph 62: Body text font mismatch
+      expected='Times New Roman 10.0pt'  actual='Times New Roman Italic 10.0pt'
+      excerpt: 'Table 2.'
+  - paragraph 87: Body text font mismatch
+      expected='Times New Roman 10.0pt'  actual='Times New Roman Italic 10.0pt'
+      excerpt: 'Table 3.'
+  - paragraph 111: Body text font mismatch
+      expected='Times New Roman 10.0pt'  actual='Times New Roman Italic 10.0pt'
+      excerpt: 'Fig'
+  - paragraph 111: Body text font mismatch
+      expected='Times New Roman 10.0pt'  actual='Times New Roman Italic 10.0pt'
+      excerpt: 'ure'
+  - paragraph 111: Body text font mismatch
+      expected='Times New Roman 10.0pt'  actual='Times New Roman Italic 10.0pt'
+      excerpt: ' 1'
+  - paragraph 123: Body text font mismatch
+      expected='Times New Roman 10.0pt'  actual='Times New Roman Italic 10.0pt'
+      excerpt: 'Table 4.'
+  - paragraph 136: Body text font mismatch
+      expected='Times New Roman 10.0pt'  actual='Times New Roman Italic 10.0pt'
+      excerpt: 'Table 5.'
+  - paragraph 144: Body text font mismatch
+      expected='Times New Roman 10.0pt'  actual='Times New Roman Regular 10.0pt'
+      excerpt: 'The first question focused on the influence of using ChatGPT on the learning and'
+  - paragraph 146: Body text font mismatch
+      expected='Times New Roman 10.0pt'  actual='Times New Roman Regular 10.0pt'
+      excerpt: 'As shown in Appendix C, the second question concentrated on the effects of the i'
+  - paragraph 165: Body text font mismatch
+      expected='Times New Roman 10.0pt'  actual='Times New Roman Regular 10.0pt'
+      excerpt: 'This review challenges the prevalent idea that AI tools inherently lessen cognit'
+  - paragraph 169: Body text font mismatch
+      expected='Times New Roman 10.0pt'  actual='Times New Roman Regular 10.0pt'
+      excerpt: 'Another significant concern is that excessive dependence on AI tool'
+  - paragraph 169: Body text font mismatch
+      expected='Times New Roman 10.0pt'  actual='Times New Roman Regular 10.0pt'
+      excerpt: 't may also pose challenges to academic integrity, as students might find it diff'
+  - paragraph 196: Body text font mismatch
+      expected='Times New Roman 10.0pt'  actual='Times New Roman Regular 10.0pt'
+      excerpt: 'After analyzing the opportunities and challenges of using ChatGPT for improving '
+  - paragraph 196: Body text font mismatch
+      expected='Times New Roman 10.0pt'  actual='Times New Roman Regular 10.0pt'
+      excerpt: 'Many studies have suggested that the training should cover its functions, limita'
+  - paragraph 196: Body text font mismatch
+      expected='Times New Roman 10.0pt'  actual='Times New Roman Regular 10.0pt'
+      excerpt: ', which aims to equip teachers with the necessary knowledge and skills to integr'
+  - document: ... and 10 more font mismatches
+
+### [font.stat_italic] Statistical symbol italics  sev=warning  (21 details)
+  - paragraph 121: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…ucted in Asia (n = 40), including…'
+  - paragraph 121: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…cluding China (n = 13), Hong Kong…'
+  - paragraph 121: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…3), Hong Kong (n = 2), Taiwan (n…'
+  - paragraph 121: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…= 2), Taiwan (n = 2), Macao (n =…'
+  - paragraph 121: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…n = 2), Macao (n = 1), Korea (n =…'
+  - paragraph 121: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…n = 1), Korea (n = 2), India (n =…'
+  - paragraph 121: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…n = 2), India (n = 2), the Philip…'
+  - paragraph 121: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…e Philippines (n = 2), Indonesia…'
+  - paragraph 121: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…2), Indonesia (n = 7), Malaysia (…'
+  - paragraph 121: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…7), Malaysia (n = 2), Japan (n =…'
+  - paragraph 121: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…n = 2), Japan (n = 2), Saudi Arab…'
+  - paragraph 121: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…Saudi Arabia (n = 1), Turkey (n…'
+  - paragraph 121: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…= 1), Turkey (n = 1), Thailand (…'
+  - paragraph 121: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…1), Thailand (n = 1), Iran (n =…'
+  - paragraph 121: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…(n = 1), Iran (n = 1), and Yemen…'
+  - paragraph 121: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…1), and Yemen (n = 1). The studie…'
+  - paragraph 121: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…nited Kingdom (n=2), Croatia (n=…'
+  - paragraph 121: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…n=2), Croatia (n=1), Ukraine (n=…'
+  - paragraph 121: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…n=1), Ukraine (n=1), Poland (n=1…'
+  - paragraph 121: Statistical symbol "n" should be italic
+      expected='italic'  actual='not italic'
+      excerpt: '…(n=1), Poland (n=1), Italy (n=1)…'
+  - document: ... and 16 more missing italics on statistical symbols
+
+### [font.abstract] Abstract font check (ET&S: italic)  sev=warning  (1 details)
+  - paragraph 7: Abstract text should be italic (ET&S requirement)
+      expected='Times New Roman 10.0pt italic'  actual='not italic'
+      excerpt: 'Academic writing is important '
+
+### [font.heading] Heading font check  sev=warning  (15 details)
+  - paragraph 42 (Heading 3): Heading 3 font mismatch
+      expected='Times New Roman 10.0pt bold, not italic'  actual='Times New Roman Bold Italic'
+      excerpt: '2.2.1. Identification'
+  - paragraph 58 (Heading 3): Heading 3 font mismatch
+      expected='Times New Roman 10.0pt bold, not italic'  actual='Times New Roman Bold Italic'
+      excerpt: '2.2.2. Screening (inclusion and exclusion criteria)'
+  - paragraph 83 (Heading 3): Heading 3 font mismatch
+      expected='Times New Roman 10.0pt bold, not italic'  actual='Times New Roman Bold Italic'
+      excerpt: '2.2.3. Eligibility'
+  - paragraph 119 (Heading 3): Heading 3 font mismatch
+      expected='Times New Roman 10.0pt bold, not italic'  actual='italic (should not be)'
+      excerpt: 'Countries/regions'
+  - paragraph 127 (Heading 3): Heading 3 font mismatch
+      expected='Times New Roman 10.0pt bold, not italic'  actual='Times New Roman Bold Italic'
+      excerpt: '3.1.2. Research '
+  - paragraph 127 (Heading 3): Heading 3 font mismatch
+      expected='Times New Roman 10.0pt bold, not italic'  actual='Times New Roman Bold Italic'
+      excerpt: 'designs'
+  - paragraph 132 (Heading 3): Heading 3 font mismatch
+      expected='Times New Roman 10.0pt bold, not italic'  actual='Times New Roman Bold Italic'
+      excerpt: '3.1.3. Distribution of the studies by years'
+  - paragraph 140 (Heading 2): Heading 2 font mismatch
+      expected='Times New Roman 10.0pt bold, not italic'  actual='Times New Roman Bold'
+      excerpt: '3.2. Qualitative findings'
+  - paragraph 159 (Heading 3): Heading 3 font mismatch
+      expected='Times New Roman 10.0pt bold, not italic'  actual='Times New Roman Bold Italic'
+      excerpt: '4.1.1 The benefits and drawbacks of using ChatGPT in the learning process'
+  - paragraph 172 (Heading 3): Heading 3 font mismatch
+      expected='Times New Roman 10.0pt bold, not italic'  actual='Times New Roman Bold Italic'
+      excerpt: '4.1.2 The benefits and drawbacks of using ChatGPT in the teaching process'
+  - paragraph 385 (Heading 1): Heading 1 font mismatch
+      expected='Times New Roman 12.0pt bold, not italic'  actual='Times New Roman Bold'
+      excerpt: 'Appendix A '
+  - paragraph 385 (Heading 1): Heading 1 font mismatch
+      expected='Times New Roman 12.0pt bold, not italic'  actual='Times New Roman Bold'
+      excerpt: 'Research designs used in the reviewed articles'
+  - paragraph 451 (Heading 1): Heading 1 font mismatch
+      expected='Times New Roman 12.0pt bold, not italic'  actual='Times New Roman Bold'
+      excerpt: 'Appendix B Benefits and drawbacks of using ChatGPT in the teaching and learning '
+  - paragraph 576 (Heading 1): Heading 1 font mismatch
+      expected='Times New Roman 12.0pt bold, not italic'  actual='Times New Roman Bold'
+      excerpt: 'Appendix C The effects of using ChatGPT on writing performance'
+  - paragraph 625 (Heading 1): Heading 1 font mismatch
+      expected='Times New Roman 12.0pt bold, not italic'  actual='Times New Roman Regular'
+      excerpt: 'Appendix D The suggestions on using ChatGPT in academic writing class'
+
+### [font.reference] Reference font check  sev=warning  (21 details)
+  - paragraph 219: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman Regular 9.0pt'
+      excerpt: 'Al-Garaady, J., & Albuhairy, M. M. (2023). '
+  - paragraph 219: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman Regular 9.0pt'
+      excerpt: 'ChatGPT’s capabilities in spotting and analyzing writing errors experienced by E'
+  - paragraph 219: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman Italic 9.0pt'
+      excerpt: 'Arab World English Journal, 9'
+  - paragraph 219: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman Regular 9.0pt'
+      excerpt: '(CALL)'
+  - paragraph 219: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman Regular 9.0pt'
+      excerpt: ', 3-17'
+  - paragraph 219: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman Regular 9.0pt'
+      excerpt: 'https://ssrn.com/abstract=4519092'
+  - paragraph 222: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman Italic 9.0pt'
+      excerpt: '0'
+  - paragraph 229: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman Italic 9.0pt'
+      excerpt: '56'
+  - paragraph 230: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman Regular 9.0pt'
+      excerpt: 'Austria, F. Z., Camagay, E. B. A., Domasing, M., Gelido, A., Libatique, C. V., &'
+  - paragraph 230: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman Regular 9.0pt'
+      excerpt: 'Southeast Asian Journal of Science and Technology,\xa07'
+  - paragraph 230: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman Regular 9.0pt'
+      excerpt: '(1), 39-47. Retrieved from https://www.sajst.org/online/index.php/sajst/article/'
+  - paragraph 237: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman Italic 9.0pt'
+      excerpt: 'Innovations in Education and Teaching International,\xa062'
+  - paragraph 245: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman Italic 9.0pt'
+      excerpt: 'Computers and Education Artificial Intelligence, 9'
+  - paragraph 249: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman Italic 9.0pt'
+      excerpt: 'Teaching English with Technology,\xa024'
+  - paragraph 250: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman Italic 9.0pt'
+      excerpt: 'Innovations in Education and Teaching International,\xa061'
+  - paragraph 264: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman Italic 9.0pt'
+      excerpt: 'Jurnal Kependidikan Islam,\xa013'
+  - paragraph 274: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman Italic 9.0pt'
+      excerpt: '128'
+  - paragraph 291: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman Italic 9.0pt'
+      excerpt: 'Journal of China Computer-Assisted Language Learning, 5'
+  - paragraph 319: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman Regular 9.0pt'
+      excerpt: 'Moussa, A., & Belhiah, H. (2024). Beyond syntax: Exploring Moroccan undergraduat'
+  - paragraph 319: Reference font mismatch
+      expected='Times New Roman 9.0pt'  actual='Times New Roman Italic 9.0pt'
+      excerpt: 'Arab World English Journal: Special Issue on ChatGPT'
+  - document: ... and 12 more reference font mismatches
+
+### [headings.no_numbering] Headings must not be numbered (APA 7)  sev=info  (17 details)
+  - paragraph 12: Heading '1. Introduction' has a numeric prefix '1.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '1.'"
+      excerpt: '1. Introduction'
+  - paragraph 30: Heading '2. Methodology' has a numeric prefix '2.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '2.'"
+      excerpt: '2. Methodology'
+  - paragraph 35: Heading '2.1. Database search' has a numeric prefix '2.1.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '2.1.'"
+      excerpt: '2.1. Database search'
+  - paragraph 40: Heading '2.2. Systematic review process' has a numeric prefix '2.2.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '2.2.'"
+      excerpt: '2.2. Systematic review process'
+  - paragraph 42: Heading '2.2.1. Identification' has a numeric prefix '2.2.1.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '2.2.1.'"
+      excerpt: '2.2.1. Identification'
+  - paragraph 58: Heading '2.2.2. Screening (inclusion and exclusion criteria)' has a numeric prefix '2.2.2.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '2.2.2.'"
+      excerpt: '2.2.2. Screening (inclusion and exclusion criteria)'
+  - paragraph 83: Heading '2.2.3. Eligibility' has a numeric prefix '2.2.3.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '2.2.3.'"
+      excerpt: '2.2.3. Eligibility'
+  - paragraph 117: Heading '3.1. Quantitative findings' has a numeric prefix '3.1.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '3.1.'"
+      excerpt: '3.1. Quantitative findings'
+  - paragraph 119: Heading '3.1.1. Countries/regions' has a numeric prefix '3.1.1.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '3.1.1.'"
+      excerpt: '3.1.1. Countries/regions'
+  - paragraph 127: Heading '3.1.2. Research designs' has a numeric prefix '3.1.2.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '3.1.2.'"
+      excerpt: '3.1.2. Research designs'
+  - paragraph 132: Heading '3.1.3. Distribution of the studies by years' has a numeric prefix '3.1.3.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '3.1.3.'"
+      excerpt: '3.1.3. Distribution of the studies by years'
+  - paragraph 140: Heading '3.2. Qualitative findings' has a numeric prefix '3.2.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '3.2.'"
+      excerpt: '3.2. Qualitative findings'
+  - paragraph 157: Heading '4.1. Question 1: The effects of using ChatGPT in the learning and teaching process' has a numeric prefix '4.1.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '4.1.'"
+      excerpt: '4.1. Question 1: The effects of using ChatGPT in the learning and teaching process'
+  - paragraph 159: Heading '4.1.1 The benefits and drawbacks of using ChatGPT in the learning process' has a numeric prefix '4.1.1' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '4.1.1'"
+      excerpt: '4.1.1 The benefits and drawbacks of using ChatGPT in the learning process'
+  - paragraph 172: Heading '4.1.2 The benefits and drawbacks of using ChatGPT in the teaching process' has a numeric prefix '4.1.2' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '4.1.2'"
+      excerpt: '4.1.2 The benefits and drawbacks of using ChatGPT in the teaching process'
+  - paragraph 183: Heading '4.2. Question 2: The effects of ChatGPT on students’ academic writing performance' has a numeric prefix '4.2.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '4.2.'"
+      excerpt: '4.2. Question 2: The effects of ChatGPT on students’ academic writing performance'
+  - paragraph 194: Heading '4.3. Question 3: The suggestions of using academic writing in teaching and learning' has a numeric prefix '4.3.' — APA 7 §2.27 forbids numbered section headings
+      expected='heading without numeric prefix'  actual="prefix: '4.3.'"
+      excerpt: '4.3. Question 3: The suggestions of using academic writing in teaching and learning'
+
+### [layout.paper_size] Paper size check  sev=error  (1 details)
+  - document: Paper size should be A4
+      expected='A4 (21.0×29.7 cm)'  actual='Letter (21.5935×27.9435 cm)'
+
+### [layout.first_line_indent] Body first-line indent  sev=info  (1 details)
+  - document: Body first-line indent averages 0.0 cm — APA 7 §2.24 / ET&S expect 1.27 cm (0.5 inch)
+      expected='1.27 cm'  actual='0.0 cm'
+
+### [layout.body_alignment] Body paragraph alignment  sev=info  (21 details)
+  - paragraph 14: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Academic writing is of great importance in higher education, as it serves as a primary skill for students to understand '
+  - paragraph 16: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Despite the crucial role of academic writing for students in higher education, it is not an effortless task to teach and'
+  - paragraph 18: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Recently, the advancement of artificial intelligence (AI) technologies has revolutionized the sphere of education, speci'
+  - paragraph 20: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'As the use of ChatGPT becomes increasingly prevalent in educational settings, there arises a discussion about critically'
+  - paragraph 22: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Since ChatGPT was unveiled in November 2022, there have been many systematic reviews of the discussion of ChatGPT in edu'
+  - paragraph 24: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Hence, this study attempts to answer the following research questions:'
+  - paragraph 25: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'RQ1: How does ChatGPT influence the learning and teaching of academic writing?'
+  - paragraph 26: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'RQ2: How does ChatGPT influence academic writing performance?'
+  - paragraph 27: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'RQ3: What are the suggestions for using ChatGPT in academic writing teaching and learning?'
+  - paragraph 32: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Authors This study plans to employ a systematic review to investigate the opportunities, threats, and suggestions of usi'
+  - paragraph 37: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'This review selects three databases: Web of Science, Scopus, and Google Scholar. These databases encompass an extensive '
+  - paragraph 44: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'In the first step, the key words and the search strings are used to identify the related studies. The search terms are p'
+  - paragraph 46: Body paragraph alignment is 'CENTER ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='CENTER '
+      excerpt: 'Table 1. Search strings for the identification stage of the review'
+  - paragraph 60: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'The next step was the screening procedure, which is about the inclusion and exclusion criteria for the literature select'
+  - paragraph 62: Body paragraph alignment is 'CENTER ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='CENTER '
+      excerpt: 'Table 2. Inclusion and exclusion criteria for the study'
+  - paragraph 85: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Based on the search string in Table 1, the initial 474 articles were collected from the three databases: Web of Science '
+  - paragraph 87: Body paragraph alignment is 'CENTER ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='CENTER '
+      excerpt: 'Table 3. The screening process for the eligible articles for this review'
+  - paragraph 109: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Figure 1 below presents a summary of the methodology of the study and the selection of articles, which included four sta'
+  - paragraph 111: Body paragraph alignment is 'CENTER ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='CENTER '
+      excerpt: 'Figure 1. The methodology of the study'
+  - paragraph 121: Body paragraph alignment is 'JUSTIFY ' — ET&S body text uses left or justified alignment
+      expected='LEFT or JUSTIFY'  actual='JUSTIFY '
+      excerpt: 'Table 4 shows the majority of the studies investigating the issue of ChatGPT in academic writing were conducted in Asia '
+  - document: ... and 30 more body alignment issues
+
+### [quotation.pagination] Direct quotations need a page locator  sev=warning  (1 details)
+  - paragraph 121: Direct quotation without a page locator — APA 7 / AQF Item 4: cite the source with p./pp. (or Section/para.) for any quoted text
+      expected='(Author, Year, p. N) or equivalent locator'  actual='citation present, no p./pp.'
+      excerpt: '“Artificial Intelligence Development Plan in the New Generation”'
+
+### [reference.alphabetical_order] Reference list alphabetical order  sev=warning  (1 details)
+  - Reference #40: Out of alphabetical order: Reference #40 ('Demirel', n.d.) should come before Reference #39 ('De Wilde', 2024)
+      expected='demirel (first author) before dewilde'  actual='dewilde before demirel'
+      excerpt: 'Demirel, M. V., & Aydin, I. S. (n.d.). Examining high school students’ writing self-efficacy perceptions. International Journal of Education and Literacy Studies, 7(4), 106-114.  https://eric.ed.gov/?'
+
+### [reference.hanging_indent] Reference hanging indent  sev=warning  (21 details)
+  - Reference #1: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Abdelhalim, S. M. (2024). Using ChatGPT to promote research competency: English as a foreign language undergraduates’ perceptions and practices across varied metacognitive awareness levels. Journal of'
+  - Reference #2: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Acosta-Enriquez, B. G., Ballesteros, M. A. A., Vargas, C. G. P., Ulloa, M. N. O., Ulloa, C. R. G., Romero, J. M. P., Jaramillo, N. D. G., Orellana, H. U. C., Anzoátegui, D. X. A., & Roca, C. L. (2024)'
+  - Reference #3: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Alexander, K., Savvidou, C., & Alexander, C. (2023). Who wrote this essay? Detecting AI-generated writing in second language education in higher education. Teaching English with Technology, 23(2), 25-'
+  - Reference #4: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Al-Garaady, J., & Albuhairy, M. M. (2023). ChatGPT’s capabilities in spotting and analyzing writing errors experienced by EFL learners. Arab World English Journal, 9(CALL), 3-17. https://ssrn.com/abst'
+  - Reference #5: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Ali, S. (2024). Locating the intersection of generative artificial intelligence and human English writing skills: A comparative study. Arab World English Journal, 1(1), 112–123. https://doi.org/10.240'
+  - Reference #6: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Alkamel, M. A. A., & Alwagieh, N. A. S. (2024). Utilizing an adaptable artificial intelligence writing tool (ChatGPT) to enhance academic writing skills among Yemeni university EFL students. Social Sc'
+  - Reference #7: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='no indent set'
+      excerpt: 'Allen, T. J., & Mizumoto, A. (2024). ChatGPT over my friends: Japanese English-as-a-foreign-language learners’ preferences for editing and proofreading strategies. RELC Journal, 0(0), 1-18. https://do'
+  - Reference #8: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='first-line indent of 0.0 cm'
+      excerpt: 'Allison, J., Hwang, G., Mayer, R. E., Pellas, N., Karnalim, O., De Freitas, S., Ng, O., Huang, Y., Hooshyar, D., Seidman, R. H., Al-Emran, M., Mikropoulos, T. A., Schroeder, N. L., Roscoe, R. D., & Sa'
+  - Reference #9: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='first-line indent of 0.0 cm'
+      excerpt: 'Alsaedi, N. (2024). ChatGPT and EFL/ESL writing: A systematic review of advantages and challenges. English Language Teaching, 17(5), 41-50. https://doi.org/10.5539/elt.v17n5p41'
+  - Reference #10: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='first-line indent of 0.0 cm'
+      excerpt: 'Al-Sofi, B. B. M. A. (2024). Artificial intelligence-powered tools and academic writing: To use or not to use ChatGPT. Saudi Journal of Language Studies, 4(3), 145–161. https://doi.org/10.1108/sjls-06'
+  - Reference #11: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='first-line indent of 0.0 cm'
+      excerpt: 'Altınmakas, D., & Bayyurt, Y. (2019). An exploratory study on factors influencing undergraduate students’ academic writing practices in Turkey. Journal of English for Academic Purposes, 37, 88–103. ht'
+  - Reference #12: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='first-line indent of 0.0 cm'
+      excerpt: 'Amirjalili, F., Neysani, M., & Nikbakht, A. (2024). Exploring the boundaries of authorship: A comparative analysis of AI-generated text and human academic writing in English literature. Frontiers in E'
+  - Reference #13: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='first-line indent of 0.0 cm'
+      excerpt: 'Apridayani, A., Han, W., & Sakkanayok, K. (2024). Enhancing English writing competence in higher education: A comparative study of teacher-only assessment versus teacher and student self-assessment ap'
+  - Reference #14: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='first-line indent of 0.0 cm'
+      excerpt: 'Asadi, M., Ebadi, S., & Mohammadi, L. (2025). The impact of integrating ChatGPT with teachers’ feedback on EFL writing skills. Thinking Skills and Creativity, 56, 101766. https://doi.org/10.1016/j.tsc'
+  - Reference #15: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='first-line indent of 0.0 cm'
+      excerpt: 'Austria, F. Z., Camagay, E. B. A., Domasing, M., Gelido, A., Libatique, C. V., & Cabutotan, V. M. (2023). Extent of influence of using AI Chatbots in the writing skills of BSE students of Pangasinan S'
+  - Reference #16: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='first-line indent of 0.0 cm'
+      excerpt: 'Bai, L., Liu, X., & Su, J. (2023). ChatGPT: The cognitive effects on learning and memory. Brain-X, 1(3), 1-9. https://doi.org/10.1002/brx2.30'
+  - Reference #17: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='first-line indent of 0.0 cm'
+      excerpt: 'Barrett, A., & Pack, A. (2023). Not quite eye to A.I.: Student and teacher perspectives on the use of generative artificial intelligence in the writing process. International Journal of Educational Te'
+  - Reference #18: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='first-line indent of 0.0 cm'
+      excerpt: 'Bašić, Ž., Banovac, A., Kružić, I., & Jerković, I. (2023). ChatGPT-3.5 as writing assistance in students’ essays. Humanities & Social Sciences Communications, 10, 750. https://doi.org/10.1057/s41599-0'
+  - Reference #19: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='first-line indent of 0.0 cm'
+      excerpt: 'Bouzar, A., Idrissi, K. E., & Ghourdou, T. (2024). ChatGPT and academic writing self-efficacy: Unveiling correlations and technological dependency among postgraduate students. Arab World English Journ'
+  - Reference #20: Reference is missing hanging indent
+      expected='hanging indent of 1.27 cm'  actual='first-line indent of 0.0 cm'
+      excerpt: 'Bouziane, K., & Bouziane, A. (2024). AI versus human effectiveness in essay evaluation. Discover Education, 3, 201. https://doi.org/10.1007/s44217-024-00320-6'
+  - document: ... and 148 more hanging indent issues
+
+### [reference.page_number_complete] Reference page-number completeness  sev=warning  (1 details)
+  - Reference #81: Abbreviated page range '1265–300' — APA 7 requires the full end page (likely '1265–1300')
+      expected='1265–1300'  actual='1265–300'
+      excerpt: 'n Technologies, 20, 1265-300. https://doi.org/10'
+
+### [reference.doi_or_url] Reference DOI / URL presence  sev=warning  (1 details)
+  - Reference #73: Journal-article reference is missing both a DOI/URL and a complete Volume(Issue), pages — APA 7 / ET&S require one of the two so the work can be located
+      expected='DOI or URL, or full Volume(Issue), pages'  actual='neither present'
+      excerpt: 'Ismail, A. A. (2024). Over-reliance of AI tools in academic writing tasks: The Malaysian tertiary level context. E-Prosiding Persidangan Antarabangsa Sains Sosial & Kemanusiaan Kali Ke-9 (PASAK9 2024)'
+
+### [citation.disambiguate] Reference suffix disambiguation (a, b, c)  sev=error  (7 details)
+  - Reference #81: Reference shares surname 'Kim' and year 2024 with other entries (#81, #82); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate
+      expected='2024a, 2024b, …'  actual='2024'
+      excerpt: 'Kim, J., Yu, S., Detrick, R., & Li, N. (2024). Exploring students’ perspectives on generative AI-assisted academic writing. Education and Information Technologies, 20, 1265-300. https://doi.org/10.100'
+  - Reference #82: Reference shares surname 'Kim' and year 2024 with other entries (#81, #82); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate
+      expected='2024a, 2024b, …'  actual='2024'
+      excerpt: 'Kim, M., Kim, S., Lee, S., Yoon, Y., Myung, J., Yoo, H., Lim, H., Han, J., Kim, Y., Ahn, S., Kim, J., Oh, A., Hong, H., & Lee, T. Y. (2024). Designing prompt analytics dashboards to analyze student-Ch'
+  - Reference #91: Reference shares surname 'Li' and year 2024 with other entries (#91, #92, #93); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate
+      expected='2024a, 2024b, …'  actual='2024'
+      excerpt: 'Li, J., Huang, J., Wu, W., & Whipple, P. B. (2024). Evaluating the role of ChatGPT in enhancing EFL writing assessments in classroom settings: A preliminary investigation. Humanities and Social Scienc'
+  - Reference #92: Reference shares surname 'Li' and year 2024 with other entries (#91, #92, #93); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate
+      expected='2024a, 2024b, …'  actual='2024'
+      excerpt: 'Li, J., Zong, H., Wu, E., Wu, R., Peng, Z., Zhao, J., Yang, L., Xie, H., & Shen, B. (2024). Exploring the potential of artificial intelligence to enhance the writing of English academic papers by non-'
+  - Reference #93: Reference shares surname 'Li' and year 2024 with other entries (#91, #92, #93); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate
+      expected='2024a, 2024b, …'  actual='2024'
+      excerpt: 'Li, Q., Zhang, J., & Cai, W. (2024). Utilizing ChatGPT to implement differentiated instruction. International Journal of Chinese Language Teaching, 5(1), 74-89. https://doi.org/10.46451/ijclt.20240106'
+  - Reference #146: Reference shares surname 'Werdiningsih' and year 2024 with other entries (#146, #147); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate
+      expected='2024a, 2024b, …'  actual='2024'
+      excerpt: 'Werdiningsih, I., Marzuki, N., Indrawati, I., Rusdin, D., Ivone, F. M., Basthomi, Y., & Zulfahreza, N. (2024). Revolutionizing EFL writing: Unveiling the strategic use of ChatGPT by Indonesian master’'
+  - Reference #147: Reference shares surname 'Werdiningsih' and year 2024 with other entries (#146, #147); add a year suffix (e.g. 2024a / 2024b) so citations can disambiguate
+      expected='2024a, 2024b, …'  actual='2024'
+      excerpt: 'Werdiningsih, I., Marzuki, N., & Rusdin, D. (2024). Balancing AI and authenticity: EFL students’ experiences with ChatGPT in academic writing. Cogent Arts & Humanities, 11(1), 2392388. https://doi.org'
+
+### [reference.apa_format] Reference APA structural format  sev=warning  (3 details)
+  - Reference #55: APA format issue: entry does not end with a period
+      excerpt: 'Fujiwara, T. (2024). A study on differences between GPT-generated and ENS-written essays on doing a part-time job and smoking in a restaurant: Utilizing corpus linguistics methodologies. Learner Corpu'
+  - Reference #73: APA format issue: entry does not end with a period
+      excerpt: 'Ismail, A. A. (2024). Over-reliance of AI tools in academic writing tasks: The Malaysian tertiary level context. E-Prosiding Persidangan Antarabangsa Sains Sosial & Kemanusiaan Kali Ke-9 (PASAK9 2024)'
+  - Reference #131: APA format issue: entry does not end with a period
+      excerpt: 'Swales, J. M. (1990). Genre analysis: English in academic and research settings. Cambridge University Press'
+
+### [reference.italics_journal_volume] Reference italics: journal name + volume  sev=warning  (3 details)
+  - Reference #32: APA italics: volume number '1' should be italic
+      expected='journal + volume italic; issue number roman'  actual="volume number '1' should be italic"
+      excerpt: 'approach. Interactive Learning Environments, 1–22. https'
+  - Reference #48: APA italics: volume number '1' should be italic
+      expected='journal + volume italic; issue number roman'  actual="volume number '1' should be italic"
+      excerpt: 've study. Computer Assisted Language Learning, 1–40. https'
+  - Reference #93: APA italics: issue number '(1)' must not be italic
+      expected='journal + volume italic; issue number roman'  actual="issue number '(1)' must not be italic"
+      excerpt: 'truction. International Journal of Chinese Language Teaching, 5(1), 74-89. h'
+
+### [statistics.operator_spacing] Relational operator spacing  sev=warning  (13 details)
+  - paragraph 121: Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces
+      expected='n = ...'  actual='n='
+      excerpt: 'ed Kingdom (n=2), Croatia '
+  - paragraph 121: Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces
+      expected='n = ...'  actual='n='
+      excerpt: '), Croatia (n=1), Ukraine '
+  - paragraph 121: Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces
+      expected='n = ...'  actual='n='
+      excerpt: '), Ukraine (n=1), Poland ('
+  - paragraph 121: Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces
+      expected='n = ...'  actual='n='
+      excerpt: '1), Poland (n=1), Italy (n'
+  - paragraph 121: Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces
+      expected='n = ...'  actual='n='
+      excerpt: '=1), Italy (n=1), Belgium '
+  - paragraph 121: Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces
+      expected='n = ...'  actual='n='
+      excerpt: '), Belgium (n=1), and Cypr'
+  - paragraph 121: Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces
+      expected='n = ...'  actual='n='
+      excerpt: 'and Cyprus (n=1). Then in '
+  - paragraph 121: Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces
+      expected='n = ...'  actual='n='
+      excerpt: 'h as Macao (n=2), Tunisia '
+  - paragraph 121: Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces
+      expected='n = ...'  actual='n='
+      excerpt: '), Tunisia (n=1), Egypt (n'
+  - paragraph 121: Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces
+      expected='n = ...'  actual='n='
+      excerpt: '=1), Egypt (n=1), and Sout'
+  - paragraph 121: Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces
+      expected='n = ...'  actual='n='
+      excerpt: 'uth Africa (n=1). The two '
+  - paragraph 121: Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces
+      expected='n = ...'  actual='n='
+      excerpt: 'a, the USA (n=4) and Canad'
+  - paragraph 121: Missing space around relational operator in statistical expression 'n=' — APA 7 §6.45: write 'n = ...' with spaces
+      expected='n = ...'  actual='n='
+      excerpt: 'and Canada (n=1), investig'
+
+### [structure.no_introduction_heading] Do not label the first section 'Introduction' (APA 7)  sev=info  (1 details)
+  - paragraph 12: Section labelled '1. Introduction' — APA 7 §2.27: do not label the introduction with a heading; it is identified by its position immediately after the abstract
+      expected="no 'Introduction' heading"  actual='1. Introduction'
+
+### [reference.links] Reference link check  sev=warning  (8 details)
+  - Reference #15: URL link unreachable: could not connect
+      expected='accessible link'  actual='https://www.sajst.org/online/index.php/sajst/article/view/273'
+      excerpt: 'Austria, F. Z., Camagay, E. B. A., Domasing, M., Gelido, A., Libatique, C. V., & Cabutotan, V. M. (2023). Extent of infl'
+  - Reference #71: DOI link unreachable: HTTP 503 - server error
+      expected='accessible link'  actual='https://doi.org/10.4324/9781315717203'
+      excerpt: 'Hyland, K. (2015). Teaching and researching writing. https://doi.org/10.4324/9781315717203'
+  - Reference #74: DOI link unreachable: could not connect
+      expected='accessible link'  actual='https://doi.org/10.21608/opde.2023.325331'
+      excerpt: 'Ismail, H. Y. S. I. (2023). Cohesion and coherence in essays generated by ChatGPT: A comparative analysis of university '
+  - Reference #119: DOI link unreachable: HTTP 404 - page not found
+      expected='accessible link'  actual='https://doi.org/10.24191/aclim.v1i2.13'
+      excerpt: 'Samsuddin, S. F., Masenwat, N. Z., & Llah, L. A. (2021). Systematic literature review on cultivating reading culture in '
+  - Reference #123: DOI link unreachable: HTTP 404 - page not found
+      expected='accessible link'  actual='https://doi.org/10.33365/jeltl.v3i2.2106'
+      excerpt: 'Seyoum, W. M., Yigzaw, A., & Bewuketu, H. K. (2022). Students’ attitudes and problems on question-based argumentative es'
+  - Reference #128: DOI link unreachable: HTTP 404 - page not found
+      expected='accessible link'  actual='https://doi.org/10.59165/educatum.v2i2.65'
+      excerpt: 'Sudrajad, W., Fikri, M. H., & Putra, R. P. B. (2024). Help me ChatGPT! What ways does ChatGPT influence students’ produc'
+  - Reference #130: DOI link unreachable: HTTP 404 - page not found
+      expected='accessible link'  actual='https://doi.org/10.52046/edu.j.v3i2.1803'
+      excerpt: 'Sutrisno, D. B. (2023). Practicing IELTS writing for L2 writers with ChatGPT: An exploratory self-study. English Departm'
+  - Reference #143: DOI link unreachable: HTTP 404 - page not found
+      expected='accessible link'  actual='https://doi.org/10.34050/elsjish.v6i4.31424'
+      excerpt: 'Wahyuddin, Hasman, H., & Ramadhani Idris, A. (2023). Implementation of ChatGPT on English class essay writing skills in '
