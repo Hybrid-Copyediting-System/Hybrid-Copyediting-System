@@ -11,8 +11,27 @@ logger = logging.getLogger(__name__)
 if TYPE_CHECKING:
     from docx.document import Document as DocxDocument
 
-_FIG_CAPTION = re.compile(r"^Figure\.?\s+(\d+)\s*[.:]", re.IGNORECASE)
-_TBL_CAPTION = re.compile(r"^Table\.?\s+(\d+)\s*[.:]", re.IGNORECASE)
+# Caption forms accepted:
+#   - Standard APA:  "Figure 1. Title"  /  "Figure 1: Title"
+#   - Mistyped:      "Figure. 1 Title"  (period before the number;
+#                    the leading period acts as the separator so no
+#                    trailing punctuation is required)
+# The strict trailing [.:] in the no-leading-dot branch keeps body prose
+# like "Figure 1 shows the standardized solution." from being mistaken
+# for a caption.
+_FIG_CAPTION = re.compile(
+    r"^(?:Figure\s+(\d+)\s*[.:]|Figure\.\s+(\d+))",
+    re.IGNORECASE,
+)
+_TBL_CAPTION = re.compile(
+    r"^(?:Table\s+(\d+)\s*[.:]|Table\.\s+(\d+))",
+    re.IGNORECASE,
+)
+
+
+def _caption_number(m: re.Match) -> int:
+    """Both alternatives capture the number into one of two groups."""
+    return int(m.group(1) or m.group(2))
 
 def _has_image(docx_para: object) -> bool:
     from docx.oxml.ns import qn
@@ -60,7 +79,7 @@ def _walk_document_events(
                            "fig_num": None, "text": text})
         if m:
             events.append({"kind": "caption", "seq": actual_index, "in_table": in_table,
-                           "fig_num": int(m.group(1)), "text": text})
+                           "fig_num": _caption_number(m), "text": text})
         pos += 1
 
     def _walk_table(tbl_elem: object) -> None:
@@ -202,7 +221,7 @@ def detect(
                 text = dp.text.strip() if dp is not None else "".join(str(t) for t in elem.itertext()).strip()
                 m = _TBL_CAPTION.match(text)
                 if m:
-                    tbl_num = int(m.group(1))
+                    tbl_num = _caption_number(m)
                     tbl_caption = text
                     tbl_caption_pos = label
                     break

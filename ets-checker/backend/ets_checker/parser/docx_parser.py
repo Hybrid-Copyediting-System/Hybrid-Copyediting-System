@@ -3,7 +3,15 @@ from __future__ import annotations
 from docx import Document
 
 from ets_checker.models import ParsedDocument
-from ets_checker.parser import citations, figures, metadata, paragraphs, references, sections
+from ets_checker.parser import (
+    citations,
+    figures,
+    footnotes,
+    metadata,
+    paragraphs,
+    references,
+    sections,
+)
 
 
 def parse(file_path: str) -> ParsedDocument:
@@ -15,6 +23,7 @@ def parse(file_path: str) -> ParsedDocument:
     cits = citations.extract(paras, secs)
     refs = references.extract(paras, secs)
     figs, tbls = figures.detect(paras, document)
+    fns = footnotes.extract(document, file_path)
 
     return ParsedDocument(
         metadata=meta,
@@ -24,4 +33,5 @@ def parse(file_path: str) -> ParsedDocument:
         references=refs,
         figures=figs,
         tables=tbls,
+        footnotes=fns,
     )

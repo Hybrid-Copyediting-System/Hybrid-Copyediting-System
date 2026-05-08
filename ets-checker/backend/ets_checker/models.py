@@ -32,7 +32,7 @@ class Section(BaseModel):
     title: str
     level: int
     paragraph_index: int
-    detection_method: Literal["style", "heuristic", "inline_abstract", "appendix"]
+    detection_method: Literal["style", "heuristic", "inline_abstract", "appendix", "title"]
 
 
 # ─── Citation / Reference ──────────────────────────────────────────────
@@ -85,6 +85,15 @@ class Table(BaseModel):
     has_vertical_borders: bool | None = None
 
 
+# ─── Footnotes ─────────────────────────────────────────────────────────
+
+class Footnote(BaseModel):
+    footnote_id: int
+    text: str
+    paragraph_index: int | None = None
+    kind: Literal["footnote", "endnote"] = "footnote"
+
+
 # ─── Document container ────────────────────────────────────────────────
 
 class DocumentMetadata(BaseModel):
@@ -107,6 +116,7 @@ class ParsedDocument(BaseModel):
     references: list[Reference]
     figures: list[Figure]
     tables: list[Table]
+    footnotes: list[Footnote] = []
 
 
 # ─── API response ─────────────────────────────────────────────────────

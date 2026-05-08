@@ -15,6 +15,17 @@ _STYLE_MAP: dict[str, int] = {
     "標題 3": 3,
 }
 
+# Styles Word ships that authors use for the dedicated paper-title slot.
+_TITLE_STYLE_NAMES = {"Title", "標題"}
+
+# Styles authors sometimes mis-apply to the paper title (using Word's L1 heading
+# style for the title rather than the dedicated Title style). When the very
+# first text paragraph of the document is one of these AND its text is not a
+# canonical section heading (Introduction, Abstract, …), we treat it as the
+# title — otherwise downstream rules that anchor on `_TITLE_STYLES` mis-route
+# the title into Heading 1 / body classifications.
+_TITLE_FALLBACK_STYLE_NAMES = {"Heading 1", "標題 1"}
+
 _CANONICAL_HEADINGS = {
     "abstract", "introduction", "method", "methods", "methodology",
     "results", "findings", "discussion", "conclusion", "conclusions",
@@ -31,6 +42,12 @@ _CANONICAL_HEADINGS = {
     "author contributions", "authors contributions",
     "conflict of interest", "conflicts of interest",
     "declaration of interest", "declarations of interest",
+    "declaration of competing interest",
+    "declaration of competing interests",
+    "declaration of conflicting interest",
+    "declaration of conflicting interests",
+    "declaration of conflict of interest",
+    "declaration of conflicts of interest",
     "ethics statement", "ethics approval", "ethical approval",
     "supplementary material", "supplementary materials",
     "competing interests", "disclosure",
@@ -137,20 +154,47 @@ def _is_canonical_heading(text: str) -> bool:
     return first_word in _CANONICAL_HEADINGS
 
 
+def _first_text_paragraph_index(paragraphs: list[Paragraph]) -> int | None:
+    for p in paragraphs:
+        if p.is_in_table:
+            continue
+        if p.text.strip():
+            return p.index
+    return None
+
+
 def detect(paragraphs: list[Paragraph]) -> list[Section]:
     style_sections: list[Section] = []
     style_indices: set[int] = set()
+    title_assigned = False
+    first_text_idx = _first_text_paragraph_index(paragraphs)
     for p in paragraphs:
         if p.is_in_table:
             continue
         if p.style_name and p.style_name in _STYLE_MAP:
             text = p.text.strip()
             if text:
+                method: str = "style"
+                # Promote to "title" when the style is the dedicated Title
+                # style, OR when the document's first text paragraph carries
+                # an L1 heading style with non-canonical text (a common
+                # mis-application of Heading 1 to the paper title).
+                if not title_assigned:
+                    if p.style_name in _TITLE_STYLE_NAMES:
+                        method = "title"
+                        title_assigned = True
+                    elif (
+                        p.style_name in _TITLE_FALLBACK_STYLE_NAMES
+                        and p.index == first_text_idx
+                        and not _is_canonical_heading(text)
+                    ):
+                        method = "title"
+                        title_assigned = True
                 style_sections.append(Section(
                     title=text,
                     level=_STYLE_MAP[p.style_name],
                     paragraph_index=p.index,
-                    detection_method="style",
+                    detection_method=method,  # type: ignore[arg-type]
                 ))
                 style_indices.add(p.index)
 

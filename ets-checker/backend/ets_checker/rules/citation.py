@@ -130,8 +130,11 @@ def _year_diff(y1: str, y2: str) -> int:
 def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
     details: list[CheckDetail] = []
 
-    # Exact-match index: (norm_surname, year, suffix) → ref position
-    ref_index: dict[tuple[str, str, str], int] = {}
+    # Exact-match index: (norm_surname, year, suffix) → list of ref positions.
+    # A list (not a single int) so that several references sharing the same
+    # surname+year+suffix (e.g. three "Li, 2024" entries with different first
+    # initials) are all retained for the uncited-references sweep at the end.
+    ref_positions: dict[tuple[str, str, str], list[int]] = {}
     # Surname-only index: norm_surname → [(year, suffix, ref_pos), ...]
     surname_index: dict[str, list[tuple[str, str, int]]] = {}
 
@@ -140,7 +143,7 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
         if r.first_author_surname and r.year:
             norm = normalise_surname(r.first_author_surname)
             key = (norm, r.year, r.year_suffix or "")
-            ref_index[key] = pos
+            ref_positions.setdefault(key, []).append(pos)
             surname_index.setdefault(norm, []).append((r.year, r.year_suffix or "", pos))
         elif r.parse_confidence < 0.5:
             unparseable_refs.append(r)
@@ -158,7 +161,7 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
         cite_suffix = c.year_suffix or ""
         key = (cite_norm, cite_year, cite_suffix)
 
-        if key in ref_index:
+        if key in ref_positions:
             cited_keys.add(key)
             continue
 
@@ -177,10 +180,16 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
                 )
                 if likely_different_person:
                     if orphan_count < MAX_REPORTED:
+                        ref_year_str = f"{ref_year}{ref_suffix}" if ref_suffix else ref_year
                         details.append(CheckDetail(
                             location=f"paragraph {c.paragraph_index}",
                             locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
-                            message=f"Citation '{c.raw_text}' has no matching reference (a reference with surname '{ref.first_author_surname}' exists but appears to be a different author)",
+                            message=(
+                                f"Citation '{c.raw_text}' has no matching reference "
+                                f"(Reference #{ref.index} has surname '{ref.first_author_surname}' "
+                                f"with year {ref_year_str}, which differs by {year_diff} year(s) "
+                                f"from the cited {cite_year} — likely a year typo or a different work)"
+                            ),
                             excerpt=c.raw_text,
                         ))
                     orphan_count += 1
@@ -225,10 +234,18 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
                 )
                 if likely_different_person:
                     if orphan_count < MAX_REPORTED:
+                        available = ", ".join(
+                            sorted({f"{ry}{rs}" if rs else ry for (ry, rs, _rp) in entries})
+                        )
                         details.append(CheckDetail(
                             location=f"paragraph {c.paragraph_index}",
                             locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
-                            message=f"Citation '{c.raw_text}' has no matching reference (a reference with surname '{ref.first_author_surname}' exists but appears to be a different author)",
+                            message=(
+                                f"Citation '{c.raw_text}' has no matching reference "
+                                f"(references with surname '{ref.first_author_surname}' "
+                                f"exist for year(s) {available}, but none match the cited "
+                                f"{cite_year} — likely a year typo or a different work)"
+                            ),
                             excerpt=c.raw_text,
                         ))
                     orphan_count += 1
@@ -361,8 +378,10 @@ def check_cross_reference(doc: ParsedDocument) -> list[CheckDetail]:
         ))
 
     uncited_count = 0
-    for key, ref_idx in ref_index.items():
-        if key not in cited_keys:
+    for key, positions in ref_positions.items():
+        if key in cited_keys:
+            continue
+        for ref_idx in positions:
             ref = doc.references[ref_idx]
             if uncited_count < MAX_REPORTED:
                 details.append(CheckDetail(
@@ -398,13 +417,17 @@ def check_et_al_usage(doc: ParsedDocument) -> list[CheckDetail]:
     details: list[CheckDetail] = []
     threshold = P.ET_AL_THRESHOLD
 
-    ref_index: dict[tuple[str, str, str], Reference] = {}
+    # Multiple references can share (surname, year, suffix) — e.g. three
+    # "Li, 2024" entries with different first-author initials. Keep all of
+    # them so the rule can pick the best match instead of arbitrarily flagging
+    # whichever one happened to be appended last.
+    ref_candidates: dict[tuple[str, str, str], list[Reference]] = {}
     surname_index: dict[str, list[Reference]] = {}
     for r in doc.references:
         if r.first_author_surname and r.year:
             norm = normalise_surname(r.first_author_surname)
             key = (norm, r.year, r.year_suffix or "")
-            ref_index[key] = r
+            ref_candidates.setdefault(key, []).append(r)
             surname_index.setdefault(norm, []).append(r)
 
     issue_count = 0
@@ -422,8 +445,8 @@ def check_et_al_usage(doc: ParsedDocument) -> list[CheckDetail]:
         if dedup_key in reported:
             continue
 
-        ref = ref_index.get(key)
-        if ref is None:
+        candidates = ref_candidates.get(key)
+        if not candidates:
             # Fall back to surname-only lookup ONLY when a same-year reference
             # exists. Without this guard, "Xu, 2022" would match "Xu, 2024" and
             # produce a misleading et al. warning sourced from the wrong work.
@@ -436,46 +459,179 @@ def check_et_al_usage(doc: ParsedDocument) -> list[CheckDetail]:
                 ]
                 if not same_year_entries:
                     continue
-                ref = same_year_entries[0]
+                candidates = same_year_entries
             else:
                 continue
 
-        if ref.author_count is None:
+        # Drop candidates with no resolved author count — they can't inform
+        # the et al. decision either way.
+        candidates = [r for r in candidates if r.author_count is not None]
+        if not candidates:
             continue
 
-        if c.has_et_al and ref.author_count < threshold:
-            reported.add(dedup_key)
+        if c.has_et_al:
+            # Only flag when NO candidate has enough authors to justify et al.
+            # If any candidate has ≥ threshold authors, the citation is
+            # plausibly correct — don't punish the author for the rule's
+            # inability to disambiguate.
+            if all(r.author_count < threshold for r in candidates):
+                ref = max(candidates, key=lambda r: r.author_count)
+                reported.add(dedup_key)
+                if issue_count < MAX_REPORTED:
+                    details.append(CheckDetail(
+                        location=f"paragraph {c.paragraph_index}",
+                        locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
+                        message=(
+                            f"Citation '{c.raw_text}' uses 'et al.' but Reference #{ref.index} "
+                            f"({ref.first_author_surname}, {ref.year}) has only "
+                            f"{ref.author_count} author(s); list all authors "
+                            f"when there are fewer than {threshold}"
+                        ),
+                        expected=f"all {ref.author_count} author(s) listed",
+                        actual="et al.",
+                        excerpt=c.raw_text,
+                    ))
+                issue_count += 1
+
+        elif not c.has_et_al and len(c.authors) <= 2:
+            # Only flag when EVERY candidate has ≥ threshold authors. If any
+            # candidate has ≤ 2 authors, "Smith & Jones, 2024" or "Smith, 2024"
+            # is the correct spelled-out form for that reference.
+            if all(r.author_count >= threshold for r in candidates):
+                ref = min(candidates, key=lambda r: r.author_count)
+                reported.add(dedup_key)
+                if issue_count < MAX_REPORTED:
+                    details.append(CheckDetail(
+                        location=f"paragraph {c.paragraph_index}",
+                        locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
+                        message=(
+                            f"Citation '{c.raw_text}' should use 'et al.' — Reference #{ref.index} "
+                            f"({ref.first_author_surname}, {ref.year}) has "
+                            f"{ref.author_count} authors (APA 7th: use et al. for "
+                            f"{threshold}+ authors)"
+                        ),
+                        expected=f"{ref.first_author_surname} et al.",
+                        actual=c.raw_text,
+                        excerpt=c.raw_text,
+                    ))
+                issue_count += 1
+
+    if issue_count > MAX_REPORTED:
+        details.append(CheckDetail(
+            location="document",
+            locator=Locator(kind="document"),
+            message=f"... and {issue_count - MAX_REPORTED} more et al. usage issues",
+        ))
+
+    return details
+
+
+# ── APA 7 §8.17: & inside parens, "and" in narrative ───────────────────
+
+
+# Two co-authors joined by "and" inside a parenthetical citation. Optional
+# discourse-style prefix ("see", "e.g.,", "cf.") is consumed before the
+# author block so the rule still fires on "(see Smith and Jones, 2020)".
+_PAREN_AND = re.compile(
+    r"[(（]\s*"
+    r"(?:(?:see|e\.g\.,?|cf\.|i\.e\.,?)\s+)?"
+    r"(?P<first>[A-Z][\w\-’']+)"
+    r"\s+and\s+"
+    r"(?P<second>[A-Z][\w\-’']+)"
+    r"(?:\s+et\s+al\.)?"
+    r"\s*,\s*(?:19|20)\d{2}"
+)
+# Two co-authors joined by "&" outside parentheses but with a year in parens
+# right after — narrative context in which "and" should have been used:
+#   "Smith & Jones (2020)"
+_NARRATIVE_AMP = re.compile(
+    r"(?<![(（])"
+    r"(?P<first>[A-Z][\w\-’']+)"
+    r"\s*&\s*"
+    r"(?P<second>[A-Z][\w\-’']+)"
+    r"(?:\s+et\s+al\.)?"
+    r"\s*[(（]\s*(?:19|20)\d{2}"
+)
+
+
+@register(
+    "citation.amp_vs_and",
+    "Citation",
+    "Use & in parens, 'and' in narrative (APA 7 §8.17)",
+    "warning",
+)
+def check_amp_vs_and(doc: ParsedDocument) -> list[CheckDetail]:
+    """Detect the two inverse failures of APA 7 §8.17:
+
+    * ``and`` between two authors *inside* a parenthetical citation —
+      should be ``&``
+    * ``&`` between two authors used in *narrative* form (Year alone in
+      parens) — should be ``and``
+    """
+    details: list[CheckDetail] = []
+    issue_count = 0
+
+    # Skip the Reference section to avoid matching authors-of-references that
+    # legitimately use "&" everywhere.
+    from ets_checker.parser.sections import is_reference_title  # local to avoid cycles
+
+    ref_start: int | None = next(
+        (s.paragraph_index for s in doc.sections if is_reference_title(s.title)),
+        None,
+    )
+
+    for para in doc.paragraphs:
+        if ref_start is not None and para.index >= ref_start:
+            break
+        if para.is_in_table:
+            continue
+        text = para.text
+        if not text or "(" not in text and "（" not in text:
+            continue
+
+        for m in _PAREN_AND.finditer(text):
+            ctx_start = max(0, m.start() - 12)
+            ctx_end = min(len(text), m.end() + 12)
             if issue_count < MAX_REPORTED:
                 details.append(CheckDetail(
-                    location=f"paragraph {c.paragraph_index}",
-                    locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
-                    message=(
-                        f"Citation '{c.raw_text}' uses 'et al.' but Reference #{ref.index} "
-                        f"({ref.first_author_surname}, {ref.year}) has only "
-                        f"{ref.author_count} author(s); list all authors "
-                        f"when there are fewer than {threshold}"
+                    location=f"paragraph {para.index}",
+                    locator=Locator(
+                        kind="paragraph",
+                        paragraph_index=para.index,
+                        char_start=m.start(),
+                        char_end=m.end(),
                     ),
-                    expected=f"all {ref.author_count} author(s) listed",
-                    actual="et al.",
-                    excerpt=c.raw_text,
+                    message=(
+                        "Parenthetical citation uses 'and' between authors — "
+                        "APA 7 §8.17: use '&' inside parentheses, 'and' in "
+                        "narrative text"
+                    ),
+                    expected=f"{m.group('first')} & {m.group('second')}",
+                    actual=f"{m.group('first')} and {m.group('second')}",
+                    excerpt=text[ctx_start:ctx_end],
                 ))
             issue_count += 1
 
-        elif not c.has_et_al and len(c.authors) <= 2 and ref.author_count >= threshold:
-            reported.add(dedup_key)
+        for m in _NARRATIVE_AMP.finditer(text):
+            ctx_start = max(0, m.start() - 12)
+            ctx_end = min(len(text), m.end() + 12)
             if issue_count < MAX_REPORTED:
                 details.append(CheckDetail(
-                    location=f"paragraph {c.paragraph_index}",
-                    locator=Locator(kind="paragraph", paragraph_index=c.paragraph_index),
-                    message=(
-                        f"Citation '{c.raw_text}' should use 'et al.' — Reference #{ref.index} "
-                        f"({ref.first_author_surname}, {ref.year}) has "
-                        f"{ref.author_count} authors (APA 7th: use et al. for "
-                        f"{threshold}+ authors)"
+                    location=f"paragraph {para.index}",
+                    locator=Locator(
+                        kind="paragraph",
+                        paragraph_index=para.index,
+                        char_start=m.start(),
+                        char_end=m.end(),
                     ),
-                    expected=f"{ref.first_author_surname} et al.",
-                    actual=c.raw_text,
-                    excerpt=c.raw_text,
+                    message=(
+                        "Narrative citation uses '&' between authors — "
+                        "APA 7 §8.17: use 'and' in narrative text, '&' inside "
+                        "parentheses"
+                    ),
+                    expected=f"{m.group('first')} and {m.group('second')}",
+                    actual=f"{m.group('first')} & {m.group('second')}",
+                    excerpt=text[ctx_start:ctx_end],
                 ))
             issue_count += 1
 
@@ -483,7 +639,10 @@ def check_et_al_usage(doc: ParsedDocument) -> list[CheckDetail]:
         details.append(CheckDetail(
             location="document",
             locator=Locator(kind="document"),
-            message=f"... and {issue_count - MAX_REPORTED} more et al. usage issues",
+            message=(
+                f"... and {issue_count - MAX_REPORTED} more & / and citation "
+                f"issues"
+            ),
         ))
 
     return details

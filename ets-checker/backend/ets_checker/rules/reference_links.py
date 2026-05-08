@@ -58,6 +58,11 @@ async def _check_url(
             except httpx.DecodingError:
                 # Server responded but the body decompression failed — it's reachable.
                 return url, None
+            except httpx.InvalidURL:
+                # Malformed URL in the source (e.g. "doi:10.1080/..." which
+                # httpx parses as port "10.1080"). The link is genuinely
+                # unreachable; no point retrying or printing a traceback.
+                return url, "malformed URL"
             except Exception:
                 logger.exception("Unexpected error checking reference link")
                 return url, "network error checking URL"

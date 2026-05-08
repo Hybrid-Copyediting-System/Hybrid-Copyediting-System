@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from ets_checker.models import (
     DocumentMetadata,
+    Footnote,
     Paragraph,
     ParsedDocument,
     Run,
@@ -19,7 +20,11 @@ from ets_checker.rules.fonts import (
     check_reference_font,
     check_title_font,
 )
-from ets_checker.rules.structure import check_required_sections
+from ets_checker.rules.structure import (
+    check_no_footnotes,
+    check_placeholders,
+    check_required_sections,
+)
 
 
 # ─── builders ─────────────────────────────────────────────────────────
@@ -437,3 +442,95 @@ class TestTitleFont:
             paragraphs=paras, sections=[S("Abstract", 1, 3)],
         ))
         assert not any("John" in (d.excerpt or "") for d in details)
+
+
+class TestNoFootnotes:
+    def test_no_footnotes_passes(self) -> None:
+        details = check_no_footnotes(make_doc(footnotes=[]))
+        assert details == []
+
+    def test_single_footnote_fails(self) -> None:
+        fn = Footnote(footnote_id=1, text="A clarifying note.", paragraph_index=4)
+        details = check_no_footnotes(make_doc(footnotes=[fn]))
+        assert len(details) == 1
+        assert "Footnote detected" in details[0].message
+        assert details[0].location == "paragraph 4"
+        assert "clarifying" in (details[0].excerpt or "")
+
+    def test_unattributed_footnote_falls_back_to_id(self) -> None:
+        fn = Footnote(footnote_id=7, text="Floating note.")
+        details = check_no_footnotes(make_doc(footnotes=[fn]))
+        assert details[0].location == "footnote #7"
+
+    def test_endnote_message_mentions_endnote(self) -> None:
+        fn = Footnote(
+            footnote_id=2, text="An endnote.", paragraph_index=3,
+            kind="endnote",
+        )
+        details = check_no_footnotes(make_doc(footnotes=[fn]))
+        assert "Endnote detected" in details[0].message
+        assert "endnotes" in details[0].message
+
+
+class TestPlaceholders:
+    def _doc_with_paras(self, *texts: str, ref_at: int | None = None) -> ParsedDocument:
+        paras = [P(i, t) for i, t in enumerate(texts)]
+        secs: list[Section] = []
+        if ref_at is not None:
+            secs.append(S("References", 1, ref_at))
+        return make_doc(paragraphs=paras, sections=secs)
+
+    def test_clean_text_passes(self) -> None:
+        doc = self._doc_with_paras("This is body text.", "More body text.")
+        assert check_placeholders(doc) == []
+
+    def test_insert_table_here_flagged(self) -> None:
+        doc = self._doc_with_paras("As shown, [insert Table 2 here].")
+        details = check_placeholders(doc)
+        assert len(details) == 1
+        assert "Placeholder detected" in details[0].message
+
+    def test_uppercase_todo_flagged(self) -> None:
+        doc = self._doc_with_paras("This needs work TODO before submission.")
+        details = check_placeholders(doc)
+        assert details and "TODO" in details[0].message
+
+    def test_lowercase_tbd_in_prose_not_flagged(self) -> None:
+        # Lower-case "tbd" in prose is too noisy to flag without brackets.
+        doc = self._doc_with_paras("The exam date is tbd.")
+        assert check_placeholders(doc) == []
+
+    def test_question_marks_flagged(self) -> None:
+        doc = self._doc_with_paras("Reported by ??? in 2020.")
+        details = check_placeholders(doc)
+        assert details and "???" in details[0].message
+
+    def test_lorem_ipsum_flagged(self) -> None:
+        doc = self._doc_with_paras("Lorem ipsum dolor sit amet.")
+        details = check_placeholders(doc)
+        assert details and "lorem ipsum" in details[0].message.lower()
+
+    def test_reference_section_excluded(self) -> None:
+        doc = self._doc_with_paras(
+            "Body text only.",
+            "References",
+            "Smith, J. (2020). [reprint]. Journal, 1(1), 1–10.",
+            ref_at=1,
+        )
+        # The reprint marker inside a reference would otherwise hit a generic
+        # bracketed pattern; the exclusion keeps the rule quiet.
+        assert check_placeholders(doc) == []
+
+    def test_word_bare_citation_placeholder_flagged(self) -> None:
+        # Word's "Insert Citation" feature renders an unfilled stub as
+        # "[Citation]" or "[Reference]" — must be detected.
+        doc = self._doc_with_paras(
+            "Some studies suggest X [Citation] but others disagree.",
+        )
+        details = check_placeholders(doc)
+        assert details and "Citation" in details[0].message
+
+    def test_word_bare_reference_placeholder_flagged(self) -> None:
+        doc = self._doc_with_paras("Stated in [Reference] earlier.")
+        details = check_placeholders(doc)
+        assert details

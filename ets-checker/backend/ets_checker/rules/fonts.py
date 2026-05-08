@@ -17,6 +17,24 @@ ABSTRACT_FALLBACK_PARAGRAPHS = 30
 
 _ONLY_PUNCT_OR_SPACE = re.compile(r"^[\s\W]+$", re.UNICODE)
 
+# Run text that consists *only* of CJK ideographs / hiragana / katakana plus
+# whitespace and punctuation. Times New Roman has no glyphs for these scripts,
+# so Word renders them via the run's eastAsia font (e.g. SimSun / 宋体). The
+# Latin font_name reported on the run therefore says nothing about how the
+# CJK characters look — flagging it would punish bilingual papers for correct
+# typography.
+_CJK_ONLY = re.compile(
+    r"^["
+    r"\s\W"
+    r"぀-ゟ"   # Hiragana
+    r"゠-ヿ"   # Katakana
+    r"㐀-䶿"   # CJK Extension A
+    r"一-鿿"   # CJK Unified
+    r"豈-﫿"   # CJK Compatibility Ideographs
+    r"]+$",
+    re.UNICODE,
+)
+
 # Matches statistical symbols (1–3 letters) immediately followed by optional
 # spaces then a relational operator, e.g. "t = 2.3", "p < .05", "SD = 0.12".
 # Lookbehind ensures the symbol is not part of a longer word.
@@ -182,7 +200,14 @@ def check_body_font(doc: ParsedDocument) -> list[CheckDetail]:
             if actual_size is None:
                 unresolved_size_runs += 1
 
-            font_mismatch = actual_font != "(unknown)" and actual_font != expected_name
+            # CJK-only runs render via the eastAsia font slot regardless of the
+            # Latin font_name; comparing them against TNR is meaningless.
+            is_cjk_only = bool(_CJK_ONLY.match(r.text))
+            font_mismatch = (
+                not is_cjk_only
+                and actual_font != "(unknown)"
+                and actual_font != expected_name
+            )
             size_mismatch = actual_size is not None and abs(actual_size - expected_size) > 0.1
 
             if font_mismatch or size_mismatch:
@@ -375,6 +400,13 @@ def check_abstract_font(doc: ParsedDocument) -> list[CheckDetail]:
 
     exp_name, exp_size, exp_bold, exp_italic = p.FONT_ABSTRACT
     count = 0
+    # Collapse to one CheckDetail per paragraph: per-run reporting drowns the
+    # report in noise when the abstract paragraph is split across many small
+    # runs (Word smart-quotes / proofing splits). The first offending run in a
+    # paragraph carries the excerpt; subsequent ones are recorded only via the
+    # union of their actual_parts.
+    reported_paragraphs: set[int] = set()
+    para_actual_parts: dict[int, list[str]] = {}
 
     for para in doc.paragraphs:
         if para.index not in abstract_indices:
@@ -391,23 +423,42 @@ def check_abstract_font(doc: ParsedDocument) -> list[CheckDetail]:
                 continue
 
             if is_inline and label_chars_remaining > 0:
-                label_chars_remaining -= len(r.text)
-                continue
+                # If the run fits entirely within the still-pending label,
+                # consume it and move on. Otherwise the run straddles the
+                # label boundary — clear the countdown and check the run as
+                # content. (We don't attempt to crop the leading label-portion
+                # off the run because the rule reports the whole run anyway,
+                # and the residual label chars are punctuation/whitespace
+                # that the strip()/_ONLY_PUNCT_OR_SPACE filter already covers
+                # for adjacent runs.)
+                if len(r.text) <= label_chars_remaining:
+                    label_chars_remaining -= len(r.text)
+                    continue
+                label_chars_remaining = 0
 
             font_ok = r.font_name is None or r.font_name == "(unknown)" or r.font_name == exp_name
             size_ok = r.font_size_pt is None or abs(r.font_size_pt - exp_size) <= 0.1
             italic_ok = r.italic is None or r.italic == exp_italic
 
             if not (font_ok and size_ok and italic_ok):
-                if count < MAX_REPORTED:
-                    actual_parts = []
-                    if not font_ok:
-                        actual_parts.append(r.font_name or "?")
-                    if not size_ok:
-                        actual_parts.append(f"{r.font_size_pt}pt")
-                    if not italic_ok:
-                        actual_parts.append("not italic" if not r.italic else "italic")
+                actual_parts = []
+                if not font_ok:
+                    actual_parts.append(r.font_name or "?")
+                if not size_ok:
+                    actual_parts.append(f"{r.font_size_pt}pt")
+                if not italic_ok:
+                    actual_parts.append("not italic" if not r.italic else "italic")
 
+                if para.index in reported_paragraphs:
+                    # Merge any new failure modes into the existing detail.
+                    bag = para_actual_parts.setdefault(para.index, [])
+                    for ap in actual_parts:
+                        if ap not in bag:
+                            bag.append(ap)
+                    continue
+
+                if count < MAX_REPORTED:
+                    para_actual_parts[para.index] = list(actual_parts)
                     details.append(CheckDetail(
                         location=f"paragraph {para.index}",
                         locator=Locator(kind="paragraph", paragraph_index=para.index),
@@ -416,7 +467,14 @@ def check_abstract_font(doc: ParsedDocument) -> list[CheckDetail]:
                         actual=", ".join(actual_parts),
                         excerpt=r.text[:80],
                     ))
+                reported_paragraphs.add(para.index)
                 count += 1
+
+    # Refresh `actual` for paragraphs where later runs added new failure modes.
+    for d in details:
+        idx = d.locator.paragraph_index if d.locator else None
+        if idx is not None and idx in para_actual_parts:
+            d.actual = ", ".join(para_actual_parts[idx])
 
     if count > MAX_REPORTED:
         details.append(CheckDetail(
@@ -449,6 +507,10 @@ def check_heading_font(doc: ParsedDocument) -> list[CheckDetail]:
         # italic + 10pt, which is correct for an appendix caption). They're
         # promoted to L1 only as a section boundary marker.
         if s.detection_method == "appendix":
+            continue
+        # The paper title is graded by font.title against the Title profile
+        # (14pt bold), not the Heading 1 profile (12pt bold).
+        if s.detection_method == "title":
             continue
         if s.level == 1:
             exp_name, exp_size, exp_bold, exp_italic = p.FONT_HEADING_1
@@ -578,10 +640,16 @@ def _get_title_paragraphs(doc: ParsedDocument) -> tuple[set[int], set[int]]:
 
     Returns (all_title_indices, title_style_indices) where:
     - all_title_indices: paragraphs to check (front-matter + Title-styled in front-matter)
-    - title_style_indices: subset that use the "Title" style (bypass heuristic gate)
+    - title_style_indices: subset that use the "Title" style or are detected
+      as the title by the parser (bypass the heuristic 14 pt + bold gate)
     """
+    parser_title_indices: set[int] = {
+        s.paragraph_index for s in doc.sections if s.detection_method == "title"
+    }
     first_real_section_idx: int | None = None
     for s in doc.sections:
+        if s.detection_method == "title":
+            continue
         para = next((pa for pa in doc.paragraphs if pa.index == s.paragraph_index), None)
         if para is not None and para.style_name not in _TITLE_STYLES:
             first_real_section_idx = s.paragraph_index
@@ -592,8 +660,8 @@ def _get_title_paragraphs(doc: ParsedDocument) -> tuple[set[int], set[int]]:
 
     boundary = first_real_section_idx if first_real_section_idx is not None else 0
 
-    title_style_indices: set[int] = set()
-    all_indices: set[int] = set()
+    title_style_indices: set[int] = set(parser_title_indices)
+    all_indices: set[int] = set(parser_title_indices)
     for para in doc.paragraphs:
         if para.index >= boundary:
             break

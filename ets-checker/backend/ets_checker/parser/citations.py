@@ -37,8 +37,23 @@ _CJK = (
     "\U00020000-\U0002A6DF"
     "\U0002A700-\U000323AF"
 )
+# Optional surname-particle words (Dutch/German/French/Spanish/Portuguese
+# patronymic prefixes) that introduce a multi-word surname, e.g. "Van Wart",
+# "de Souza", "von Bismarck", "Della Casa". Match either the canonical
+# capitalised form or the lowercase variant authors sometimes use mid-sentence.
+_NAME_PARTICLE = (
+    r"(?:Van|van|Von|von|De|de|Del|del|Della|della|Di|di|Du|du"
+    r"|Da|da|Das|das|Dos|dos|Le|le|La|la|Mac|mac|Mc|mc"
+    r"|Saint|St|Ten|ten|Ter|ter|Den|den|Der|der)"
+)
 _NAME = (
-    r"(?:[A-ZÀ-ÖØ-Þ" + _LATIN_EXT_UPPER + r"][\w\-’’]*"
+    # Latin alternative — anchored with (?<!\w) so a lowercase particle
+    # ("le", "de", "van"…) cannot start a match in the middle of a word.
+    # Without the anchor, "While Ahadzadeh (2026)" is captured as
+    # "le Ahadzadeh (2026)" because the regex picks up the trailing "le"
+    # of "While" as the name particle.
+    r"(?:(?<!\w)(?:" + _NAME_PARTICLE + r"\s+)*"
+    + r"[A-ZÀ-ÖØ-Þ" + _LATIN_EXT_UPPER + r"][\w\-’’]*"
     + r"|(?<![" + _CJK + r"\w])[" + _CJK + r"]{1,6}?)"
 )
 
