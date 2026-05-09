@@ -5,9 +5,13 @@ Technology & Society) APA 7th formatting requirements and returns a structured
 report. Optionally re-emits the same `.docx` with one native Word comment per
 finding, attached to the relevant paragraph.
 
-- **Backend:** FastAPI + `python-docx` + `lxml` (Python ≥ 3.11)
+- **Backend:** FastAPI + `python-docx` + `lxml` (Python ≥ 3.11; Docker image uses 3.12)
 - **Frontend:** Vue 3 + Vuetify 3 + Vite (TypeScript)
 - **Deployment:** single Docker container serves the SPA and the API on one port
+
+> Looking for the shortest path to *run* the project (Docker Desktop + WSL2,
+> step-by-step setup, troubleshooting)? See [`../README.md`](../README.md).
+> The sections below assume you want to develop or modify the checker.
 
 ## Quick Start (development)
 
@@ -103,6 +107,11 @@ ignored on purpose — only 404/410, timeouts, and connect errors are reported.
 
 Upload limit: 50 MB. `.doc` is rejected with a "Save As .docx" hint.
 
+All three upload endpoints (`/api/check`, `/api/check/stream`, `/api/check/annotated`)
+enforce a per-IP sliding-window rate limit. Defaults are 20 requests per 60 seconds;
+override with `ETS_RATE_LIMIT_REQUESTS` and `ETS_RATE_LIMIT_WINDOW` env vars. Over-limit
+clients receive `429` with a `Retry-After` header.
+
 `/api/check/stream` sends named SSE events: `progress` events carry rule-by-rule
 status during processing (including per-link progress for `reference.links`); the
 final `complete` event carries the full `CheckReport` JSON; an `error` event is
@@ -175,16 +184,23 @@ builds its docx fixture in-process and always runs.
 ```
 ets-checker/
 ├── backend/
+│   ├── pyproject.toml           # Package metadata, deps, ruff/mypy config
+│   ├── tests/                   # pytest suite (unit + ASGI integration)
 │   └── ets_checker/
 │       ├── server.py            # FastAPI app + routes + SPA mount
+│       ├── services.py          # Orchestration shared by sync + SSE endpoints
 │       ├── ets_profile.py       # Hard-coded ET&S APA 7 expectations
 │       ├── models.py            # Pydantic models (Parsed*, CheckReport, …)
-│       ├── parser/              # docx → ParsedDocument
+│       ├── parser/              # docx → ParsedDocument (sections, paragraphs,
+│       │                        #   citations, references, figures, footnotes,
+│       │                        #   metadata)
 │       ├── rules/               # Registered rule functions + runner
-│       └── exporter/            # Word-comment injection (annotated docx)
+│       ├── exporter/            # Word-comment injection (annotated docx)
+│       └── utils/               # Shared helpers (text, sections)
 ├── frontend/                    # Vue 3 + Vuetify SPA
 ├── docs/
-│   └── annotated-docx-export.md # Design spec for the annotated-export feature
+│   ├── annotated-docx-export.md # Design spec for the annotated-export feature
+│   └── Audit/                   # Dated security/code audit reports
 ├── Dockerfile                   # Multi-stage: build SPA, then Python runtime
 └── docker-compose.yml           # Single-service deployment, ETS_PORT override
 ```
