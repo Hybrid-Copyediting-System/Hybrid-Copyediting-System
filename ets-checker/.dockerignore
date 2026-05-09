@@ -12,6 +12,7 @@
 
 # We rebuild these inside the image — don't ship the host copies.
 frontend/dist
+backend/ets_checker/frontend_dist
 
 # Tests, fixtures, docs aren't needed at runtime.
 backend/tests

@@ -24,6 +24,7 @@ htmlcov/
 # Node / frontend
 node_modules/
 frontend/dist/
+ets-checker/backend/ets_checker/frontend_dist/
 *.tsbuildinfo
 
 # OS

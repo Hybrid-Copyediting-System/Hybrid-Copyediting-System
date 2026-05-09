@@ -40,6 +40,7 @@ RUN pip install --upgrade pip && pip install .
 # `Path(__file__).parent / "frontend_dist"` resolves to it.
 COPY --from=frontend /build/dist /tmp/frontend_dist
 RUN PKG_DIR="$(python -c 'import ets_checker, os; print(os.path.dirname(ets_checker.__file__))')" \
+    && rm -rf "$PKG_DIR/frontend_dist" \
     && mv /tmp/frontend_dist "$PKG_DIR/frontend_dist"
 
 # ETS_PORT is overridable via compose / `docker run -e ETS_PORT=...`.
